@@ -16,7 +16,6 @@ function name() {
     document.getElementById("plot").onclick = plot;
     
     var svg = d3.select("svg").style({width: w, height: h});
-    
     svg.append("g")
       .attr("class", "x axis")
       .append("text")
@@ -140,7 +139,7 @@ background
       .on("mousemove",function(d,i){
         position = Math.round(d3.event.offsetX / (w / datalen));
         pathdata[position] = [position * w / datalen, d3.mouse(this)[1]];
-        path.datum(_.values(pathdata)).attr("d",line);
+        path.datum(_.values(pathdata)).attr("d",line1);
       })
       .on("mouseup",()=>{
         background
