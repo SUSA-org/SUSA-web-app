@@ -91,8 +91,8 @@ function name() {
 name();
 
 
-const w = 800;
-const h = 400;
+const w = 600; //800
+const h = 440; //500
 const datalen = 10;
 let svg = d3.select("svg")
   .attr("width",w)
