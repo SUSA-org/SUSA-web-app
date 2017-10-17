@@ -115,7 +115,7 @@ let background = svg.append("rect")
 //   .attr("x",d=>d*w/datalen);
 
 window.alert("YES");
-let line1 = d3.line()
+let line1 = d3.svg.line()
   .x(d=>d[0])
   .y(d=>d[1]);
   window.alert("NO");
