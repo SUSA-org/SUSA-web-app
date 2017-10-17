@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title>Interactive CSV Plot</title>
@@ -28,15 +28,18 @@
 	<svg/>
 </body>
 <script src="./myscript.js"></script>
-</html>
+</html> -->
+ 
+ <!-- //////////////////////////////////////////////////////////// -->
 
-
-<!-- <!DOCTYPE html>
-<html lang="ja">
+<!DOCTYPE html>
+<html>
   <head>
     <meta charset="utf-8">
-    <title>Simple CSV plotter</title>
+    <title>Interactive CSV Plot</title>
+    <!-- <script src="./myscript.js"></script> -->
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    
     <style>
       #input {
         padding-left: 10px;
@@ -51,6 +54,10 @@
         height: 450px;
         resize: none;
       }
+      .background{
+        fill: #c7c7c7;
+        opacity: .4;
+      }
       .axis path {
         fill: none;
         stroke: grey;
@@ -58,9 +65,24 @@
       .axis line {
         stroke: grey;
       }
+      .band{
+        fill: none;
+        fill-opacity: 0;
+        stroke-opacity: 1;
+        stroke: #555;
+        stroke-width: 2px;
+        stroke-dasharray: 10 10;
+      }
+      .yourpath{
+        fill: none;
+        stroke: #008000;
+        stroke-width: 2px;
+        stroke-dasharray: 2 2;
+      }
     </style>
   </head>
   <body>
+
     <div id="input">
       Fertility Rate
       <input type="button" value="plot!" id="plot"><br>
@@ -80,10 +102,55 @@
 1972,4.12
 1973,4.07
 1974,3.77
+1975,3.43
+1976,3
+1977,2.99
+1978,2.64
+1979,2.9
+1980,2.82
+1981,2.57
+1982,2.39
+1983,2.06
+1984,1.74
+1985,1.66
+1986,1.58
+1987,1.53
+1988,1.55
+1989,1.56
+1990,1.57
+1991,1.71
+1992,1.76
+1993,1.654
+1994,1.656
+1995,1.634
+1996,1.574
+1997,1.52
+1998,1.448
+1999,1.41
+2000,1.467
+2001,1.297
+2002,1.166
+2003,1.18
+2004,1.154
+2005,1.076
+2006,1.123
+2007,1.25
+2008,1.192
+2009,1.149
+2010,1.226
+2011,1.244
+2012,1.297
+2013,1.187
+2014,1.205
+2015,1.239
 </textarea>
     </div>
+    <button type="button" onclick="document.write(5 + 6)"> "Try it"</button>
     <div id="result"><svg></svg></div>
     <script>
+
+      
+
     (function() {
       
       document.getElementById("plot").onclick = plot;
@@ -177,6 +244,70 @@
       }
       
     })();
+
+
+
+    const w = 800;
+    const h = 400;
+    const datalen = 10;
+    let svg = d3.select("svg")
+      .attr("width",w)
+      .attr("height",h);
+
+    let background = svg.append("rect")
+      .attr("class","background")
+      .attr("width",w)
+      .attr("height",h);
+
+    // let bands = svg.append("g")
+
+    // bands.selectAll("rect.band")
+    //   .data(_.range(datalen))
+    //   .enter()
+    //   .append("rect")
+    //   .attr("height",h)
+    //   .attr("width",w/datalen)
+    //   .attr("class","band")
+    //   .attr("x",d=>d*w/datalen);
+
+    window.alert("YES");
+    let line = d3.line()
+      .x(d=>d[0])
+      .y(d=>d[1]);
+      window.alert("NO");
+
+    let pathdata = {};
+    let path = svg.append("path")
+      .attr("class","yourpath");
+
+    
+    background
+    // window.alert("YES");
+      .on("mousedown",()=>{
+        // alert("before background", null);
+        background
+        // alert("after background", null);
+          .on("mousemove",function(d,i){
+            position = Math.round(d3.event.offsetX / (w / datalen));
+            pathdata[position] = [position * w / datalen, d3.mouse(this)[1]];
+            path.datum(_.values(pathdata)).attr("d",line);
+          })
+          .on("mouseup",()=>{
+            background
+              .on("mousemove",null)
+              .on("mouseup",null);
+            alert("rip");
+            // alert("" + d3.csvParse("hi,hi2\n"));
+            obj = d3.csv.parse("hi1,hi2\n1,2\n3,4");
+            row = d3.csv.parseRows("1,2");
+            alert(row[0][0] + " blah");
+            // alert(typeof $.csv.toObjects("hi1,hi2\n1,2\n3,4"));
+          });
+      });
+
+
     </script>
+
   </body>
-</html> -->
+  <!-- <script src="./myscript.js"></script> -->
+</html>
