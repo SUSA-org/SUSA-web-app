@@ -53,15 +53,5 @@ background
         background
           .on("mousemove",null)
           .on("mouseup",null);
-<<<<<<< HEAD
         alert("here");
-=======
-        alert("rip");
-        alert("" + d3.csvParse("hi,hi2\n"));
-        obj = d3.csv.parse("hi1,hi2\n1,2\n3,4");
-        row = d3.csv.parseRows("1,2");
-        alert(row[0][0] + " blah");
-        alert(typeof $.csv.toObjects("hi1,hi2\n1,2\n3,4"));
->>>>>>> f69ff9c8e28b09b13c3d4048281dd15cb3a1a35c
-      });
   });
