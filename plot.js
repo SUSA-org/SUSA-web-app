@@ -10,7 +10,7 @@ function name() {
     var xScale = d3.scale.linear().range([margin.left, w-margin.right]);
     var yScale = d3.scale.linear().range([h-margin.bottom, margin.top]);
     
-    var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+    var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
     var yAxis = d3.svg.axis().scale(yScale).orient("left");
     
     svg.append("g")
@@ -115,7 +115,7 @@ let background = svg.append("rect")
 //   .attr("x",d=>d*w/datalen);
 
 window.alert("YES");
-let line = d3.line()
+let line1 = d3.line()
   .x(d=>d[0])
   .y(d=>d[1]);
   window.alert("NO");
@@ -134,7 +134,7 @@ background
       .on("mousemove",function(d,i){
         position = Math.round(d3.event.offsetX / (w / datalen));
         pathdata[position] = [position * w / datalen, d3.mouse(this)[1]];
-        path.datum(_.values(pathdata)).attr("d",line);
+        path.datum(_.values(pathdata)).attr("d",line1);
       })
       .on("mouseup",()=>{
         background
