@@ -1,17 +1,21 @@
-
+$(document).ready(function() {
+  $.ajax({
+    type: "GET",
+    url: "Korea_Fertility_converted.csv",
+    dataType: "text",
+    success: function(data){plot(data);}
+  });
+});
+var w = 600, h = 500;
+var margin = {left: 60, top: 30, right: 20, bottom: 60};
+var xScale = d3.scale.linear().range([margin.left, w-margin.right]);
+var yScale = d3.scale.linear().range([h-margin.bottom, margin.top]);
+var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+var yAxis = d3.svg.axis().scale(yScale).orient("left");
 function name() {
     document.getElementById("plot").onclick = plot;
     
-    var w = 600, h = 500;
-    var margin = {left: 60, top: 30, right: 20, bottom: 60};
-    
     var svg = d3.select("svg").style({width: w, height: h});
-    
-    var xScale = d3.scale.linear().range([margin.left, w-margin.right]);
-    var yScale = d3.scale.linear().range([h-margin.bottom, margin.top]);
-    
-    var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
-    var yAxis = d3.svg.axis().scale(yScale).orient("left");
     
     svg.append("g")
       .attr("class", "x axis")
@@ -32,67 +36,69 @@ function name() {
       .attr("dy", "-3.8em")
       .attr("dx", -(h+margin.top-margin.bottom)/2)
       .attr("text-anchor", "middle");
-
-    var line = d3.svg.line();
     
     svg.append("path")
       .attr("class", "line")
       .attr("fill", "none")
       .attr("stroke", "steelblue");
     
-    plot();
+    //plot();
+    // used to define here
+}
+
+function plot(data) {
+    var svg = d3.select("svg");
+    var raw = document.getElementById("csv").value;
+    var data = d3.csv.parse(data); //"Korea_Fertility.csv"
     
-    function plot() {
-      var raw = document.getElementById("csv").value;
-      var data = d3.csv.parse(raw); //"Korea_Fertility.csv"
-      
-      var keys = Object.keys(data[0]);
-      var xExtent = d3.extent(data, function(e) { return +e[keys[0]]; });
-      var yExtent = d3.extent(data, function(e) { return +e[keys[1]]; });
-      
-      xScale.domain(xExtent).nice();
-      yScale.domain(yExtent).nice();
-      
-      xAxis.scale(xScale);
-      yAxis.scale(yScale);
-      
-      d3.select(".x.axis")
-        .attr("transform", "translate(0,"+yScale.range()[0]+")")
-        .call(xAxis);
-      d3.select(".y.axis")
-        .attr("transform", "translate("+xScale.range()[0]+",0)")
-        .call(yAxis);
-      
-      d3.select(".x.label").text(keys[0]);
-      d3.select(".y.label").text(keys[1]);
-      
-      line
-        .x(function(d) { return xScale(d[keys[0]]); })
-        .y(function(d) { return yScale(d[keys[1]]); });
-      
-      svg.select(".line").datum(data).attr("d", line);
-      
-      var points = svg.selectAll(".point").data(data);
-      
-      points.enter()
-        .append("circle")
-        .attr("class", "point")
-        .attr("r", 3)
-        .attr("fill", "steelblue")
-        .attr("stroke", "steelblue");
-      
-      points.exit().remove();
-      
-      points
-        .attr("cx", function(d){ return xScale(d[keys[0]]); })
-        .attr("cy", function(d){ return yScale(d[keys[1]]); });
-    }
-  }
+    var keys = Object.keys(data[0]);
+    var xExtent = d3.extent(data, function(e) { return +e[keys[0]]; });
+    var yExtent = d3.extent(data, function(e) { return +e[keys[1]]; });
+    
+    xScale.domain(xExtent).nice();
+    yScale.domain(yExtent).nice();
+    
+    xAxis.scale(xScale);
+    yAxis.scale(yScale);
+    
+    d3.select(".x.axis")
+      .attr("transform", "translate(0,"+yScale.range()[0]+")")
+      .call(xAxis);
+    d3.select(".y.axis")
+      .attr("transform", "translate("+xScale.range()[0]+",0)")
+      .call(yAxis);
+    
+    d3.select(".x.label").text(keys[0]);
+    d3.select(".y.label").text(keys[1]);
+    
+    var line = d3.svg.line();
+    line
+      .x(function(d) { return xScale(d[keys[0]]); })
+      .y(function(d) { return yScale(d[keys[1]]); });
+    
+    svg.select(".line").datum(data).attr("d", line);
+    
+    var points = svg.selectAll(".point").data(data);
+    
+    points.enter()
+      .append("circle")
+      .attr("class", "point")
+      .attr("r", 3)
+      .attr("fill", "steelblue")
+      .attr("stroke", "steelblue");
+    
+    points.exit().remove();
+    
+    points
+      .attr("cx", function(d){ return xScale(d[keys[0]]); })
+      .attr("cy", function(d){ return yScale(d[keys[1]]); });
+}
+
 name();
 
 
-const w = 800;
-const h = 400;
+// const w = 800;
+// const h = 400;
 const datalen = 10;
 let svg = d3.select("svg")
   .attr("width",w)
@@ -115,10 +121,10 @@ let background = svg.append("rect")
 //   .attr("x",d=>d*w/datalen);
 
 window.alert("YES");
-let line = d3.line()
-  .x(d=>d[0])
-  .y(d=>d[1]);
-  window.alert("NO");
+// let line = d3.line
+//   .x(d=>d[0])
+//   .y(d=>d[1]);
+//   window.alert("NO");
 
 let pathdata = {};
 let path = svg.append("path")
@@ -140,12 +146,11 @@ background
         background
           .on("mousemove",null)
           .on("mouseup",null);
-        alert("rip");
+        //alert("rip");
         // alert("" + d3.csvParse("hi,hi2\n"));
         obj = d3.csv.parse("hi1,hi2\n1,2\n3,4");
         row = d3.csv.parseRows("1,2");
-        alert(row[0][0] + " blah");
+        //alert(row[0][0] + " blah");
         // alert(typeof $.csv.toObjects("hi1,hi2\n1,2\n3,4"));
       });
   });
-console.log("fuck im here");
