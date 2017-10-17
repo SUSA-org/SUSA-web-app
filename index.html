@@ -27,11 +27,12 @@
 <body>
 	<svg/>
 </body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="./myscript.js"></script>
 </html>
 
-
-<!-- <!DOCTYPE html>
+<!--
+<!DOCTYPE html>
 <html lang="ja">
   <head>
     <meta charset="utf-8">
@@ -129,7 +130,26 @@
       plot();
       
       function plot() {
-        
+      	 const fs = require('fs');
+         var rawFile = new XMLHttpRequest();
+         var rawData = "";
+	     rawFile.onreadystatechange = function ()
+	     {
+	     	alert("here" + rawFile.readyState + rawFile.responseText);
+	        if (rawFile.readyState === 4)
+	        {
+	            if (rawFile.status === 200 || rawFile.status == 0)
+	            {
+	                var rawData1 = rawFile.responseText;
+	                alert("rawdata1" + rawData1);
+	            }
+	        }
+	     }
+	     rawFile.open("GET", "file:///C:/DemographyR/webapp/Korea_Fertility_converted.csv", false);
+	     alert("blah" + rawFile.status + " " + rawFile.statusText +"|||");
+	     //rawFile.send(null);
+
+
         var raw = document.getElementById("csv").value;
         var data = d3.csv.parse(raw); //"Korea_Fertility.csv"
         
@@ -173,10 +193,8 @@
         points
           .attr("cx", function(d){ return xScale(d[keys[0]]); })
           .attr("cy", function(d){ return yScale(d[keys[1]]); });
-        
       }
-      
     })();
     </script>
   </body>
-</html> -->
+</html>-->

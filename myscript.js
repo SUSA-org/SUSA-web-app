@@ -1,3 +1,15 @@
+$(document).ready(function() {
+	$.ajax({
+		type: "GET",
+		url: "Korea_Fertility_converted.csv",
+		dataType: "text",
+		success: function(data){processData(data);}
+	});
+});
+function processData(allText) {
+	console.log(allText);
+}
+
 const w = 800;
 const h = 400;
 const datalen = 10;
@@ -41,11 +53,6 @@ background
         background
           .on("mousemove",null)
           .on("mouseup",null);
-        alert("fuck");
-        //alert("" + d3.csvParse("hi,hi2\n"));
-        obj = d3.csv.parse("hi1,hi2\n1,2\n3,4");
-        row = d3.csv.parseRows("1,2");
-        alert(row[0][0] + " blah");
-        //alert(typeof $.csv.toObjects("hi1,hi2\n1,2\n3,4"));
+        alert("here");
       });
   });
