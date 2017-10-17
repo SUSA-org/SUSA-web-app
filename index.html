@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <title>Interactive CSV Plot</title>
@@ -29,15 +29,16 @@
 </body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="./myscript.js"></script>
-</html>
+-->
 
-<!--
 <!DOCTYPE html>
-<html lang="ja">
+<html>
   <head>
     <meta charset="utf-8">
-    <title>Simple CSV plotter</title>
+    <title>Interactive CSV Plot</title>
+    <!-- <script src="./myscript.js"></script> -->
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    
     <style>
       #input {
         padding-left: 10px;
@@ -52,6 +53,10 @@
         height: 450px;
         resize: none;
       }
+      .background{
+        fill: #c7c7c7;
+        opacity: .4;
+      }
       .axis path {
         fill: none;
         stroke: grey;
@@ -59,9 +64,24 @@
       .axis line {
         stroke: grey;
       }
+      .band{
+        fill: none;
+        fill-opacity: 0;
+        stroke-opacity: 1;
+        stroke: #555;
+        stroke-width: 2px;
+        stroke-dasharray: 10 10;
+      }
+      .yourpath{
+        fill: none;
+        stroke: #008000;
+        stroke-width: 2px;
+        stroke-dasharray: 2 2;
+      }
     </style>
   </head>
   <body>
+
     <div id="input">
       Fertility Rate
       <input type="button" value="plot!" id="plot"><br>
@@ -81,120 +101,52 @@
 1972,4.12
 1973,4.07
 1974,3.77
+1975,3.43
+1976,3
+1977,2.99
+1978,2.64
+1979,2.9
+1980,2.82
+1981,2.57
+1982,2.39
+1983,2.06
+1984,1.74
+1985,1.66
+1986,1.58
+1987,1.53
+1988,1.55
+1989,1.56
+1990,1.57
+1991,1.71
+1992,1.76
+1993,1.654
+1994,1.656
+1995,1.634
+1996,1.574
+1997,1.52
+1998,1.448
+1999,1.41
+2000,1.467
+2001,1.297
+2002,1.166
+2003,1.18
+2004,1.154
+2005,1.076
+2006,1.123
+2007,1.25
+2008,1.192
+2009,1.149
+2010,1.226
+2011,1.244
+2012,1.297
+2013,1.187
+2014,1.205
+2015,1.239
 </textarea>
     </div>
+    <button type="button" onclick="document.write(5 + 6)"> "Try it"</button>
     <div id="result"><svg></svg></div>
-    <script>
-    (function() {
-      
-      document.getElementById("plot").onclick = plot;
-      
-      var w = 600, h = 500;
-      var margin = {left: 60, top: 30, right: 20, bottom: 60};
-      
-      var svg = d3.select("svg").style({width: w, height: h});
-      
-      var xScale = d3.scale.linear().range([margin.left, w-margin.right]);
-      var yScale = d3.scale.linear().range([h-margin.bottom, margin.top]);
-      
-      var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
-      var yAxis = d3.svg.axis().scale(yScale).orient("left");
-      
-      svg.append("g")
-        .attr("class", "x axis")
-        .append("text")
-        .attr("class", "x label")
-        .text("x")
-        .attr("font-size", 12)
-        .attr("dx", (w-margin.right)/2)
-        .attr("dy", "3.8em");
-
-      svg.append("g")
-        .attr("class", "y axis")
-        .append("text")
-        .attr("class", "y label")
-        .text("y")
-        .attr("font-size", 12)
-        .attr("transform", "rotate(-90)")
-        .attr("dy", "-3.8em")
-        .attr("dx", -(h+margin.top-margin.bottom)/2)
-        .attr("text-anchor", "middle");
-
-      var line = d3.svg.line();
-      
-      svg.append("path")
-        .attr("class", "line")
-        .attr("fill", "none")
-        .attr("stroke", "steelblue");
-      
-      plot();
-      
-      function plot() {
-      	 const fs = require('fs');
-         var rawFile = new XMLHttpRequest();
-         var rawData = "";
-	     rawFile.onreadystatechange = function ()
-	     {
-	     	alert("here" + rawFile.readyState + rawFile.responseText);
-	        if (rawFile.readyState === 4)
-	        {
-	            if (rawFile.status === 200 || rawFile.status == 0)
-	            {
-	                var rawData1 = rawFile.responseText;
-	                alert("rawdata1" + rawData1);
-	            }
-	        }
-	     }
-	     rawFile.open("GET", "file:///C:/DemographyR/webapp/Korea_Fertility_converted.csv", false);
-	     alert("blah" + rawFile.status + " " + rawFile.statusText +"|||");
-	     //rawFile.send(null);
-
-
-        var raw = document.getElementById("csv").value;
-        var data = d3.csv.parse(raw); //"Korea_Fertility.csv"
-        
-        var keys = Object.keys(data[0]);
-        var xExtent = d3.extent(data, function(e) { return +e[keys[0]]; });
-        var yExtent = d3.extent(data, function(e) { return +e[keys[1]]; });
-        
-        xScale.domain(xExtent).nice();
-        yScale.domain(yExtent).nice();
-        
-        xAxis.scale(xScale);
-        yAxis.scale(yScale);
-        
-        d3.select(".x.axis")
-          .attr("transform", "translate(0,"+yScale.range()[0]+")")
-          .call(xAxis);
-        d3.select(".y.axis")
-          .attr("transform", "translate("+xScale.range()[0]+",0)")
-          .call(yAxis);
-        
-        d3.select(".x.label").text(keys[0]);
-        d3.select(".y.label").text(keys[1]);
-        
-        line
-          .x(function(d) { return xScale(d[keys[0]]); })
-          .y(function(d) { return yScale(d[keys[1]]); });
-        
-        svg.select(".line").datum(data).attr("d", line);
-        
-        var points = svg.selectAll(".point").data(data);
-        
-        points.enter()
-          .append("circle")
-          .attr("class", "point")
-          .attr("r", 3)
-          .attr("fill", "steelblue")
-          .attr("stroke", "steelblue");
-        
-        points.exit().remove();
-        
-        points
-          .attr("cx", function(d){ return xScale(d[keys[0]]); })
-          .attr("cy", function(d){ return yScale(d[keys[1]]); });
-      }
-    })();
+    <script src = "plot.js">
     </script>
   </body>
-</html>-->
+</html>
