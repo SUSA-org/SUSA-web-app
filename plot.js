@@ -40,13 +40,11 @@ function name() {
       .attr("class", "line")
       .attr("fill", "none")
       .attr("stroke", "steelblue");
-    
-    //plot();
-    // used to define here
 }
 
 function plot(data) {
     var svg = d3.select("svg");
+    console.log(data);
     var raw = document.getElementById("csv").value;
     var data = d3.csv.parse(data); //"Korea_Fertility.csv"
     
@@ -133,9 +131,7 @@ let path = svg.append("path")
 background
 // window.alert("YES");
   .on("mousedown",()=>{
-    // alert("before background", null);
     background
-    // alert("after background", null);
       .on("mousemove",function(d,i){
         position = Math.round(d3.event.offsetX / (w / datalen));
         pathdata[position] = [position * w / datalen, d3.mouse(this)[1]];
@@ -145,11 +141,5 @@ background
         background
           .on("mousemove",null)
           .on("mouseup",null);
-        //alert("rip");
-        // alert("" + d3.csvParse("hi,hi2\n"));
-        obj = d3.csv.parse("hi1,hi2\n1,2\n3,4");
-        row = d3.csv.parseRows("1,2");
-        //alert(row[0][0] + " blah");
-        // alert(typeof $.csv.toObjects("hi1,hi2\n1,2\n3,4"));
       });
   });
