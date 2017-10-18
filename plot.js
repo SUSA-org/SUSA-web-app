@@ -14,7 +14,7 @@ var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 var yAxis = d3.svg.axis().scale(yScale).orient("left");
 function name() {
     document.getElementById("plot").onclick = plot;
-    
+
     var svg = d3.select("svg").style({width: w, height: h});
     svg.append("g")
       .attr("class", "x axis")
@@ -153,3 +153,46 @@ background
         // alert(typeof $.csv.toObjects("hi1,hi2\n1,2\n3,4"));
       });
   });
+////////////////////////////////////////////////////////////////////
+function name() {
+    document.getElementById("plot").onclick = plot;
+    
+    var w = 600, h = 500;
+    var margin = {left: 60, top: 30, right: 20, bottom: 60};
+    
+    var svg = d3.select("svg").style({width: w, height: h});
+    
+    var xScale = d3.scale.linear().range([margin.left, w-margin.right]);
+    var yScale = d3.scale.linear().range([h-margin.bottom, margin.top]);
+    
+    var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
+    var yAxis = d3.svg.axis().scale(yScale).orient("left");
+    
+    svg.append("g")
+      .attr("class", "x axis")
+      .append("text")
+      .attr("class", "x label")
+      .text("x")
+      .attr("font-size", 12)
+      .attr("dx", (w-margin.right)/2)
+      .attr("dy", "3.8em");
+
+    svg.append("g")
+      .attr("class", "y axis")
+      .append("text")
+      .attr("class", "y label")
+      .text("y")
+      .attr("font-size", 12)
+      .attr("transform", "rotate(-90)")
+      .attr("dy", "-3.8em")
+      .attr("dx", -(h+margin.top-margin.bottom)/2)
+      .attr("text-anchor", "middle");
+
+    var line = d3.svg.line();
+    
+    svg.append("path")
+      .attr("class", "line")
+      .attr("fill", "none")
+      .attr("stroke", "steelblue");
+    
+    plot();
