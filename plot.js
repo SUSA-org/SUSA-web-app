@@ -94,8 +94,8 @@ function plot(data) {
 name();
 
 
-const w = 600; //800
-const h = 440; //400
+//const w = 600; //800
+//const h = 440; //400
 const datalen = 10;
 let svg = d3.select("svg")
   .attr("width",w)
