@@ -94,8 +94,8 @@ function plot(data) {
 name();
 
 
-// const w = 800;
-// const h = 400;
+const w = 600; //800
+const h = 440; //400
 const datalen = 10;
 let svg = d3.select("svg")
   .attr("width",w)
@@ -118,10 +118,10 @@ let background = svg.append("rect")
 //   .attr("x",d=>d*w/datalen);
 
 window.alert("YES");
-// let line = d3.line
-//   .x(d=>d[0])
-//   .y(d=>d[1]);
-//   window.alert("NO");
+let line1 = d3.svg.line()
+  .x(d=>d[0])
+  .y(d=>d[1]);
+  window.alert("NO");
 
 let pathdata = {};
 let path = svg.append("path")
