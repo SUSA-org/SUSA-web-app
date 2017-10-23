@@ -14,7 +14,7 @@ var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 var yAxis = d3.svg.axis().scale(yScale).orient("left");
 function name() {
     document.getElementById("plot").onclick = plot;
-    
+
     var svg = d3.select("svg").style({width: w, height: h});
     svg.append("g")
       .attr("class", "x axis")
