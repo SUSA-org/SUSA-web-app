@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $.ajax({
     type: "GET",
-    url: "Korea_Fertility_converted.csv",
+    url: "costarica.csv",
     dataType: "text",
     success: function(data){plot(data);}
   });
