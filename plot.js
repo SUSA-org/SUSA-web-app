@@ -6,12 +6,14 @@ $(document).ready(function() {
     success: function(data){plot(data);}
   });
 });
+
 var w = 600, h = 500;
 var margin = {left: 60, top: 30, right: 20, bottom: 60};
 var xScale = d3.scale.linear().range([margin.left, w-margin.right]);
 var yScale = d3.scale.linear().range([h-margin.bottom, margin.top]);
 var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
 var yAxis = d3.svg.axis().scale(yScale).orient("left");
+// var _ = require('underscore')._;
 function name() {
     document.getElementById("plot").onclick = plot;
 
@@ -96,6 +98,7 @@ name();
 
 //const w = 600; //800
 //const h = 440; //400
+
 const datalen = 10;
 let svg = d3.select("svg")
   .attr("width",w)
@@ -129,15 +132,17 @@ let path = svg.append("path")
 
 
 background
-// window.alert("YES");
   .on("mousedown",()=>{
+    window.alert(d3.event.offsetX);
     background
       .on("mousemove",function(d,i){
+        
         position = Math.round(d3.event.offsetX / (w / datalen));
         pathdata[position] = [position * w / datalen, d3.mouse(this)[1]];
         path.datum(_.values(pathdata)).attr("d",line1);
       })
       .on("mouseup",()=>{
+        
         background
           .on("mousemove",null)
           .on("mouseup",null);
