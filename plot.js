@@ -94,7 +94,6 @@ function plot(data) {
 
 name();
 
-
 //const w = 600; //800
 //const h = 440; //400
 
