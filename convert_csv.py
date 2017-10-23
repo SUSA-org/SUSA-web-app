@@ -1,5 +1,5 @@
-f = open("Korea_Fertility.csv", "r")
-w = open("Korea_Fertility_converted.csv", "w")
+f = open("costarica.csv", "r")
+w = open("costarica_converted.csv", "w")
 for line in f:
 	arr = line.replace("\"","").split(",")
 	print(arr)
