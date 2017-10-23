@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $.ajax({
     type: "GET",
-    url: "costarica.csv",
+    url: "costarica_converted.csv",
     dataType: "text",
     success: function(data){plot(data);}
   });
