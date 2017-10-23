@@ -12,6 +12,7 @@ var xScale = d3.scale.linear().range([margin.left, w-margin.right]);
 var yScale = d3.scale.linear().range([h-margin.bottom, margin.top]);
 var xAxis = d3.svg.axis().scale(yScale).orient("bottom").tickFormat(d3.format("d"));
 var yAxis = d3.svg.axis().scale(xScale).orient("left");
+
 function name() {
     document.getElementById("plot").onclick = plot;
 
@@ -106,16 +107,16 @@ let background = svg.append("rect")
   .attr("width",w)
   .attr("height",h);
 
-// let bands = svg.append("g")
+let bands = svg.append("g")
 
-// bands.selectAll("rect.band")
-//   .data(_.range(datalen))
-//   .enter()
-//   .append("rect")
-//   .attr("height",h)
-//   .attr("width",w/datalen)
-//   .attr("class","band")
-//   .attr("x",d=>d*w/datalen);
+bands.selectAll("rect.band")
+  .data(_.range(datalen))
+  .enter()
+  .append("rect")
+  .attr("height",h)
+  .attr("width",w/datalen)
+  .attr("class","band")
+  .attr("x",d=>d*w/datalen);
 
 // window.alert("YES");
 let line1 = d3.svg.line()
