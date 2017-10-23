@@ -8,6 +8,7 @@ $(document).ready(function() {
 });
 
 var w = 600, h = 500;
+var w1 = 400, h1 = 440;
 var margin = {left: 60, top: 30, right: 20, bottom: 60};
 var xScale = d3.scale.linear().range([margin.left, w-margin.right]);
 var yScale = d3.scale.linear().range([h-margin.bottom, margin.top]);
@@ -96,18 +97,18 @@ function plot(data) {
 name();
 
 
-//const w = 600; //800
-//const h = 440; //400
+// const w = 600; //800
+// const h = 440; //400
 
 const datalen = 10;
 let svg = d3.select("svg")
-  .attr("width",w)
-  .attr("height",h);
+  .attr("width",w1)
+  .attr("height",h1);
 
 let background = svg.append("rect")
   .attr("class","background")
-  .attr("width",w)
-  .attr("height",h);
+  .attr("width",w1)
+  .attr("height",h1);
 
 // let bands = svg.append("g")
 
@@ -133,12 +134,12 @@ let path = svg.append("path")
 
 background
   .on("mousedown",()=>{
-    window.alert(d3.event.offsetX);
+    // window.alert(d3.event.offsetX);
     background
       .on("mousemove",function(d,i){
         
-        position = Math.round(d3.event.offsetX / (w / datalen));
-        pathdata[position] = [position * w / datalen, d3.mouse(this)[1]];
+        position = Math.round(d3.event.offsetX / (w1 / datalen));
+        pathdata[position] = [position * w1 / datalen, d3.mouse(this)[1]];
         path.datum(_.values(pathdata)).attr("d",line1);
       })
       .on("mouseup",()=>{
