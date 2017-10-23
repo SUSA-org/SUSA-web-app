@@ -10,8 +10,8 @@ var w = 600, h = 500;
 var margin = {left: 60, top: 30, right: 20, bottom: 60};
 var xScale = d3.scale.linear().range([margin.left, w-margin.right]);
 var yScale = d3.scale.linear().range([h-margin.bottom, margin.top]);
-var xAxis = d3.svg.axis().scale(yScale).orient("bottom").tickFormat(d3.format("d"));
-var yAxis = d3.svg.axis().scale(xScale).orient("left");
+var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
+var yAxis = d3.svg.axis().scale(yScale).orient("left");
 function name() {
     document.getElementById("plot").onclick = plot;
 
