@@ -38,7 +38,7 @@ function name() {
       .attr("dy", "-3.8em")
       .attr("dx", -(h+margin.top-margin.bottom)/2)
       .attr("text-anchor", "middle");
-    
+
     svg.append("path")
       .attr("class", "line")
       .attr("fill", "none")
@@ -50,45 +50,45 @@ function plot(data) {
     console.log(data);
     var raw = document.getElementById("csv").value;
     var data = d3.csv.parse(data); //"Korea_Fertility.csv"
-    
+
     var keys = Object.keys(data[0]);
     var xExtent = d3.extent(data, function(e) { return +e[keys[0]]; });
     var yExtent = d3.extent(data, function(e) { return +e[keys[1]]; });
-    
+
     xScale.domain(xExtent).nice();
     yScale.domain(yExtent).nice();
-    
+
     xAxis.scale(xScale);
     yAxis.scale(yScale);
-    
+
     d3.select(".x.axis")
       .attr("transform", "translate(0,"+yScale.range()[0]+")")
       .call(xAxis);
     d3.select(".y.axis")
       .attr("transform", "translate("+xScale.range()[0]+",0)")
       .call(yAxis);
-    
+
     d3.select(".x.label").text(keys[0]);
     d3.select(".y.label").text(keys[1]);
-    
+
     var line = d3.svg.line();
     line
       .x(function(d) { return xScale(d[keys[0]]); })
       .y(function(d) { return yScale(d[keys[1]]); });
-    
+
     svg.select(".line").datum(data).attr("d", line);
-    
+
     var points = svg.selectAll(".point").data(data);
-    
+
     points.enter()
       .append("circle")
       .attr("class", "point")
       .attr("r", 1.5)
       .attr("fill", "steelblue")
       .attr("stroke", "steelblue");
-    
+
     points.exit().remove();
-    
+
     points
       .attr("cx", function(d){ return xScale(d[keys[0]]); })
       .attr("cy", function(d){ return yScale(d[keys[1]]); });
@@ -140,19 +140,20 @@ let path = svg.append("path")
 
 
 background
-  .on("mousedown",()=>{
+
+  .on("click",()=>{
     // window.alert(d3.event.offsetX);
+
     background
       .on("mousemove",function(d,i){
-        
         position = Math.round(d3.event.offsetX / (w1 / datalen));
         pathdata[position] = [position * w1 / datalen, d3.mouse(this)[1]];
         path.datum(_.values(pathdata)).attr("d",line1);
+
       })
-      .on("mouseup",()=>{
-        
+      .on("dblclick",()=>{
         background
           .on("mousemove",null)
-          .on("mouseup",null);
       });
+
   });
