@@ -46,9 +46,10 @@
       });
 
 
-      var dataset = []
-      d3.csv("costarica_converted.csv", function(data) {
-          data = data;
+      var data = []
+      d3.csv("test.csv", function(data) {
+          dataset = data;
+          console.log(dataset)
 
       });
       var dataset = [
@@ -59,7 +60,6 @@
 
       ];
 plot(dataset)
-
 
 function plot(){
       // We're passing in a function in d3.max to tell it what we're maxing (x value)
