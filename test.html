@@ -48,14 +48,23 @@
 
       var dataset = []
       d3.csv("costarica_converted.csv", function(data) {
-          dataset = data;
-          plot(dataset)
+          data = data;
+
       });
+      var dataset = [
+
+        {x:1960,y:6.451},
+        {x:1961,y:6.405},
+        {x:1962,y:6.322},
+
+      ];
+plot(dataset)
+
 
 function plot(){
       // We're passing in a function in d3.max to tell it what we're maxing (x value)
       var xScale = d3.scale.linear()
-          .domain([0, d3.max(dataset, function (d) { return d.x + 10; })])
+          .domain([d3.min(dataset,function (d) {return d.x-10}), d3.max(dataset, function (d) { return d.x + 10; })])
           .range([margin.left, w- margin.right]);  // Set margins for x specific
 
       // We're passing in a function in d3.max to tell it what we're maxing (y value)
@@ -79,10 +88,6 @@ function plot(){
         "class": "axis",  // Give class so we can style it
         transform: "translate(" + [0,h - 2* margin.bottom] + ")"  // Moves from top of screen to bottom
       }).call(xAxis);  // Call the xAxis function on the group
-
-
-
-
 
 
       // Adds Y-Axis as a 'g' element
