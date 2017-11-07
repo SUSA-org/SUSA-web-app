@@ -100,22 +100,14 @@
       //attempting to draw lines between points
       var x = d3.scale.linear().range([0, w]);
       var y = d3.scale.linear().range([h, 0]);
-      var newData= [];
-
-      for(i=0; i< dataset.length; i++){
-        var tempdata={
-        x: Math.round( xScale(dataset[0])),
-        y: Math.round( yScale(dataset[1])),
-      }
-        newData.push(tempdata);
-      }
 
       var linefunction = d3.svg.line()
-          .x(function(d) { return x(d.x); })
-          .y(function(d) { return y(d.y); })
+          .x(function(d) { return xScale(d.x); })
+          .y(function(d) { return yScale(d.y); })
           .interpolate("linear");
+      var path;
 
-      svg.append("path")
+      path = svg.append("path")
           .attr("d", linefunction(dataset))
           .attr("stroke", "blue")
           .attr("stroke-width", 2)
@@ -150,6 +142,11 @@
             .attr(circleAttrs)  // Get attributes from circleAttrs var
             .on("mouseover", handleMouseOver)
             .on("mouseout", handleMouseOut);
+            path = svg.append("path")
+                .attr("d", linefunction(dataset))
+                .attr("stroke", "blue")
+                .attr("stroke-width", 2)
+                .attr("fill", "none");    
 
         })
 
