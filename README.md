@@ -9,9 +9,13 @@ use.
 More details TBA.
 
 To run:
+
 In terminal, run the command:
+
 python3 -m http.server
+
 In chrome, go to localhost:8000/
+
 Navigate to where the files are located
 
 ### Contributors
