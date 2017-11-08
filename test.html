@@ -219,7 +219,7 @@
             });
 
             // Select text by id and then remove. this part works for user plotted points but not dataset points right now. idk why it got buggy
-            d3.select("#t" + d.x + "-" + d.y + "-" + i).remove();  // Remove text location
+            d3.selectAll("#t" + d.x + "-" + d.y + "-" + i).remove();  // Remove text location
           }
     }
     </script>
