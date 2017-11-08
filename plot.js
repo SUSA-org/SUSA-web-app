@@ -3,7 +3,9 @@ $(document).ready(function() {
     type: "GET",
     url: "costarica_converted.csv",
     dataType: "text",
-    success: function(data){plot(data);}
+    success: function(data){
+      plot(data);
+    }
   });
 });
 
@@ -14,7 +16,6 @@ var xScale = d3.scale.linear().range([margin.left, w-margin.right]);
 var yScale = d3.scale.linear().range([h-margin.bottom, margin.top]);
 var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
 var yAxis = d3.svg.axis().scale(yScale).orient("left");
-// var _ = require('underscore')._;
 function name() {
     document.getElementById("plot").onclick = plot;
 
@@ -48,7 +49,7 @@ function name() {
 function plot(data) {
     var svg = d3.select("svg");
     console.log(data);
-    var raw = document.getElementById("csv").value;
+    //var raw = document.getElementById("csv").value;
     var data = d3.csv.parse(data); //"Korea_Fertility.csv"
 
     var keys = Object.keys(data[0]);
@@ -100,7 +101,7 @@ name();
 // const w = 600; //800
 // const h = 440; //400
 
-const datalen = 15;
+const datalen = 10;
 let svg = d3.select("svg")
   .attr("width",w1)
   .attr("height",h1);
@@ -128,11 +129,9 @@ let background = svg.append("rect")
 //   .attr("class","band")
 //   .attr("x",d=>d*w/datalen);
 
-// window.alert("YES");
 let line1 = d3.svg.line()
   .x(d=>d[0])
   .y(d=>d[1]);
-  // window.alert("NO");
 
 let pathdata = {};
 let path = svg.append("path")
