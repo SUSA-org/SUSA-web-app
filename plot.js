@@ -8,7 +8,7 @@ $(document).ready(function() {
 });
 
 var w = 600, h = 500;
-var w1 = 520, h1 = 410;
+var w1 = 580, h1 = 410; //w1=520, h1=410
 var margin = {left: 60, top: 30, right: 20, bottom: 60};
 var xScale = d3.scale.linear().range([margin.left, w-margin.right]);
 var yScale = d3.scale.linear().range([h-margin.bottom, margin.top]);
@@ -100,7 +100,7 @@ name();
 // const w = 600; //800
 // const h = 440; //400
 
-const datalen = 10;
+const datalen = 15;
 let svg = d3.select("svg")
   .attr("width",w1)
   .attr("height",h1);
