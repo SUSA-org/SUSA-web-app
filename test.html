@@ -34,16 +34,25 @@
 
   <body>
     <!-- Begin Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "costarica_converted.csv",
+          dataType: "text",
+          success: function(data){
+            plot(data);
+          }
+        });
+      });
       var w = window.innerWidth,
           h = window.innerHeight,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 6;
 
 
-
-
-     //hardcoding points for now because i cant get the csv to work
+   //hardcoding points for now because i cant get the csv to work
       var dataset = [
 
         {"x":1960,"y":6.451},
@@ -56,6 +65,15 @@
         {"x":1967,"y":5.383},
 
       ];
+    function plot(data) {
+      // read from CSV
+      var data = d3.csv.parse(data);
+      var dataset = [];
+      for (var i = 0; i < data.length; i += 1) {
+        dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
+      }
+      console.log(dataset);
+
       var svg = d3.select("body").append("svg").attr({
         width: w,
         height: h,
@@ -69,7 +87,7 @@
 
       // setting y axis boundaries
       var yScale = d3.scale.linear()
-          .domain([0, d3.max(dataset, function (d) { return d.y + 10; })])
+          .domain([0, d3.max(dataset, function (d) { return d.y + 2; })])
           .range([h- margin.top, margin.bottom]);  // Set margins for y specific
 
       // define an X and Y Axis
@@ -203,10 +221,7 @@
             // Select text by id and then remove. this part works for user plotted points but not dataset points right now. idk why it got buggy
             d3.select("#t" + d.x + "-" + d.y + "-" + i).remove();  // Remove text location
           }
-
-
-
-
+    }
     </script>
   </body>
 </html>
