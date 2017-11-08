@@ -146,7 +146,7 @@
 //WIP currently breaks click functionality
       //on mousemove, there should be a line from the last point to the mouse cursor
       svg.on('mousemove', function() {
-          var coordinates = d3.mouse(this);
+
           svg.append("path")
             .attr("d", linefunction(hovermouse))
             .attr("stroke", "black")
@@ -154,7 +154,8 @@
             .attr("fill", "none");
           })
       var mouse_line = d3.svg.line()
-        var coords = d3.mouse(this)
+        var coords=[0,0]
+        coords = d3.mouse(this)
         var x = coords[0];
         var y = coords[1];
 
@@ -170,7 +171,7 @@
           // Normally we go from data to pixels, but here we're doing pixels to data
           var newData= {
             "x": Math.round( xScale.invert(coords[0])),  // Takes the pixel number to convert to number
-            "y": Math.round( yScale.invert(coords[1]))
+            "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
 
           dataset.push(newData);   // Push data to our dataset array
