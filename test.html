@@ -88,7 +88,7 @@
           .range([h- margin.top, margin.bottom]);  // Set margins for y specific
 
       // define an X and Y Axis
-      var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+      var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
       var yAxis = d3.svg.axis().scale(yScale).orient("left");
 
       var circleAttrs = {
@@ -120,12 +120,8 @@
       var y = d3.scale.linear().range([h, 0]);
 
       var linefunction = d3.svg.line()
-          .x(function(d) {
-            console.log(xScale(d.x)); 
-            return xScale(d.x); })
-          .y(function(d) { 
-            console.log(yScale(d.y));
-            return yScale(d.y); })
+          .x(function(d) { return xScale(d.x); })
+          .y(function(d) { return yScale(d.y); })
           .interpolate("linear");
       var path;
 
