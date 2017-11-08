@@ -143,7 +143,7 @@
           .on("mouseover", handleMouseOver)
           .on("mouseout", handleMouseOut);
 
-//WIP
+//WIP currently breaks click functionality
       //on mousemove, there should be a line from the last point to the mouse cursor
       svg.on('mousemove', function() {
           var coordinates = d3.mouse(this);
@@ -154,9 +154,9 @@
             .attr("fill", "none");
           })
       var mouse_line = d3.svg.line()
-      
-        var x = d3.mouse(this)[0];
-        var y = d3.mouse(this)[1];
+        var coords = d3.mouse(this)
+        var x = coords[0];
+        var y = coords[1];
 
         var hovermouse = [
           {"x":x,"y":y},{"x":dataset[dataset.length - 1].x,"y":dataset[dataset.length - 1].y},
