@@ -73,7 +73,7 @@
           .range([h- margin.top, margin.bottom]);  // Set margins for y specific
 
       // define an X and Y Axis
-      var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+      var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
       var yAxis = d3.svg.axis().scale(yScale).orient("left");
 
       var circleAttrs = {
