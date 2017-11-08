@@ -154,9 +154,9 @@
             .attr("fill", "none");
           })
       var mouse_line = d3.svg.line()
-      coordinates=[];
-        var x = coordinates[0];
-        var y = coordinates[1];
+      
+        var x = d3.mouse(this)[0];
+        var y = d3.mouse(this)[1];
 
         var hovermouse = [
           {"x":x,"y":y},{"x":dataset[dataset.length - 1].x,"y":dataset[dataset.length - 1].y},
