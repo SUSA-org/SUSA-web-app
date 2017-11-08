@@ -10,7 +10,7 @@ $(document).ready(function() {
 });
 
 var w = 600, h = 500;
-var w1 = 400, h1 = 440;
+var w1 = 520, h1 = 410;
 var margin = {left: 60, top: 30, right: 20, bottom: 60};
 var xScale = d3.scale.linear().range([margin.left, w-margin.right]);
 var yScale = d3.scale.linear().range([h-margin.bottom, margin.top]);
@@ -84,7 +84,7 @@ function plot(data) {
     points.enter()
       .append("circle")
       .attr("class", "point")
-      .attr("r", 3)
+      .attr("r", 1.5)
       .attr("fill", "steelblue")
       .attr("stroke", "steelblue");
     
@@ -101,15 +101,19 @@ name();
 const datalen = 10;
 let svg = d3.select("svg")
   .attr("width",w1)
-  .attr("height",h1)
-  .attr("id", "svg");
+  .attr("height",h1);
+  // .style.paddingLeft = "150px";
 
 let background = svg.append("rect")
   .attr("class","background")
   .attr("width",w1)
-  .attr("id", "background")
   .attr("height",h1)
-  .attr("x", 200);
+  .attr("x", 60)
+  .attr("y",30);
+  // .attr("x", 150);
+  // .attr("dy", "3.8em");;
+  // .attr("padding", "100px 0px 0px 0px");
+// document.getElementById("background").style.backgroundPosition = "200px 40px";;
 
 // let bands = svg.append("g")
 

@@ -8,6 +8,7 @@ use.
 
 More details TBA.
 
+python3 -m http.server
 
 
 ### Contributors
