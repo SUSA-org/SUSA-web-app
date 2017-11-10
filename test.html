@@ -36,6 +36,7 @@
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
+      //load csv
       $(document).ready(function() {
         $.ajax({
           type: "GET",
@@ -46,25 +47,14 @@
           }
         });
       });
+
+      //set margins
       var w = window.innerWidth,
           h = window.innerHeight,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 6;
 
 
-   //hardcoding points for now because i cant get the csv to work
-      var dataset = [
-
-        {"x":1960,"y":6.451},
-        {"x":1961,"y":6.405},
-        {"x":1962,"y":6.322},
-        {"x":1963,"y":6.201},
-        {"x":1964,"y":6.044},
-        {"x":1965,"y":5.853},
-        {"x":1966,"y":5.63},
-        {"x":1967,"y":5.383},
-
-      ];
     function plot(data) {
       // read from CSV
       var data = d3.csv.parse(data);
@@ -118,7 +108,7 @@
 
 
 
-      //attempting to draw lines between points
+      //draw lines between points
       var x = d3.scale.linear().range([0, w]);
       var y = d3.scale.linear().range([h, 0]);
 
