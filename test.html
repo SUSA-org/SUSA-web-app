@@ -36,6 +36,7 @@
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
+      //load csv
       $(document).ready(function() {
         $.ajax({
           type: "GET",
@@ -46,28 +47,19 @@
           }
         });
       });
+
+      //set margins
       var w = window.innerWidth,
           h = window.innerHeight,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 6;
 
 
-   //hardcoding points for now because i cant get the csv to work
-      var dataset = [
-
-        {"x":1960,"y":6.451},
-        {"x":1961,"y":6.405},
-        {"x":1962,"y":6.322},
-        {"x":1963,"y":6.201},
-        {"x":1964,"y":6.044},
-        {"x":1965,"y":5.853},
-        {"x":1966,"y":5.63},
-        {"x":1967,"y":5.383},
-      ];
     function plot(data) {
       // read from CSV
       var data = d3.csv.parse(data);
       var dataset = [];
+      console.log(data)
       for (var i = 0; i < data.length; i += 1) {
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
@@ -76,7 +68,9 @@
       var svg = d3.select("body").append("svg").attr({
         width: w,
         height: h,
+
       });
+
       // setting x axis boundaries
       var xScale = d3.scale.linear()
           .domain([d3.min(dataset,function (d) {return d.x}), d3.max(dataset, function (d) { return d.x + 10; })])
@@ -112,10 +106,7 @@
       }).call(yAxis);  // Call the yAxis function on the group
 
 
-
-
-
-      //attempting to draw lines between points
+      //draw lines between points
       var x = d3.scale.linear().range([0, w]);
       var y = d3.scale.linear().range([h, 0]);
 
@@ -131,7 +122,7 @@
           .attr("stroke-width", 2)
           .attr("fill", "none");
 
-      //from here on it works
+      //updates initial circles
       svg.selectAll("circle")
           .data(dataset)
           .enter()
@@ -140,15 +131,35 @@
           .on("mouseover", handleMouseOver)
           .on("mouseout", handleMouseOut);
 
+//WIP currently breaks click functionality
+      //on mousemove, there should be a line from the last point to the mouse cursor
+      // svg.on('mousemove', function() {
+
+      //     svg.append("path")
+      //       .attr("d", linefunction(mousemove))
+      //       .attr("stroke", "black")
+      //       .attr("stroke-width", 2)
+      //       .attr("fill", "none");
+      //     })
+      // var mouse_line = d3.svg.line()
+      //   var coords=[0,0]
+      //   coords = d3.mouse(this)
+      //   var x = coords[0];
+      //   var y = coords[1];
+
+      //   var hovermouse = [
+      //     {"x":x,"y":y},{"x":dataset[dataset.length - 1].x,"y":dataset[dataset.length - 1].y},
+      //   ];
 
 // On Click, we want to add data to the array and chart. Points are added for integer year values
+
       svg.on("click", function() {
           var coords = d3.mouse(this);
 
           // Normally we go from data to pixels, but here we're doing pixels to data
           var newData= {
-            x: Math.round( xScale.invert(coords[0])),  // Takes the pixel number to convert to number
-            y: Math.round( yScale.invert(coords[1]))
+            "x": Math.round( xScale.invert(coords[0])),  // Takes the pixel number to convert to number
+            "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
 
           dataset.push(newData);   // Push data to our dataset array
@@ -160,11 +171,10 @@
             .attr(circleAttrs)  // Get attributes from circleAttrs var
             .on("mouseover", handleMouseOver)
             .on("mouseout", handleMouseOut);
-            path = svg.append("path")
+            path = svg.append("path") //make the connecting line
                 .attr("d", linefunction(dataset))
                 .attr("stroke", "blue")
                 .attr("stroke-width", 2)
-                .attr("fill", "none");    
           // $.ajax({
           //   type: "POST",
           //   url: "posted-data.csv",
@@ -172,6 +182,7 @@
           //   dataType: "text"
           // });
           // console.log("here");
+                .attr("fill", "none");
         })
 
 
@@ -203,7 +214,10 @@
             });
 
             // Select text by id and then remove. this part works for user plotted points but not dataset points right now. idk why it got buggy
-            d3.select("#t" + d.x + "-" + d.y + "-" + i).remove();  // Remove text location
+            console.log(d.x)
+            console.log(d.y)
+            console.log(i)
+            d3.selectAll("text#t" + d.x + "-" + d.y + "-" + i).remove();  // Remove text location
           }
     }
     </script>
