@@ -135,6 +135,12 @@
         transform: "translate(" + [0,h - 2* margin.bottom] + ")"  // Moves from top of screen to bottom
       }).call(xAxis);  // Call the xAxis function on the group
 
+      svg.append("line")
+      .style("stroke-dasharray", ("3, 3"))          // attach a line
+      .attr("x1", 927)     // x position of the first end of the line
+      .attr("y1", 16)      // y position of the first end of the line
+      .attr("x2", 927)     // x position of the second end of the line
+      .attr("y2", 667); 
 
       // Adds Y-Axis as a 'g' element
       svg.append("g").attr({
@@ -142,6 +148,17 @@
         transform: "translate(" + [margin.left, 0] + ")"
       }).call(yAxis);  // Call the yAxis function on the group
 
+      console.log(yScale(8.5).toFixed(1));
+      // var x = xScale(2015).toFixed(1);
+      // var y1 = yScale(0).toFixed(1);
+      // var y2 = yScale(8.5).toFixed(1);
+         // y position of the second end of the line
+
+      // .attr("x1", x)     // x position of the first end of the line
+      // .attr("y1", y1)      // y position of the first end of the line
+      // .attr("x2", x)     // x position of the second end of the line
+      // .attr("y2", y2)    // y position of the second end of the line
+      console.log(yScale(0).toFixed(1));
 
       //draw lines between points
       var x = d3.scale.linear().range([0, w]);
