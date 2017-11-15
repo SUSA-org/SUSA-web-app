@@ -35,6 +35,7 @@
   <body>
     <button type="button" id="Costarica_Fertility" class="btn btn-block">Costa Rica Fertility Rate</button>
     <button type="button" id ="Korea_Fertility" class="btn btn-primary btn-block">Korea Fertility Rate</button>
+    <button type="button" id="clear">Clear</button>
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
@@ -72,6 +73,13 @@
         });
       $(function(){
         $('#Costarica_Fertility').on('click', function (e) {
+          d3.select("svg").remove();
+          oldData = 2015;
+          plot(data)
+          });
+        });
+      $(function(){
+        $('#clear').on('click', function (e) {
           d3.select("svg").remove();
           oldData = 2015;
           plot(data)
