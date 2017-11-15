@@ -9,13 +9,11 @@
 
     <!-- CSS (Styling) -->
     <style type="text/css">
-
       body {
         margin: 0;
         font-family: sans-serif;
         font-size: 11px;
       }
-
       .axis path, .axis line {
         fill: none;
         stroke: black;
@@ -29,13 +27,11 @@
           border: none;
           cursor: pointer;
       }
-
       /* The container <div> - needed to position the dropdown content */
       .dropdown {
           position: relative;
           display: inline-block;
       }
-
       /* Dropdown Content (Hidden by Default) */
       .dropdown-content {
           display: none;
@@ -45,7 +41,6 @@
           box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
           z-index: 1;
       }
-
       /* Links inside the dropdown */
       .dropdown-content a {
           color: black;
@@ -53,27 +48,22 @@
           text-decoration: none;
           display: block;
       }
-
       /* Change color of dropdown links on hover */
       .dropdown-content a:hover {background-color: #f1f1f1}
-
       /* Show the dropdown menu on hover */
       .dropdown:hover .dropdown-content {
           display: block;
       }
-
       /* Change the background color of the dropdown button when the dropdown content is shown */
       .dropdown:hover .dropbtn {
           background-color: #3e8e41;
       }
-
       /*
       //Can use CSS3 Transitions, but not for everything (e.g. change radius size)
       circle:hover{
         fill: green;
       }
       */
-
     </style>
   </head>
 
@@ -112,10 +102,8 @@
           success: function(Korea_Fertility_converted){
             data2=Korea_Fertility_converted
           }
-
         });
       });
-
       $(function(){
         $('#Korea_Fertility').on('click', function (e) {
           d3.select("svg").remove();
@@ -149,13 +137,11 @@
         }
         //console.log("heeere", this.href.includes("link1"));
       });
-
       //set margins
       var w = window.innerWidth,
           h = window.innerHeight,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
-          radius = 6;
-
+          radius = 4;
     function plot(data) {
       // read from CSV
       var data = d3.csv.parse(data);
@@ -165,64 +151,61 @@
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
       //console.log(dataset);
-
       var svg = d3.select("body").append("svg").attr({
         width: w,
         height: h,
-
       });
-
       // setting x axis boundaries
       var xScale = d3.scale.linear()
           .domain([d3.min(dataset,function (d) {return d.x}), d3.max(dataset, function (d) { return d.x + 10; })])
           .range([margin.left, w- margin.right]);  // Set margins for x specific
-
       // setting y axis boundaries
       var yScale = d3.scale.linear()
           .domain([0, d3.max(dataset, function (d) { return d.y + 2; })])
           .range([h- margin.top, margin.bottom]);  // Set margins for y specific
-
       // define an X and Y Axis
       var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
       var yAxis = d3.svg.axis().scale(yScale).orient("left");
-
       var circleAttrs = {
           cx: function(d) { return xScale(d.x); },
           cy: function(d) { return yScale(d.y); },
           r: radius
       };
-
-
       // Adds X-Axis as a 'g' element
       svg.append("g").attr({
         "class": "axis",  // Give class so we can style it
         transform: "translate(" + [0,h - 2* margin.bottom] + ")"  // Moves from top of screen to bottom
       }).call(xAxis);  // Call the xAxis function on the group
-
-
       // Adds Y-Axis as a 'g' element
       svg.append("g").attr({
         "class": "axis",
         transform: "translate(" + [margin.left, 0] + ")"
       }).call(yAxis);  // Call the yAxis function on the group
-
+      
+      var x = xScale(2015).toFixed(1);
+      var y1 = yScale(0).toFixed(1);
+      var y2 = yScale(8.5).toFixed(1);
+      svg.append("line")
+      .style("stroke", "black")          // attach a line
+      .attr("x1", x)     // x position of the first end of the line
+      .attr("y1", y1)      // y position of the first end of the line
+      .attr("x2", x)     // x position of the second end of the line
+      .attr("y2", y2)    // y position of the second end of the line
+      .style("stroke-dasharray", ("3, 3"));          // attach a line
 
       //draw lines between points
       var x = d3.scale.linear().range([0, w]);
       var y = d3.scale.linear().range([h, 0]);
-
       var linefunction = d3.svg.line()
           .x(function(d) { return xScale(d.x); })
           .y(function(d) { return yScale(d.y); })
           .interpolate("linear");
       var path;
-
       path = svg.append("path")
           .attr("d", linefunction(dataset))
           .attr("stroke", "blue")
           .attr("stroke-width", 2)
           .attr("fill", "none");
-
       //updates initial circles
       svg.selectAll("circle")
           .data(dataset)
@@ -231,11 +214,9 @@
           .attr(circleAttrs)  // Get attributes from circleAttrs var
           .on("mouseover", handleMouseOver)
           .on("mouseout", handleMouseOut);
-
 //WIP currently breaks click functionality
       //on mousemove, there should be a line from the last point to the mouse cursor
       // svg.on('mousemove', function() {
-
       //     svg.append("path")
       //       .attr("d", linefunction(mousemove))
       //       .attr("stroke", "black")
@@ -247,22 +228,17 @@
       //   coords = d3.mouse(this)
       //   var x = coords[0];
       //   var y = coords[1];
-
       //   var hovermouse = [
       //     {"x":x,"y":y},{"x":dataset[dataset.length - 1].x,"y":dataset[dataset.length - 1].y},
       //   ];
-
 // On Click, we want to add data to the array and chart. Points are added for integer year values
-
       svg.on("click", function() {
           var coords = d3.mouse(this);
-
           // Normally we go from data to pixels, but here we're doing pixels to data
           var newData= {
             "x": Math.round( xScale.invert(coords[0])),  // Takes the pixel number to convert to number
             "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
-
           if (newData.x > oldData) {
             dataset.push(newData);   // Push data to our dataset array
             oldData = newData.x;
@@ -280,7 +256,6 @@
             // console.log(dataset);
             // dataset = temp;
           }
-
           svg.selectAll("circle")  // For new circle, go through the update process
             .data(dataset)
             .enter()
@@ -301,18 +276,13 @@
           // console.log("here");
                 .attr("fill", "none");
         })
-
-
-
       // Create Event Handlers for mouse
       function handleMouseOver(d, i) {  // Add interactivity
-
             // Use D3 to select element, change color and size
             d3.select(this).attr({
               fill: "blue",
               r: radius * 1.5
             });
-
             // Specify where to put label of text
             svg.append("text").attr({
                id: "t" + d.x + "-" + d.y + "-" + i,  // Create an id for text so we can select it later for removing on mouseout
@@ -323,14 +293,12 @@
               return [d.x, d.y];  // Value of the text
             });
           }
-
       function handleMouseOut(d, i) {
             // Use D3 to select element, change color back to normal
             d3.select(this).attr({
               fill: "black",
               r: radius
             });
-
             // Select text by id and then remove. this part works for user plotted points but not dataset points right now. idk why it got buggy
             x = document.getElementById("t" + d.x + "-" + d.y + "-"+ i);
             x.remove();
