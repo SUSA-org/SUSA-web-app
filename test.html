@@ -148,7 +148,7 @@
       svg.on('mousemove', function() {
 
           svg.append("path")
-            .attr("d", linefunction(hovermouse))
+            .attr("d", linefunction(mouseout))
             .attr("stroke", "black")
             .attr("stroke-width", 2)
             .attr("fill", "none");
@@ -159,7 +159,7 @@
         var x = coords[0];
         var y = coords[1];
 
-        var hovermouse = [
+        var mouseout = [
           {"x":x,"y":y},{"x":dataset[dataset.length - 1].x,"y":dataset[dataset.length - 1].y},
         ];
 
