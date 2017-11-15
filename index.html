@@ -38,6 +38,7 @@
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
+      var oldData = 2015;
       //load csv
       $(document).ready(function() {
         $.ajax({
@@ -65,12 +66,14 @@
       $(function(){
         $('#Korea_Fertility').on('click', function (e) {
           d3.select("svg").remove();
+          oldData = 2015;
           plot(data2)
           });
         });
       $(function(){
         $('#Costarica_Fertility').on('click', function (e) {
           d3.select("svg").remove();
+          oldData = 2015;
           plot(data)
           });
         });
@@ -81,7 +84,6 @@
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 6;
 
-    var oldData = 2015;
     function plot(data) {
       // read from CSV
       var data = d3.csv.parse(data);
