@@ -33,8 +33,8 @@
   </head>
 
   <body>
-    <button id="rectButton" class="btn">Rectangle</button>
-    <button type="button" id ="Korea_Fertility" class="btn btn-primary">Primary</button>
+    <button id="rectButton" class="btn">Costa Rica Fertility Rate</button>
+    <button type="button" id ="Korea_Fertility" class="btn btn-primary">Korea Fertility Rate</button>
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
@@ -44,8 +44,9 @@
           type: "GET",
           url: "costarica_converted.csv",
           dataType: "text",
-          success: function(data){
-            plot(data);
+          success: function(costarica){
+            plot(costarica);
+            data=costarica
           }
         });
       });
@@ -69,7 +70,8 @@
         });
       $(function(){
         $('#rectButton').on('click', function (e) {
-          alert('Hello!');
+          d3.select("svg").remove();
+          plot(data)
           });
         });
 
