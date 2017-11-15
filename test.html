@@ -63,6 +63,7 @@
 
       $(function(){
         $('#Korea_Fertility').on('click', function (e) {
+          d3.select("svg").remove();
           plot(data2)
           });
         });
