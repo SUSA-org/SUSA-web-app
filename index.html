@@ -81,7 +81,7 @@
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 6;
 
-
+    var oldData = 2015;
     function plot(data) {
       // read from CSV
       var data = d3.csv.parse(data);
@@ -189,7 +189,10 @@
             "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
 
-          dataset.push(newData);   // Push data to our dataset array
+          if (newData.x > oldData) {
+            dataset.push(newData);   // Push data to our dataset array
+            oldData = newData.x;
+          }
 
           svg.selectAll("circle")  // For new circle, go through the update process
             .data(dataset)
