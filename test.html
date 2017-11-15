@@ -183,33 +183,29 @@
       svg.on("click", function() {
           var coords = d3.mouse(this);
 
+          console.log(coords)
           // Normally we go from data to pixels, but here we're doing pixels to data
           var newData= {
             "x": Math.round( xScale.invert(coords[0])),  // Takes the pixel number to convert to number
             "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
+          console.log(newData)
+          if (newData.x > 2015) {
+            dataset.push(newData);   // Push data to our dataset array
 
-          dataset.push(newData);   // Push data to our dataset array
-
-          svg.selectAll("circle")  // For new circle, go through the update process
-            .data(dataset)
-            .enter()
-            .append("circle")
-            .attr(circleAttrs)  // Get attributes from circleAttrs var
-            .on("mouseover", handleMouseOver)
-            .on("mouseout", handleMouseOut);
-            path = svg.append("path") //make the connecting line
-                .attr("d", linefunction(dataset))
-                .attr("stroke", "blue")
-                .attr("stroke-width", 2)
-          // $.ajax({
-          //   type: "POST",
-          //   url: "posted-data.csv",
-          //   data: dataset,
-          //   dataType: "text"
-          // });
-          // console.log("here");
-                .attr("fill", "none");
+            svg.selectAll("circle")  // For new circle, go through the update process
+              .data(dataset)
+              .enter()
+              .append("circle")
+              .attr(circleAttrs)  // Get attributes from circleAttrs var
+              .on("mouseover", handleMouseOver)
+              .on("mouseout", handleMouseOut);
+              path = svg.append("path") //make the connecting line
+                  .attr("d", linefunction(dataset))
+                  .attr("stroke", "blue")
+                  .attr("stroke-width", 2)
+                  .attr("fill", "none");
+          }
         })
 
 
@@ -241,7 +237,7 @@
             });
 
             // Select text by id and then remove. this part works for user plotted points but not dataset points right now. idk why it got buggy
-            x = document.getElementById("t" + d.x + "-" + d.y + "-"+ i);
+            x = document.getElementById("t" + d.x + "-" + d.y + "-" + i);
             x.remove();
           }
     }
