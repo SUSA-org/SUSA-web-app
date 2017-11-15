@@ -218,6 +218,7 @@
         })
 
 
+
       // Create Event Handlers for mouse
       function handleMouseOver(d, i) {  // Add interactivity
 
@@ -230,7 +231,7 @@
             // Specify where to put label of text
             svg.append("text").attr({
                id: "t" + d.x + "-" + d.y + "-" + i,  // Create an id for text so we can select it later for removing on mouseout
-                x: function() { return xScale(d.x) - 30; },
+                x: function() { return xScale(d.x) + 5; },
                 y: function() { return yScale(d.y) - 15; }
             })
             .text(function() {
