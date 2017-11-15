@@ -33,8 +33,8 @@
   </head>
 
   <body>
-    <button id="rectButton" class="btn">Costa Rica Fertility Rate</button>
-    <button type="button" id ="Korea_Fertility" class="btn btn-primary">Korea Fertility Rate</button>
+    <button type="button" id="Costarica_Fertility" class="btn btn-block">Costa Rica Fertility Rate</button>
+    <button type="button" id ="Korea_Fertility" class="btn btn-primary btn-block">Korea Fertility Rate</button>
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
@@ -69,7 +69,7 @@
           });
         });
       $(function(){
-        $('#rectButton').on('click', function (e) {
+        $('#Costarica_Fertility').on('click', function (e) {
           d3.select("svg").remove();
           plot(data)
           });
@@ -86,10 +86,11 @@
       // read from CSV
       var data = d3.csv.parse(data);
       var dataset = [];
+      //console.log(data)
       for (var i = 0; i < data.length; i += 1) {
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
-      console.log(dataset);
+      //console.log(dataset);
 
       var svg = d3.select("body").append("svg").attr({
         width: w,
@@ -132,9 +133,6 @@
       }).call(yAxis);  // Call the yAxis function on the group
 
 
-
-
-
       //draw lines between points
       var x = d3.scale.linear().range([0, w]);
       var y = d3.scale.linear().range([h, 0]);
@@ -165,7 +163,7 @@
       // svg.on('mousemove', function() {
 
       //     svg.append("path")
-      //       .attr("d", linefunction(mouseout))
+      //       .attr("d", linefunction(mousemove))
       //       .attr("stroke", "black")
       //       .attr("stroke-width", 2)
       //       .attr("fill", "none");
@@ -175,8 +173,7 @@
       //   coords = d3.mouse(this)
       //   var x = coords[0];
       //   var y = coords[1];
-
-      //   var mouseout = [
+      //   var hovermouse = [
       //     {"x":x,"y":y},{"x":dataset[dataset.length - 1].x,"y":dataset[dataset.length - 1].y},
       //   ];
 
@@ -204,8 +201,14 @@
                 .attr("d", linefunction(dataset))
                 .attr("stroke", "blue")
                 .attr("stroke-width", 2)
+          // $.ajax({
+          //   type: "POST",
+          //   url: "posted-data.csv",
+          //   data: dataset,
+          //   dataType: "text"
+          // });
+          // console.log("here");
                 .attr("fill", "none");
-
         })
 
 
@@ -237,7 +240,8 @@
             });
 
             // Select text by id and then remove. this part works for user plotted points but not dataset points right now. idk why it got buggy
-            d3.selectAll("#t" + d.x + "-" + d.y + "-" + i).remove(d3.selectAll("#t" + d.x + "-" + d.y + "-" + i));  // Remove text location
+            x = document.getElementById("t" + d.x + "-" + d.y + "-"+ i);
+            x.remove();
           }
     }
     </script>
