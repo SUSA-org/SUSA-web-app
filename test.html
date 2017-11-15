@@ -159,23 +159,23 @@
 
 //WIP currently breaks click functionality
       //on mousemove, there should be a line from the last point to the mouse cursor
-      svg.on('mousemove', function() {
+      // svg.on('mousemove', function() {
 
-          svg.append("path")
-            .attr("d", linefunction(mouseout))
-            .attr("stroke", "black")
-            .attr("stroke-width", 2)
-            .attr("fill", "none");
-          })
-      var mouse_line = d3.svg.line()
-        var coords=[0,0]
-        coords = d3.mouse(this)
-        var x = coords[0];
-        var y = coords[1];
+      //     svg.append("path")
+      //       .attr("d", linefunction(mouseout))
+      //       .attr("stroke", "black")
+      //       .attr("stroke-width", 2)
+      //       .attr("fill", "none");
+      //     })
+      // var mouse_line = d3.svg.line()
+      //   var coords=[0,0]
+      //   coords = d3.mouse(this)
+      //   var x = coords[0];
+      //   var y = coords[1];
 
-        var mouseout = [
-          {"x":x,"y":y},{"x":dataset[dataset.length - 1].x,"y":dataset[dataset.length - 1].y},
-        ];
+      //   var mouseout = [
+      //     {"x":x,"y":y},{"x":dataset[dataset.length - 1].x,"y":dataset[dataset.length - 1].y},
+      //   ];
 
 // On Click, we want to add data to the array and chart. Points are added for integer year values
 
