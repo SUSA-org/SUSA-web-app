@@ -13,6 +13,7 @@
         margin: 0;
         font-family: sans-serif;
         font-size: 11px;
+        background-color: #EEE9D4;
       }
       .axis path, .axis line {
         fill: none;
@@ -181,7 +182,7 @@
         "class": "axis",
         transform: "translate(" + [margin.left, 0] + ")"
       }).call(yAxis);  // Call the yAxis function on the group
-      
+
       var x = xScale(2015).toFixed(1);
       var y1 = yScale(0).toFixed(1);
       var y2 = yScale(8.5).toFixed(1);
