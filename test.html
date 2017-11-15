@@ -33,6 +33,8 @@
   </head>
 
   <body>
+    <button id="rectButton" class="btn">Costa Rica Fertility Rate</button>
+    <button type="button" id ="Korea_Fertility" class="btn btn-primary">Korea Fertility Rate</button>
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
@@ -42,11 +44,36 @@
           type: "GET",
           url: "costarica_converted.csv",
           dataType: "text",
-          success: function(data){
-            plot(data);
+          success: function(costarica){
+            plot(costarica);
+            data=costarica
           }
         });
       });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Korea_Fertility_converted.csv",
+          dataType: "text",
+          success: function(Korea_Fertility_converted){
+            data2=Korea_Fertility_converted
+          }
+
+        });
+      });
+
+      $(function(){
+        $('#Korea_Fertility').on('click', function (e) {
+          d3.select("svg").remove();
+          plot(data2)
+          });
+        });
+      $(function(){
+        $('#rectButton').on('click', function (e) {
+          d3.select("svg").remove();
+          plot(data)
+          });
+        });
 
       //set margins
       var w = window.innerWidth,
@@ -59,11 +86,11 @@
       // read from CSV
       var data = d3.csv.parse(data);
       var dataset = [];
-      console.log(data)
+      //console.log(data)
       for (var i = 0; i < data.length; i += 1) {
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
-      console.log(dataset);
+      //console.log(dataset);
 
       var svg = d3.select("body").append("svg").attr({
         width: w,
@@ -214,10 +241,9 @@
             });
 
             // Select text by id and then remove. this part works for user plotted points but not dataset points right now. idk why it got buggy
-            console.log(d.x)
-            console.log(d.y)
-            console.log(i)
-            d3.selectAll("text#t" + d.x + "-" + d.y + "-" + i).remove();  // Remove text location
+            x = document.getElementById("t" + d.x + "-" + d.y + "-"+ i);
+            x.remove();
+            //d3.selectAll("text#t" + d.x + "-" + d.y + "-" + i).remove();  // Remove text location
           }
     }
     </script>
