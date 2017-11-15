@@ -21,6 +21,51 @@
         stroke: black;
         shape-rendering: crispEdges;  /* Round any decimal pixels so it'll render nicely */
       }
+      .dropbtn {
+          background-color: #4CAF50;
+          color: white;
+          padding: 16px;
+          font-size: 16px;
+          border: none;
+          cursor: pointer;
+      }
+
+      /* The container <div> - needed to position the dropdown content */
+      .dropdown {
+          position: relative;
+          display: inline-block;
+      }
+
+      /* Dropdown Content (Hidden by Default) */
+      .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+      }
+
+      /* Links inside the dropdown */
+      .dropdown-content a {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+      }
+
+      /* Change color of dropdown links on hover */
+      .dropdown-content a:hover {background-color: #f1f1f1}
+
+      /* Show the dropdown menu on hover */
+      .dropdown:hover .dropdown-content {
+          display: block;
+      }
+
+      /* Change the background color of the dropdown button when the dropdown content is shown */
+      .dropdown:hover .dropbtn {
+          background-color: #3e8e41;
+      }
 
       /*
       //Can use CSS3 Transitions, but not for everything (e.g. change radius size)
@@ -36,6 +81,13 @@
     <button type="button" id="Costarica_Fertility" class="btn btn-block">Costa Rica Fertility Rate</button>
     <button type="button" id ="Korea_Fertility" class="btn btn-primary btn-block">Korea Fertility Rate</button>
     <button type="button" id="clear">Clear</button>
+    <div class="dropdown">
+      <button class="dropbtn">Dropdown</button>
+      <div class="dropdown-content">
+        <a href="#costarica">Costa Rica</a>
+        <a href="#korea">Korea</a>
+      </div>
+    </div>
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
@@ -85,6 +137,18 @@
           plot(data)
           });
         });
+      $("div.dropdown-content a").click(function() {
+        if (this.href.includes("costarica")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(data2);
+        } else {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(data);
+        }
+        //console.log("heeere", this.href.includes("link1"));
+      });
 
       //set margins
       var w = window.innerWidth,
@@ -202,6 +266,19 @@
           if (newData.x > oldData) {
             dataset.push(newData);   // Push data to our dataset array
             oldData = newData.x;
+          } else {
+            // console.log(newData.x);
+            // temp = [];
+            // temp.push(dataset[0])
+            // for (var i = 1; i < dataset.length; i += 1) {
+            //   if (newData.x >= dataset[i - 1].x && newData.x <= dataset[i].x) {
+            //     temp.push(newData);
+            //   }
+            //   temp.push(dataset[i])
+            // }
+            // console.log(temp);
+            // console.log(dataset);
+            // dataset = temp;
           }
 
           svg.selectAll("circle")  // For new circle, go through the update process
