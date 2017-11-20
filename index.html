@@ -105,7 +105,9 @@
   <body>
     <button type="button" id="Costarica_Fertility" class="btn">Costa Rica Fertility Rate</button>
     <button type="button" id ="Korea_Fertility" class="btn btn-primary">Korea Fertility Rate</button>
+    <button type="button" id ="results" class="btn ">res</button>
     <button type="button" id="clear">Clear</button>
+    <button type="button" id="ans">Show Answers</button>
     <div class="dropdown">
       <button class="dropbtn">Dropdown</button>
       <div class="dropdown-content">
@@ -139,6 +141,7 @@
           }
         });
       });
+
       $(function(){
         $('#Korea_Fertility').on('click', function (e) {
           d3.select("svg").remove();
@@ -160,6 +163,17 @@
           plot(data)
           });
         });
+      $(function(){
+        $('#ans').on('click', function (e) {
+          var active   = redLine.active ? false : true ,
+		        newOpacity = active ? 0 : 1;
+		          // Hide or show the elements
+		      d3.select("#redLine").style("opacity", newOpacity);
+		      d3.select("#redAxis").style("opacity", newOpacity);
+		        // Update whether or not the elements are active
+		          redLine.active = active;
+          });
+        });
       $("div.dropdown-content a").click(function() {
         if (this.href.includes("costarica")) {
           oldData = 2015;
@@ -176,6 +190,8 @@
           h = window.innerHeight/2,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
+
+res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
     function plot(data) {
       // read from CSV
       var data = d3.csv.parse(data);
@@ -210,22 +226,24 @@
         "class": "axis",  // Give class so we can style it
         transform: "translate(" + [0,h - 2* margin.bottom] + ")"  // Moves from top of screen to bottom
       }).call(xAxis);  // Call the xAxis function on the group
+
       // Adds Y-Axis as a 'g' element
       svg.append("g").attr({
         "class": "axis",
         transform: "translate(" + [margin.left, 0] + ")"
       }).call(yAxis);  // Call the yAxis function on the group
 
+      //adds vertical dotted line on 2015
       var x = xScale(2015).toFixed(1);
       var y1 = yScale(0).toFixed(1);
       var y2 = yScale(8.5).toFixed(1);
       svg.append("line")
-      .style("stroke", "black")          // attach a line
-      .attr("x1", x)     // x position of the first end of the line
-      .attr("y1", y1)      // y position of the first end of the line
-      .attr("x2", x)     // x position of the second end of the line
-      .attr("y2", y2)    // y position of the second end of the line
-      .style("stroke-dasharray", ("3, 3"));          // attach a line
+          .style("stroke", "black")          // attach a line
+          .attr("x1", x)                     // x position of the first end of the line
+          .attr("y1", y1)                    // y position of the first end of the line
+          .attr("x2", x)                     // x position of the second end of the line
+          .attr("y2", y2)                    // y position of the second end of the line
+          .style("stroke-dasharray", ("3, 3"));     // attach a line
 
       //draw lines between points
       var x = d3.scale.linear().range([0, w]);
@@ -248,6 +266,7 @@
           .attr(circleAttrs)  // Get attributes from circleAttrs var
           .on("mouseover", handleMouseOver)
           .on("mouseout", handleMouseOut);
+
 //WIP currently breaks click functionality
       //on mousemove, there should be a line from the last point to the mouse cursor
       // svg.on('mousemove', function() {
@@ -284,6 +303,8 @@
           if (newData.x > oldData) {
             dataset.push(newData);   // Push data to our dataset array
             oldData = newData.x;
+            console.log(oldData);
+            console.log(dataset);
           } else {
             // temp = [];
             // temp.push(dataset[0])
@@ -344,7 +365,7 @@
             x = document.getElementById("t" + d.x + "-" + d.y + "-"+ i);
             x.remove();
           }
-    }
+}
     </script>
   </body>
 </html>
