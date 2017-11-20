@@ -260,6 +260,7 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
           .attr("fill", "none");
       //updates initial circles
       svg.selectAll("circle")
+
           .data(dataset)
           .enter()
           .append("circle")
@@ -284,7 +285,7 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
       //   var hovermouse = [
       //     {"x":x,"y":y},{"x":dataset[dataset.length - 1].x,"y":dataset[dataset.length - 1].y},
       //   ];
-// On Click, we want to add data to the array and chart. Points are added for integer year values
+        // On Click, we want to add data to the array and chart. Points are added for integer year values
       svg.on("click", function() {
           var coords = d3.mouse(this);
           // Normally we go from data to pixels, but here we're doing pixels to data
@@ -316,8 +317,10 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
             // }
             // dataset = temp;
           }
+
           svg.selectAll("circle")
-            .remove()  // For new circle, go through the update process
+             // For new circle, go through the update process
+             
             .data(dataset)
             .enter()
             .append("circle")
@@ -325,7 +328,7 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
             .on("mouseover", handleMouseOver)
             .on("mouseout", handleMouseOut);
           path = svg.append("path")
-            .remove() //make the connecting line
+             //make the connecting line
             .attr("d", linefunction(dataset))
             .attr("stroke", "blue")
             .attr("stroke-width", 2)
