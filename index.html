@@ -293,19 +293,14 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
             "x": Math.round( xScale.invert(coords[0])),  // Takes the pixel number to convert to coordinate
             "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
+          newData.y = parseFloat(newData.y);
           var x = 0;
-          console.log(dataset);
           for (var i = 0; i < dataset.length; i += 1) {
             if (dataset[i].x == newData.x) {
               x = i;
-              console.log(dataset[i]);
-              dataset[i].y = parseFloat(newData.y);
-              console.log(dataset[i]);
+              dataset[i] = newData;
             }
           }
-          console.log(dataset);
-
-
           if (newData.x > oldData) {
             dataset.push(newData);   // Push data to our dataset array
             oldData = newData.x;
