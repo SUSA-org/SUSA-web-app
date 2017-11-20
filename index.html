@@ -44,11 +44,7 @@
 
 
       .dropbtn {
-<<<<<<< HEAD
-          background-color: #268bd2;
-=======
           background-color: #268BD2;
->>>>>>> 0f240cfa6d4ad813aedd9d2d8d4579c7245cac20
           color: white;
           padding: 16px;
           font-size: 16px;
@@ -307,20 +303,37 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
             console.log(oldData);
             console.log(dataset);
           } else {
-            // temp = [];
-            // temp.push(dataset[0])
-            // for (var i = 1; i < dataset.length; i += 1) {
-            //   if (newData.x >= dataset[i - 1].x && newData.x <= dataset[i].x) {
-            //     temp.push(newData);
-            //   }
-            //   temp.push(dataset[i])
-            // }
-            // dataset = temp;
+            temp = [];
+            temp.push(dataset[0])
+            for (var i = 1; i < dataset.length; i += 1) {
+              if (newData.x >= dataset[i - 1].x && newData.x <= dataset[i].x) {
+                temp.push(newData);
+              }
+              temp.push(dataset[i])
+            }
+            dataset = temp;
           }
+          d3.selectAll("circle").remove();
+          d3.selectAll("path").remove();
+          
+          // define an X and Y Axis
+          var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
+          var yAxis = d3.svg.axis().scale(yScale).orient("left");
+          // Adds X-Axis as a 'g' element
+          svg.append("g").attr({
+            "class": "axis",  // Give class so we can style it
+            transform: "translate(" + [0,h - 2* margin.bottom] + ")"  // Moves from top of screen to bottom
+          }).call(xAxis);  // Call the xAxis function on the group
+
+          // Adds Y-Axis as a 'g' element
+          svg.append("g").attr({
+            "class": "axis",
+            transform: "translate(" + [margin.left, 0] + ")"
+          }).call(yAxis);  // Call the yAxis function on the group
 
           svg.selectAll("circle")
              // For new circle, go through the update process
-             
+
             .data(dataset)
             .enter()
             .append("circle")
