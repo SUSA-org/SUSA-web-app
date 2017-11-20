@@ -317,10 +317,11 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
             // }
             // dataset = temp;
           }
-
+          d3.selectAll("circle").remove();
+          d3.selectAll("path").remove();
           svg.selectAll("circle")
              // For new circle, go through the update process
-             
+
             .data(dataset)
             .enter()
             .append("circle")
@@ -340,7 +341,7 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
           //   dataType: "text"
           // });
                 .attr("fill", "none");
-        })
+    })
       // Create Event Handlers for mouse
       function handleMouseOver(d, i) {  // Add interactivity
             // Use D3 to select element, change color and size
