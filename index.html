@@ -197,12 +197,12 @@
           }
         });
       });
-      //functionality for clearing paths
+      //base functionality for clearing paths
       $(function(){
         $('#clear').on('click', function (e) {
-          d3.select("svg").remove(path);
+          d3.select("svg").remove("path");
           oldData = 2015;
-          plot(data)
+          plot(argentina)
           });
         });
       //adding answer key for un model
@@ -231,26 +231,63 @@
           oldData = 2015;
           d3.select("svg").remove();
           plot(argentina);
-        } if (this.href.includes("#benin")) {
+        //adds functionality for the clear button depending on current href
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(argentina)}
+        )})}
+         if (this.href.includes("#benin")) {
           oldData = 2015;
           d3.select("svg").remove();
           plot(benin);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(benin)}
+        )})
         }if (this.href.includes("#guatemala")) {
           oldData = 2015;
           d3.select("svg").remove();
           plot(guatemala);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(guatemala)}
+        )})
         }if (this.href.includes("#nigeria")) {
           oldData = 2015;
           d3.select("svg").remove();
           plot(nigeria);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(nigeria)}
+        )})
         }if (this.href.includes("#sudan")) {
           oldData = 2015;
           d3.select("svg").remove();
           plot(sudan);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(sudan)}
+        )})
         }if (this.href.includes("#tunisia")) {
           oldData = 2015;
           d3.select("svg").remove();
           plot(tunisia);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(tunisia)}
+        )})
       }});
       //set margins
       var w = window.innerWidth * 0.8,
