@@ -100,16 +100,19 @@
 
   <body>
     <button type="button" id="Costarica_Fertility" class="btn">Costa Rica Fertility Rate</button>
-    <button type="button" id ="Korea_Fertility" class="btn btn-primary">Korea Fertility Rate</button>
+    <button type="button" id ="Benin" class="btn btn-primary">Benin</button>
     <button type="button" id ="results" class="btn ">res</button>
     <button type="button" id="clear">Clear</button>
     <button type="button" id="ans">Show Answers</button>
     <div class="dropdown">
-      <button class="dropbtn">Dropdown</button>
+      <button class="dropbtn">Choose a Population to Model!</button>
       <div class="dropdown-content">
-        <a href="#costa-rica">Costa Rica</a>
-        <a href="#korea">Korea</a>
+        <a href="#argentina">Argentina</a>
+        <a href="#benin">Benin</a>
+        <a href="#guatemala">Guatemala</a>
+        <a href="#nigeria">Nigeria</a>
         <a href="#sudan">Sudan</a>
+        <a href="#tunisia">Tunisia</a>
       </div>
     </div>
     <!-- Begin Javascript -->
@@ -120,52 +123,82 @@
       $(document).ready(function() {
         $.ajax({
           type: "GET",
-          url: "costarica_converted.csv",
+          url: "Argentina.csv",
           dataType: "text",
-          success: function(costarica){
-            plot(costarica)
-            costa=costarica
+          success: function(argentinaset){
+            plot(argentinaset)
+            argentina=argentinaset;
           }
         });
       });
       $(document).ready(function() {
         $.ajax({
           type: "GET",
-          url: "Korea_Fertility_converted.csv",
+          url: "Benin.csv",
           dataType: "text",
-          success: function(Korea_Fertility_converted){
-            data2=Korea_Fertility_converted
+          success: function(beninset){
+            benin=beninset;
           }
         });
       });
       $(document).ready(function() {
         $.ajax({
           type: "GET",
-          url: "SudanPopulation.csv",
+          url: "Guatemala.csv",
           dataType: "text",
-          success: function(Sudan){
-            sudan=Sudan
+          success: function(guatemalaset){
+            guatemala=guatemalaset;
           }
         });
       });
-      $(function(){
-        $('#Korea_Fertility').on('click', function (e) {
-          d3.select("svg").remove();
-          oldData = 2015;
-          plot(data2)
-          });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Nigeria.csv",
+          dataType: "text",
+          success: function(nigeriaset){
+            nigeria=nigeriaset;
+          }
         });
-      $(function(){
-        $('#Costarica_Fertility').on('click', function (e) {
-          d3.select("svg").remove();
-          oldData = 2015;
-          plot(costa)
-          });
+      });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Sudan.csv",
+          dataType: "text",
+          success: function(sudanset){
+            sudan=sudanset;
+          }
         });
+      });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Tunisia.csv",
+          dataType: "text",
+          success: function(tunisiaset){
+            tunisia=tunisiaset;
+          }
+        });
+      });
+      // $(function(){
+      //   $('#Korea_Fertility').on('click', function (e) {
+      //     d3.select("svg").remove();
+      //     oldData = 2015;
+      //     plot(data2)
+      //     });
+      //   });
+      // $(function(){
+      //   $('#Costarica_Fertility').on('click', function (e) {
+      //     d3.select("svg").remove();
+      //     oldData = 2015;
+      //     plot(costa)
+      //     });
+      //   });
 
       $(function(){
         $('#clear').on('click', function (e) {
-          d3.select("svg").remove();
+          d3.select("svg").remove(path);
           oldData = 2015;
           plot(data)
           });
@@ -183,28 +216,38 @@
               type: "GET",
               url: "user.csv",
               dataType: "text",
-              success: function(Korea_Fertility_converted){
-                calculate(Korea_Fertility_converted)
+              success: function(benin){
+                calculate(benin)
              }
             });
           });
         });
       $("div.dropdown-content a").click(function() {
-        if (this.href.includes("#costa-rica")) {
+        if (this.href.includes("#argentina")) {
           oldData = 2015;
           d3.select("svg").remove();
-          plot(costa);
-        } if (this.href.includes("#korea")) {
+          plot(argentina);
+        } if (this.href.includes("#benin")) {
           oldData = 2015;
           d3.select("svg").remove();
-          plot(data2);
-        } if (this.href.includes("#sudan")) {
+          plot(benin);
+        }if (this.href.includes("#guatemala")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(guatemala);
+        }if (this.href.includes("#nigeria")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(nigeria);
+        }if (this.href.includes("#sudan")) {
           oldData = 2015;
           d3.select("svg").remove();
           plot(sudan);
-        
-        }
-      });
+        }if (this.href.includes("#tunisia")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(tunisia);
+      }});
       //set margins
       var w = window.innerWidth * 0.8,
           h = window.innerHeight * 0.8,
