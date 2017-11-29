@@ -190,8 +190,8 @@
         }
       });
       //set margins
-      var w = window.innerWidth,
-          h = window.innerHeight/2,
+      var w = window.innerWidth * 0.8,
+          h = window.innerHeight * 0.8,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
 
@@ -232,11 +232,7 @@ var dataset = [];
       for (var i = 1; i < data.length-2; i += 2) {
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
-      for (var i = 55; i < data.length; i += 1) {
-        answer.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
-      }
-      console.log(answer);
-      console.log(dataset);
+
       var svg = d3.select("body").append("svg").attr({
         width: w,
         height: h,
@@ -244,7 +240,7 @@ var dataset = [];
       // setting x axis boundaries
       var xScale = d3.scale.linear()
           .domain([d3.min(dataset,function (d) {return d.x}), d3.max(dataset, function (d) { return d.x + 10; })])
-          .range([margin.left, w- margin.right]);  // Set margins for x specific
+          .range([margin.left, w- margin.right-40]);  // Set margins for x specific
       // setting y axis boundaries
       var yScale = d3.scale.linear()
           .domain([0, d3.max(dataset, function (d) { return d.y; })])
