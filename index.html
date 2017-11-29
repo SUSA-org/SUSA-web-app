@@ -194,7 +194,8 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
       var dataset = [];
       var answer = [];
       //console.log(data)
-      for (var i = 0; i < data.length-2; i += 1) {
+      // += 2 is to plot every other data point
+      for (var i = 1; i < data.length-2; i += 2) {
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
       for (var i = 55; i < data.length; i += 1) {
