@@ -362,7 +362,9 @@ var active;
                   .attr("d", linefunction(answer))
                   .attr("stroke", "red")
                   .attr("stroke-width", 2)
-                  .attr("fill", "none");
+                  .attr("fill", "none")
+                  .attr("id", "redLine")
+                  .attr("opacity", 0);
           }
         })
       // Create Event Handlers for mouse
