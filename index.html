@@ -221,6 +221,7 @@ var dataset = [];
       console.log(newData);
     }
     function plot(data) {
+      dataset = [];
       // read from CSV
       var data = d3.csv.parse(data);
       var answer = [];
@@ -334,7 +335,7 @@ var active;
             "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
           newData.y = parseFloat(newData.y);
-          if (newData.y > 0 && newData.x > 2015 && newData.x % 2 == 1) {
+          if (newData.y > 0 && newData.x > 2015 && newData.x % 2 == 1 && newData.x <= 2025) {
             var x = 0;
             for (var i = 0; i < dataset.length; i += 1) {
               if (dataset[i].x == newData.x) {
