@@ -168,6 +168,14 @@
   		      d3.select("#redLine").style("opacity", newOpacity);
   		      d3.select("#redAxis").style("opacity", newOpacity);
 		          redLine.active = active;
+            $.ajax({
+              type: "GET",
+              url: "user.csv",
+              dataType: "text",
+              success: function(Korea_Fertility_converted){
+                calculate(Korea_Fertility_converted)   
+              }
+            });
           });
         });
       $("div.dropdown-content a").click(function() {
@@ -188,10 +196,33 @@
           radius = 4;
 
 res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
+var dataset = [];
+    function calculate(data) {
+      var data = d3.csv.parse(data);
+      console.log("here!");
+      var newData = []
+      for (var i = 0; i < data.length; i += 1) {
+        var j = 0;
+        for (j = 0; j < dataset.length; j += 1) {
+          //console.log(dataset[j].x +" " + parseFloat(data[i].col1) +" " + (dataset[j].x == parseInt(data[i].col1)))
+          if (dataset[j].x == parseInt(data[i].col1)) {
+            break;
+          }
+        }
+        //console.log(j);
+        var value = 0;
+        if (j == dataset.length) {
+          value = dataset[j].y;
+        } else {
+          value = parseFloat(data[i].col2);
+        }
+        newData.push({"x": data[i].col1, "y": (value + dataset[j].y) / 2.0})
+      }
+      console.log(newData);
+    }
     function plot(data) {
       // read from CSV
       var data = d3.csv.parse(data);
-      var dataset = [];
       var answer = [];
       //console.log(data)
       // += 2 is to plot every other data point
@@ -395,7 +426,7 @@ var active;
             x = document.getElementById("t" + d.x + "-" + d.y + "-"+ i);
             x.remove();
           }
-}
+        }
     </script>
   </body>
 </html>
