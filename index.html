@@ -182,12 +182,11 @@
         }
       });
       //set margins
-      var w = window.innerWidth/2,
+      var w = window.innerWidth,
           h = window.innerHeight/2,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
 
-res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
     function plot(data) {
       // read from CSV
       var data = d3.csv.parse(data);
@@ -303,7 +302,7 @@ var active;
             "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
           newData.y = parseFloat(newData.y);
-          if (newData.y > 0 && newData.x > 2015 && newData.x % 2 == 1) {
+          if (newData.y > 0 && newData.x > 2015 && newData.x % 2 == 1 ) {
             var x = 0;
             for (var i = 0; i < dataset.length; i += 1) {
               if (dataset[i].x == newData.x) {
