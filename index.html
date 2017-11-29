@@ -161,12 +161,12 @@
         });
       $(function(){
         $('#ans').on('click', function (e) {
-          var active   = redLine.active ? false : true ,
-		        newOpacity = active ? 0 : 1;
-		          // Hide or show the elements
-		      d3.select("#redLine").style("opacity", newOpacity);
-		      d3.select("#redAxis").style("opacity", newOpacity);
 		        // Update whether or not the elements are active
+            var active   = redLine.active ? false:true ,
+  		        newOpacity = active ? 1 : 0;
+  		          // Hide or show the elements
+  		      d3.select("#redLine").style("opacity", newOpacity);
+  		      d3.select("#redAxis").style("opacity", newOpacity);
 		          redLine.active = active;
           });
         });
@@ -183,12 +183,13 @@
       });
       //set margins
 // <<<<<<< HEAD
-//       var w = window.innerWidth * 0.8,
-//           h = window.innerHeight * 0.8,
 // =======
-      var w = window.innerWidth,
-          h = window.innerHeight/2,
+      // var w = window.innerWidth,
+      // var w = window.innerWidth/2,
+      //     h = window.innerHeight/2,
 // >>>>>>> 62be8be5757ffc95d2ab553f270757fba7fda74d
+      var w = window.innerWidth * 0.8,
+          h = window.innerHeight * 0.8,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
 
@@ -197,16 +198,26 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
       // read from CSV
       var data = d3.csv.parse(data);
       var dataset = [];
+      var answer = [];
       //console.log(data)
-      for (var i = 0; i < data.length; i += 1) {
+      // += 2 is to plot every other data point
+      for (var i = 1; i < data.length-2; i += 2) {
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
-      console.log(dataset);
+// <<<<<<< HEAD
+//       console.log(dataset);
       // dataset = dataset.filter(i => i % 2 === 0);
       // console.log(dataset);
       // dataset = [for (d of dataset) if (d % 2 === 0) d];
       // data for data in dataset if data % 2 == 0];
       //console.log(dataset);
+// =======
+      for (var i = 55; i < data.length; i += 1) {
+        answer.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
+      }
+      console.log(answer);
+      console.log(dataset);
+// >>>>>>> abe3f9c327cdcadeffc84306747414441030866a
       var svg = d3.select("body").append("svg").attr({
         width: w,
         height: h,
@@ -266,13 +277,20 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
           .attr("fill", "none");
       //updates initial circles
       svg.selectAll("circle")
-
           .data(dataset)
           .enter()
           .append("circle")
           .attr(circleAttrs)  // Get attributes from circleAttrs var
           .on("mouseover", handleMouseOver)
           .on("mouseout", handleMouseOut);
+var active;
+      svg.append("path")
+          .attr("d", linefunction(answer))
+          .attr("stroke", "red")
+          .attr("stroke-width", 2)
+          .attr("fill", "none")
+          .attr("id", "redLine")
+          .attr("opacity", 0);
 
 //WIP currently breaks click functionality
       //on mousemove, there should be a line from the last point to the mouse cursor
@@ -300,7 +318,7 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
             "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
           newData.y = parseFloat(newData.y);
-          if (newData.y > 0 && newData.x > 2015) {
+          if (newData.y > 0 && newData.x > 2015 && newData.x % 2 == 1) {
             var x = 0;
             for (var i = 0; i < dataset.length; i += 1) {
               if (dataset[i].x == newData.x) {
@@ -342,20 +360,28 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
               transform: "translate(" + [margin.left, 0] + ")"
             }).call(yAxis);  // Call the yAxis function on the group
 
-            svg.selectAll("circle")
-               // For new circle, go through the update process
-              .data(dataset)
-              .enter()
-              .append("circle")
-              .attr(circleAttrs)  // Get attributes from circleAttrs var
-              .on("mouseover", handleMouseOver)
-              .on("mouseout", handleMouseOut);
+
             path = svg.append("path")
                //make the connecting line
               .attr("d", linefunction(dataset))
               .attr("stroke", "blue")
               .attr("stroke-width", 2)
               .attr("fill", "none");
+              svg.append("path")
+                  .attr("d", linefunction(answer))
+                  .attr("stroke", "red")
+                  .attr("stroke-width", 2)
+                  .attr("fill", "none")
+                  .attr("id", "redLine")
+                  .attr("opacity", 0);
+                  svg.selectAll("circle")
+                     // For new circle, go through the update process
+                    .data(dataset)
+                    .enter()
+                    .append("circle")
+                    .attr(circleAttrs)  // Get attributes from circleAttrs var
+                    .on("mouseover", handleMouseOver)
+                    .on("mouseout", handleMouseOut);
           }
         })
       // Create Event Handlers for mouse
