@@ -107,8 +107,9 @@
     <div class="dropdown">
       <button class="dropbtn">Dropdown</button>
       <div class="dropdown-content">
-        <a href="#costarica">Costa Rica</a>
+        <a href="#costa-rica">Costa Rica</a>
         <a href="#korea">Korea</a>
+        <a href="#sudan">Sudan</a>
       </div>
     </div>
     <!-- Begin Javascript -->
@@ -122,8 +123,8 @@
           url: "costarica_converted.csv",
           dataType: "text",
           success: function(costarica){
-            plot(costarica);
-            data=costarica
+            plot(costarica)
+            costa=costarica
           }
         });
       });
@@ -137,7 +138,16 @@
           }
         });
       });
-
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "SudanPopulation.csv",
+          dataType: "text",
+          success: function(Sudan){
+            sudan=Sudan
+          }
+        });
+      });
       $(function(){
         $('#Korea_Fertility').on('click', function (e) {
           d3.select("svg").remove();
@@ -149,9 +159,10 @@
         $('#Costarica_Fertility').on('click', function (e) {
           d3.select("svg").remove();
           oldData = 2015;
-          plot(data)
+          plot(costa)
           });
         });
+
       $(function(){
         $('#clear').on('click', function (e) {
           d3.select("svg").remove();
@@ -179,14 +190,19 @@
           });
         });
       $("div.dropdown-content a").click(function() {
-        if (this.href.includes("costarica")) {
+        if (this.href.includes("#costa-rica")) {
           oldData = 2015;
           d3.select("svg").remove();
-          plot(data);
-        } else {
+          plot(costa);
+        } if (this.href.includes("#korea")) {
           oldData = 2015;
           d3.select("svg").remove();
           plot(data2);
+        } if (this.href.includes("#sudan")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(sudan);
+        
         }
       });
       //set margins
