@@ -15,6 +15,17 @@
         font-size: 11px;
         background-color: #EEE9D4;
       }
+      h1{
+        font-size: 26px;
+        text-align: center;
+        vertical-align: middle;
+        padding-top: 16px;
+      }
+      p{
+        font-size: 16px;
+        text-align: center;
+        padding:15px;
+      }
       .axis path, .axis line {
         fill: none;
         stroke: black;
@@ -56,6 +67,8 @@
       .dropdown {
           position: relative;
           display: inline-block;
+          text-align: center;
+
 
       }
       /* Dropdown Content (Hidden by Default) */
@@ -68,6 +81,7 @@
           z-index: 1;
           border: 2px;
           border-radius: 30px;
+
       }
       /* Links inside the dropdown */
       .dropdown-content a {
@@ -99,11 +113,10 @@
   </head>
 
   <body>
-    <button type="button" id="Costarica_Fertility" class="btn">Costa Rica Fertility Rate</button>
-    <button type="button" id ="Benin" class="btn btn-primary">Benin</button>
-    <button type="button" id ="results" class="btn ">res</button>
-    <button type="button" id="clear">Clear</button>
-    <button type="button" id="ans">Show Answers</button>
+    <h1> Population Modeling Demo </h1>
+    <p> Plot the values every two years from 2015 to 2025 below! Click the 'Show Answers'
+      button when you're done to view the predicted United Nations model as well as our own model!</p>
+
     <div class="dropdown">
       <button class="dropbtn">Choose a Population to Model!</button>
       <div class="dropdown-content">
@@ -113,13 +126,16 @@
         <a href="#nigeria">Nigeria</a>
         <a href="#sudan">Sudan</a>
         <a href="#tunisia">Tunisia</a>
+
       </div>
+    <button type="button" id="clear">Clear</button>
+    <button type="button" id="ans">Show Answers</button>
     </div>
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
       var oldData = 2015;
-      //load csv
+      //load csvs
       $(document).ready(function() {
         $.ajax({
           type: "GET",
@@ -181,21 +197,7 @@
           }
         });
       });
-      // $(function(){
-      //   $('#Korea_Fertility').on('click', function (e) {
-      //     d3.select("svg").remove();
-      //     oldData = 2015;
-      //     plot(data2)
-      //     });
-      //   });
-      // $(function(){
-      //   $('#Costarica_Fertility').on('click', function (e) {
-      //     d3.select("svg").remove();
-      //     oldData = 2015;
-      //     plot(costa)
-      //     });
-      //   });
-
+      //functionality for clearing paths
       $(function(){
         $('#clear').on('click', function (e) {
           d3.select("svg").remove(path);
@@ -203,6 +205,7 @@
           plot(data)
           });
         });
+      //adding answer key for un model
       $(function(){
         $('#ans').on('click', function (e) {
 		        // Update whether or not the elements are active
@@ -222,6 +225,7 @@
             });
           });
         });
+      //configuring the dropdown menu
       $("div.dropdown-content a").click(function() {
         if (this.href.includes("#argentina")) {
           oldData = 2015;
