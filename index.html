@@ -163,7 +163,7 @@
         $('#ans').on('click', function (e) {
 		        // Update whether or not the elements are active
             var active   = redLine.active ? false:true ,
-  		        newOpacity = active ? 0 : 1;
+  		        newOpacity = active ? 1 : 0;
   		          // Hide or show the elements
   		      d3.select("#redLine").style("opacity", newOpacity);
   		      d3.select("#redAxis").style("opacity", newOpacity);
@@ -273,7 +273,8 @@ var active;
           .attr("stroke", "red")
           .attr("stroke-width", 2)
           .attr("fill", "none")
-          .attr("id", "redLine");
+          .attr("id", "redLine")
+          .attr("opacity", 0);
 
 //WIP currently breaks click functionality
       //on mousemove, there should be a line from the last point to the mouse cursor
