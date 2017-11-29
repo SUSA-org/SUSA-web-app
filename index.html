@@ -168,6 +168,14 @@
   		      d3.select("#redLine").style("opacity", newOpacity);
   		      d3.select("#redAxis").style("opacity", newOpacity);
 		          redLine.active = active;
+            $.ajax({
+              type: "GET",
+              url: "user.csv",
+              dataType: "text",
+              success: function(Korea_Fertility_converted){
+                calculate(Korea_Fertility_converted)
+              }
+            });
           });
         });
       $("div.dropdown-content a").click(function() {
@@ -182,6 +190,7 @@
         }
       });
       //set margins
+<<<<<<< HEAD
 // <<<<<<< HEAD
 // =======
       // var w = window.innerWidth,
@@ -190,14 +199,43 @@
 // >>>>>>> 62be8be5757ffc95d2ab553f270757fba7fda74d
       var w = window.innerWidth * 0.8,
           h = window.innerHeight * 0.8,
+=======
+      var w = window.innerWidth,
+          h = window.innerHeight/2,
+>>>>>>> 111019d909e5cf6d80390f52e3aacca6e4ab9942
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
 
-res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
+
+var dataset = [];
+    function calculate(data) {
+      var data = d3.csv.parse(data);
+      console.log("here!");
+      var newData = []
+      for (var i = 0; i < data.length; i += 1) {
+        var j = 0;
+        for (j = 0; j < dataset.length; j += 1) {
+          //console.log(dataset[j].x +" " + parseFloat(data[i].col1) +" " + (dataset[j].x == parseInt(data[i].col1)))
+          if (dataset[j].x == parseInt(data[i].col1)) {
+            break;
+          }
+        }
+        //console.log(j);
+        var value = 0;
+        if (j == dataset.length) {
+          value = dataset[j].y;
+        } else {
+          value = parseFloat(data[i].col2);
+        }
+        newData.push({"x": data[i].col1, "y": (value + dataset[j].y) / 2.0})
+      }
+      console.log(newData);
+    }
+
     function plot(data) {
+      dataset = [];
       // read from CSV
       var data = d3.csv.parse(data);
-      var dataset = [];
       var answer = [];
       //console.log(data)
       // += 2 is to plot every other data point
@@ -318,7 +356,7 @@ var active;
             "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
           newData.y = parseFloat(newData.y);
-          if (newData.y > 0 && newData.x > 2015 && newData.x % 2 == 1) {
+          if (newData.y > 0 && newData.x > 2015 && newData.x % 2 == 1 && newData.x <= 2025) {
             var x = 0;
             for (var i = 0; i < dataset.length; i += 1) {
               if (dataset[i].x == newData.x) {
@@ -411,7 +449,7 @@ var active;
             x = document.getElementById("t" + d.x + "-" + d.y + "-"+ i);
             x.remove();
           }
-}
+        }
     </script>
   </body>
 </html>
