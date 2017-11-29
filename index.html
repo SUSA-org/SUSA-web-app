@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8">
     <!-- Load D3 from site -->
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
 
     <!-- CSS (Styling) -->
     <style type="text/css">
@@ -44,7 +44,11 @@
 
 
       .dropbtn {
+<<<<<<< HEAD
+          background-color: #268bd2;
+=======
           background-color: #268BD2;
+>>>>>>> 0f240cfa6d4ad813aedd9d2d8d4579c7245cac20
           color: white;
           padding: 16px;
           font-size: 16px;
@@ -161,13 +165,14 @@
         });
       $(function(){
         $('#ans').on('click', function (e) {
-          var active   = redLine.active ? false : true ,
-		        newOpacity = active ? 0 : 1;
+          //var active   = redLine.active ? false : true ,
+		        //newOpacity = active ? 0 : 1;
 		          // Hide or show the elements
-		      d3.select("#redLine").style("opacity", newOpacity);
-		      d3.select("#redAxis").style("opacity", newOpacity);
+		      //d3.select("#redLine").style("opacity", newOpacity);
+		      //d3.select("#redAxis").style("opacity", newOpacity);
 		        // Update whether or not the elements are active
-		          redLine.active = active;
+		        //  redLine.active = active;
+          plot().inner(data2);
           });
         });
       $("div.dropdown-content a").click(function() {
@@ -187,7 +192,7 @@
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
 
-res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
+          res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
     function plot(data) {
       // read from CSV
       var data = d3.csv.parse(data);
@@ -289,65 +294,55 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
             "x": Math.round( xScale.invert(coords[0])),  // Takes the pixel number to convert to coordinate
             "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
-          newData.y = parseFloat(newData.y);
-          if (newData.y > 0 && newData.x >= 2015) {
-            var x = 0;
-            for (var i = 0; i < dataset.length; i += 1) {
-              if (dataset[i].x == newData.x) {
-                x = i;
-                dataset[i] = newData;
-              }
+
+          for (var i = 0; i < dataset.length; i += 1) {
+            if (dataset[i].x == newData.x) {
+              dataset[i].y = parseFloat(newData.y);
             }
-            if (newData.x > oldData) {
-              dataset.push(newData);   // Push data to our dataset array
-              oldData = newData.x;
-              console.log(oldData);
-              console.log(dataset);
-            } else {
-              temp = [];
-              temp.push(dataset[0])
-              for (var i = 1; i < dataset.length; i += 1) {
-                if (newData.x >= dataset[i - 1].x && newData.x <= dataset[i].x) {
-                  temp.push(newData);
-                }
-                temp.push(dataset[i])
-              }
-              dataset = temp;
-            }
-            d3.selectAll("circle").remove();
-            d3.selectAll("path").remove();
-
-            // define an X and Y Axis
-            var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
-            var yAxis = d3.svg.axis().scale(yScale).orient("left");
-            // Adds X-Axis as a 'g' element
-            svg.append("g").attr({
-              "class": "axis",  // Give class so we can style it
-              transform: "translate(" + [0,h - 2* margin.bottom] + ")"  // Moves from top of screen to bottom
-            }).call(xAxis);  // Call the xAxis function on the group
-
-            // Adds Y-Axis as a 'g' element
-            svg.append("g").attr({
-              "class": "axis",
-              transform: "translate(" + [margin.left, 0] + ")"
-            }).call(yAxis);  // Call the yAxis function on the group
-
-            svg.selectAll("circle")
-               // For new circle, go through the update process
-              .data(dataset)
-              .enter()
-              .append("circle")
-              .attr(circleAttrs)  // Get attributes from circleAttrs var
-              .on("mouseover", handleMouseOver)
-              .on("mouseout", handleMouseOut);
-            path = svg.append("path")
-               //make the connecting line
-              .attr("d", linefunction(dataset))
-              .attr("stroke", "blue")
-              .attr("stroke-width", 2)
-              .attr("fill", "none");
           }
-        })
+          console.log(dataset);
+
+          if (newData.x > oldData) {
+            dataset.push(newData);   // Push data to our dataset array
+            oldData = newData.x;
+            console.log(oldData);
+            console.log(dataset);
+          } else {
+            // temp = [];
+            // temp.push(dataset[0])
+            // for (var i = 1; i < dataset.length; i += 1) {
+            //   if (newData.x >= dataset[i - 1].x && newData.x <= dataset[i].x) {
+            //     temp.push(newData);
+            //   }
+            //   temp.push(dataset[i])
+            // }
+            // dataset = temp;
+          }
+          d3.selectAll("circle").remove();
+          d3.selectAll("path2").remove();
+          svg.selectAll("circle")
+             // For new circle, go through the update process
+
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr(circleAttrs)  // Get attributes from circleAttrs var
+            .on("mouseover", handleMouseOver)
+            .on("mouseout", handleMouseOut);
+          path = svg.append("path2")
+             //make the connecting line
+            .attr("d", linefunction(dataset))
+            .attr("stroke", "blue")
+            .attr("stroke-width", 2)
+          // writing to csv file
+          // $.ajax({
+          //   type: "POST",
+          //   url: "posted-data.csv",
+          //   data: dataset,
+          //   dataType: "text"
+          // });
+                .attr("fill", "none");
+    })
       // Create Event Handlers for mouse
       function handleMouseOver(d, i) {  // Add interactivity
             // Use D3 to select element, change color and size
@@ -375,6 +370,14 @@ res =[{"x":2015,"y":1.8},{"x":2016, "y":2.0}];
             x = document.getElementById("t" + d.x + "-" + d.y + "-"+ i);
             x.remove();
           }
+
+      this.show = function show(dataset){
+        svg.append("path")
+        .attr("d", linefunction(dataset))
+        .attr("stroke", "blue")
+        .attr("stroke-width", 2)
+        .attr("fill", "none");
+      }
 }
     </script>
   </body>
