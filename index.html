@@ -335,8 +335,13 @@ var active;
             "x": Math.round( xScale.invert(coords[0])),  // Takes the pixel number to convert to coordinate
             "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
+          if (newData.x % 2 == 0 && newData.x - xScale.invert(coords[0]) > 0) {
+            newData.x = newData.x + 1
+          } else if (newData.x % 2 == 0 && newData.x - xScale.invert(coords[0]) < 0) {
+            newData.x = newData.x - 1
+          }
           newData.y = parseFloat(newData.y);
-          if (newData.y > 0 && newData.x > 2015 && newData.x % 2 == 1 && newData.x <= 2025) {
+          if (newData.y > 0 && newData.x > 2015 && newData.x <= 2025) {
             var x = 0;
             for (var i = 0; i < dataset.length; i += 1) {
               if (dataset[i].x == newData.x) {
