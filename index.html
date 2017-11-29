@@ -15,6 +15,17 @@
         font-size: 11px;
         background-color: #EEE9D4;
       }
+      h1{
+        font-size: 26px;
+        text-align: center;
+        vertical-align: middle;
+        padding-top: 16px;
+      }
+      p{
+        font-size: 16px;
+        text-align: center;
+        padding:15px;
+      }
       .axis path, .axis line {
         fill: none;
         stroke: black;
@@ -53,6 +64,7 @@
       .dropdown {
           position: relative;
           display: inline-block;
+          text-align: center;
       }
       /* Dropdown Content (Hidden by Default) */
       .dropdown-content {
@@ -64,6 +76,7 @@
           z-index: 1;
           border: 2px;
           border-radius: 30px;
+
       }
       /* Links inside the dropdown */
       .dropdown-content a {
@@ -94,65 +107,100 @@
   </head>
 
   <body>
-    <button type="button" id="Costarica_Fertility" class="btn">Costa Rica Fertility Rate</button>
-    <button type="button" id ="Korea_Fertility" class="btn btn-primary">Korea Fertility Rate</button>
-    <button type="button" id ="results" class="btn ">res</button>
+    <h1> Population Modeling Demo </h1>
+    <p> Plot the values every two years from 2015 to 2025 below! Click the 'Show Answers'
+      button when you're done to view the predicted United Nations model as well as our own model!</p>
+
+    <div class="dropdown">
+      <button class="dropbtn">Choose a Population to Model!</button>
+      <div class="dropdown-content">
+        <a href="#argentina">Argentina</a>
+        <a href="#benin">Benin</a>
+        <a href="#guatemala">Guatemala</a>
+        <a href="#nigeria">Nigeria</a>
+        <a href="#sudan">Sudan</a>
+        <a href="#tunisia">Tunisia</a>
+
+      </div>
     <button type="button" id="clear">Clear</button>
     <button type="button" id="ans">Show Answers</button>
-    <div class="dropdown">
-      <button class="dropbtn">Dropdown</button>
-      <div class="dropdown-content">
-        <a href="#costarica">Costa Rica</a>
-        <a href="#korea">Korea</a>
-      </div>
     </div>
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
       var oldData = 2015;
-      //load csv
+      //load csvs
       $(document).ready(function() {
         $.ajax({
           type: "GET",
-          url: "costarica_converted.csv",
+          url: "Argentina.csv",
           dataType: "text",
-          success: function(costarica){
-            plot(costarica);
-            data=costarica
+          success: function(argentinaset){
+            plot(argentinaset)
+            argentina=argentinaset;
           }
         });
       });
       $(document).ready(function() {
         $.ajax({
           type: "GET",
-          url: "Korea_Fertility_converted.csv",
+          url: "Benin.csv",
           dataType: "text",
-          success: function(Korea_Fertility_converted){
-            data2=Korea_Fertility_converted
+          success: function(beninset){
+            benin=beninset;
           }
         });
       });
-      $(function(){
-        $('#Korea_Fertility').on('click', function (e) {
-          d3.select("svg").remove();
-          oldData = 2015;
-          plot(data2)
-          });
+// <<<<<<< HEAD
+//       $(function(){
+//         $('#Korea_Fertility').on('click', function (e) {
+//           d3.select("svg").remove();
+//           oldData = 2015;
+//           plot(data2)
+//           });
+// =======
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Guatemala.csv",
+          dataType: "text",
+          success: function(guatemalaset){
+            guatemala=guatemalaset;
+          }
         });
-      $(function(){
-        $('#Costarica_Fertility').on('click', function (e) {
-          d3.select("svg").remove();
-          oldData = 2015;
-          plot(data)
-          });
+      });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Nigeria.csv",
+          dataType: "text",
+          success: function(nigeriaset){
+            nigeria=nigeriaset;
+          }
         });
-      $(function(){
-        $('#clear').on('click', function (e) {
-          d3.select("svg").remove();
-          oldData = 2015;
-          plot(data)
-          });
+      });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Sudan.csv",
+          dataType: "text",
+          success: function(sudanset){
+            sudan=sudanset;
+          }
         });
+      });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Tunisia.csv",
+          dataType: "text",
+          success: function(tunisiaset){
+            tunisia=tunisiaset;
+          }
+        });
+      });
+      
+      //adding answer key for un model
       $(function(){
         $('#ans').on('click', function (e) {
             // Update whether or not the elements are active
@@ -166,29 +214,93 @@
               type: "GET",
               url: "user.csv",
               dataType: "text",
-              success: function(Korea_Fertility_converted){
-                calculate(Korea_Fertility_converted)
-              }
+              success: function(benin){
+                calculate(benin)
+             }
             });
           });
         });
+
+      //base functionality for clearing paths
+      $(function(){
+        $('#clear').on('click', function (e) {
+          d3.select("svg").remove("path");
+          oldData = 2015;
+          plot(argentina)
+          });
+        });
+
+      //configuring the dropdown menu
       $("div.dropdown-content a").click(function() {
-        if (this.href.includes("costarica")) {
+        if (this.href.includes("#argentina")) {
           oldData = 2015;
           d3.select("svg").remove();
-          plot(data);
-        } else {
+          plot(argentina);
+        //adds functionality for the clear button depending on current href
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(argentina)}
+        )})}
+         if (this.href.includes("#benin")) {
           oldData = 2015;
           d3.select("svg").remove();
-          plot(data2);
-        }
-      });
+          plot(benin);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(benin)}
+        )})
+        }if (this.href.includes("#guatemala")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(guatemala);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(guatemala)}
+        )})
+        }if (this.href.includes("#nigeria")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(nigeria);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(nigeria)}
+        )})
+        }if (this.href.includes("#sudan")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(sudan);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(sudan)}
+        )})
+        }if (this.href.includes("#tunisia")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(tunisia);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(tunisia)}
+        )})
+      }});
       //set margins
       var w = window.innerWidth,
           h = window.innerHeight/2,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
 var dataset = [];
+  //calculates averages
     function calculate(data) {
       var data = d3.csv.parse(data);
       console.log("here!");
