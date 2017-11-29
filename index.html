@@ -138,8 +138,8 @@
         //console.log("heeere", this.href.includes("link1"));
       });
       //set margins
-      var w = window.innerWidth,
-          h = window.innerHeight,
+      var w = window.innerWidth * 0.8,
+          h = window.innerHeight * 0.8,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
     function plot(data) {
@@ -150,6 +150,11 @@
       for (var i = 0; i < data.length; i += 1) {
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
+      console.log(dataset);
+      // dataset = dataset.filter(i => i % 2 === 0);
+      // console.log(dataset);
+      // dataset = [for (d of dataset) if (d % 2 === 0) d];
+      // data for data in dataset if data % 2 == 0];
       //console.log(dataset);
       var svg = d3.select("body").append("svg").attr({
         width: w,
