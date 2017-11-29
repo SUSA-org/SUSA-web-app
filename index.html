@@ -376,14 +376,7 @@ var active;
               transform: "translate(" + [margin.left, 0] + ")"
             }).call(yAxis);  // Call the yAxis function on the group
 
-            svg.selectAll("circle")
-               // For new circle, go through the update process
-              .data(dataset)
-              .enter()
-              .append("circle")
-              .attr(circleAttrs)  // Get attributes from circleAttrs var
-              .on("mouseover", handleMouseOver)
-              .on("mouseout", handleMouseOut);
+
             path = svg.append("path")
                //make the connecting line
               .attr("d", linefunction(dataset))
@@ -397,6 +390,14 @@ var active;
                   .attr("fill", "none")
                   .attr("id", "redLine")
                   .attr("opacity", 0);
+                  svg.selectAll("circle")
+                     // For new circle, go through the update process
+                    .data(dataset)
+                    .enter()
+                    .append("circle")
+                    .attr(circleAttrs)  // Get attributes from circleAttrs var
+                    .on("mouseover", handleMouseOver)
+                    .on("mouseout", handleMouseOut);
           }
         })
       // Create Event Handlers for mouse
