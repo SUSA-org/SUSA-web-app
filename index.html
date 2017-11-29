@@ -15,6 +15,17 @@
         font-size: 11px;
         background-color: #EEE9D4;
       }
+      h1{
+        font-size: 26px;
+        text-align: center;
+        vertical-align: middle;
+        padding-top: 16px;
+      }
+      p{
+        font-size: 16px;
+        text-align: center;
+        padding:15px;
+      }
       .axis path, .axis line {
         fill: none;
         stroke: black;
@@ -56,6 +67,8 @@
       .dropdown {
           position: relative;
           display: inline-block;
+          text-align: center;
+
 
       }
       /* Dropdown Content (Hidden by Default) */
@@ -68,6 +81,7 @@
           z-index: 1;
           border: 2px;
           border-radius: 30px;
+
       }
       /* Links inside the dropdown */
       .dropdown-content a {
@@ -99,97 +113,100 @@
   </head>
 
   <body>
-    <button type="button" id="Costarica_Fertility" class="btn">Costa Rica Fertility Rate</button>
-    <button type="button" id ="Korea_Fertility" class="btn btn-primary">Korea Fertility Rate</button>
-    <button type="button" id ="results" class="btn ">res</button>
+    <h1> Population Modeling Demo </h1>
+    <p> Plot the values every two years from 2015 to 2025 below! Click the 'Show Answers'
+      button when you're done to view the predicted United Nations model as well as our own model!</p>
+
+    <div class="dropdown">
+      <button class="dropbtn">Choose a Population to Model!</button>
+      <div class="dropdown-content">
+        <a href="#argentina">Argentina</a>
+        <a href="#benin">Benin</a>
+        <a href="#guatemala">Guatemala</a>
+        <a href="#nigeria">Nigeria</a>
+        <a href="#sudan">Sudan</a>
+        <a href="#tunisia">Tunisia</a>
+
+      </div>
     <button type="button" id="clear">Clear</button>
     <button type="button" id="ans">Show Answers</button>
-    <div class="dropdown">
-      <button class="dropbtn">Dropdown</button>
-      <div class="dropdown-content">
-        <a href="#costarica">Costa Rica</a>
-        <a href="#korea">Korea</a>
-      </div>
-    </div>
-
-    <div class="jumbotron text-center">
-      <h1>My First Bootstrap Page</h1>
-      <p>Resize this responsive page to see the effect!</p> 
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4">
-          <h3>Column 1</h3>
-          <p>Lorem ipsum dolor..</p>
-          <p>Ut enim ad..</p>
-        </div>
-        <div class="col-lg-4">
-          <h3>Column 2</h3>
-          <p>Lorem ipsum dolor..</p>
-          <p>Ut enim ad..</p>
-        </div>
-        <div class="col-lg-4">
-          <h3>Column 3</h3> 
-          <p>Lorem ipsum dolor..</p>
-          <p>Ut enim ad..</p>
-        </div>
-      </div>
-      <div id = "temp" class = "row">
-        <div class="col-sm-8">
-        </div>
-      </div>
     </div>
 
     <!-- Begin Javascript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
       var oldData = 2015;
-      //load csv
+      //load csvs
       $(document).ready(function() {
         $.ajax({
           type: "GET",
-          url: "costarica_converted.csv",
+          url: "Argentina.csv",
           dataType: "text",
-          success: function(costarica){
-            plot(costarica);
-            data=costarica
+          success: function(argentinaset){
+            plot(argentinaset)
+            argentina=argentinaset;
           }
         });
       });
       $(document).ready(function() {
         $.ajax({
           type: "GET",
-          url: "Korea_Fertility_converted.csv",
+          url: "Benin.csv",
           dataType: "text",
-          success: function(Korea_Fertility_converted){
-            data2=Korea_Fertility_converted
+          success: function(beninset){
+            benin=beninset;
           }
         });
       });
-
-      $(function(){
-        $('#Korea_Fertility').on('click', function (e) {
-          d3.select("svg").remove();
-          oldData = 2015;
-          plot(data2)
-          });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Guatemala.csv",
+          dataType: "text",
+          success: function(guatemalaset){
+            guatemala=guatemalaset;
+          }
         });
-      $(function(){
-        $('#Costarica_Fertility').on('click', function (e) {
-          d3.select("svg").remove();
-          oldData = 2015;
-          plot(data)
-          });
+      });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Nigeria.csv",
+          dataType: "text",
+          success: function(nigeriaset){
+            nigeria=nigeriaset;
+          }
         });
+      });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Sudan.csv",
+          dataType: "text",
+          success: function(sudanset){
+            sudan=sudanset;
+          }
+        });
+      });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Tunisia.csv",
+          dataType: "text",
+          success: function(tunisiaset){
+            tunisia=tunisiaset;
+          }
+        });
+      });
+      //base functionality for clearing paths
       $(function(){
         $('#clear').on('click', function (e) {
-          d3.select("svg").remove();
+          d3.select("svg").remove("path");
           oldData = 2015;
-          plot(data)
+          plot(argentina)
           });
         });
+      //adding answer key for un model
       $(function(){
         $('#ans').on('click', function (e) {
 		        // Update whether or not the elements are active
@@ -199,58 +216,81 @@
   		      d3.select("#redLine").style("opacity", newOpacity);
   		      d3.select("#redAxis").style("opacity", newOpacity);
 		          redLine.active = active;
-            $.ajax({
-              type: "GET",
-              url: "user.csv",
-              dataType: "text",
-              success: function(Korea_Fertility_converted){
-                calculate(Korea_Fertility_converted)
-              }
-            });
           });
         });
+      //configuring the dropdown menu
       $("div.dropdown-content a").click(function() {
-        if (this.href.includes("costarica")) {
+        if (this.href.includes("#argentina")) {
           oldData = 2015;
           d3.select("svg").remove();
-          plot(data);
-        } else {
+          plot(argentina);
+        //adds functionality for the clear button depending on current href
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(argentina)}
+        )})}
+         if (this.href.includes("#benin")) {
           oldData = 2015;
           d3.select("svg").remove();
-          plot(data2);
-        }
-      });
+          plot(benin);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(benin)}
+        )})
+        }if (this.href.includes("#guatemala")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(guatemala);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(guatemala)}
+        )})
+        }if (this.href.includes("#nigeria")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(nigeria);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(nigeria)}
+        )})
+        }if (this.href.includes("#sudan")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(sudan);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(sudan)}
+        )})
+        }if (this.href.includes("#tunisia")) {
+          oldData = 2015;
+          d3.select("svg").remove();
+          plot(tunisia);
+          $(function(){
+            $('#clear').on('click', function (e) {
+              d3.select("svg").remove("path");
+              oldData = 2015;
+              plot(tunisia)}
+        )})
+      }});
       //set margins
-      var w = window.innerWidth/2,
-          h = window.innerHeight/3,
+      var w = window.innerWidth * 0.8,
+          h = window.innerHeight * 0.8,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
 
 
 var dataset = [];
-    function calculate(data) {
-      var data = d3.csv.parse(data);
-      console.log("here!");
-      var newData = []
-      for (var i = 0; i < data.length; i += 1) {
-        var j = 0;
-        for (j = 0; j < dataset.length; j += 1) {
-          //console.log(dataset[j].x +" " + parseFloat(data[i].col1) +" " + (dataset[j].x == parseInt(data[i].col1)))
-          if (dataset[j].x == parseInt(data[i].col1)) {
-            break;
-          }
-        }
-        //console.log(j);
-        var value = 0;
-        if (j == dataset.length) {
-          value = dataset[j].y;
-        } else {
-          value = parseFloat(data[i].col2);
-        }
-        newData.push({"x": data[i].col1, "y": (value + dataset[j].y) / 2.0})
-      }
-      console.log(newData);
-    }
+  //calculates averages
 
     function plot(data) {
       dataset = [];
@@ -267,7 +307,6 @@ var dataset = [];
       }
       console.log(answer);
       console.log(dataset);
-      //var svg = d3.select("body .container #temp col-sm-8").append("svg").attr({
       var svg = d3.select("body").append("svg").attr({
         width: w,
         height: h,
@@ -275,7 +314,7 @@ var dataset = [];
       // setting x axis boundaries
       var xScale = d3.scale.linear()
           .domain([d3.min(dataset,function (d) {return d.x}), d3.max(dataset, function (d) { return d.x + 10; })])
-          .range([margin.left, w- margin.right]);  // Set margins for x specific
+          .range([margin.left, w- margin.right-40]);  // Set margins for x specific
       // setting y axis boundaries
       var yScale = d3.scale.linear()
           .domain([0, d3.max(dataset, function (d) { return d.y; })])
