@@ -56,6 +56,7 @@
           color: white;
           padding: 16px;
           font-size: 16px;
+          /*border: none;*/
           border: 2px;
           border-radius: 30px;
           cursor: pointer;
@@ -75,7 +76,7 @@
           box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
           z-index: 1;
           border: 2px;
-          border-radius: 30px;
+          border-radius: 10px;
 
       }
       /* Links inside the dropdown */
@@ -94,7 +95,7 @@
           display: block;
       }
       /* Change the background color of the dropdown button when the dropdown content is shown */
-      .dropdown:hover .dropbtn {
+      .dropdown:hover .dropbtn { /* hover */
           background-color: #337ab7;
       }
       /*
@@ -125,6 +126,7 @@
     <button type="button" id="clear">Clear</button>
     <button type="button" id="ans">Show Answers</button>
     </div>
+
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript">
@@ -205,19 +207,27 @@
         $('#ans').on('click', function (e) {
             // Update whether or not the elements are active
             var active   = redLine.active ? false:true ,
-              newOpacity = active ? 1 : 0;
-                // Hide or show the elements
-            d3.select("#redLine").style("opacity", newOpacity);
-            d3.select("#redAxis").style("opacity", newOpacity);
-              redLine.active = active;
-            $.ajax({
-              type: "GET",
-              url: "user.csv",
-              dataType: "text",
-              success: function(benin){
-                calculate(benin)
-             }
-            });
+// <<<<<<< HEAD
+//               newOpacity = active ? 1 : 0;
+//                 // Hide or show the elements
+//             d3.select("#redLine").style("opacity", newOpacity);
+//             d3.select("#redAxis").style("opacity", newOpacity);
+//               redLine.active = active;
+//             $.ajax({
+//               type: "GET",
+//               url: "user.csv",
+//               dataType: "text",
+//               success: function(benin){
+//                 calculate(benin)
+//              }
+//             });
+// =======
+  		        newOpacity = active ? 1 : 0;
+  		          // Hide or show the elements
+  		      d3.select("#redLine").style("opacity", newOpacity);
+  		      d3.select("#redAxis").style("opacity", newOpacity);
+		          redLine.active = active;
+// >>>>>>> 3aab6f77da04617cac0c96629d10cd6ece95beb8
           });
         });
 
@@ -295,35 +305,39 @@
         )})
       }});
       //set margins
-      var w = window.innerWidth,
-          h = window.innerHeight/2,
+      var w = window.innerWidth*0.8,
+          h = window.innerHeight*0.8,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
 var dataset = [];
   //calculates averages
-    function calculate(data) {
-      var data = d3.csv.parse(data);
-      console.log("here!");
-      var newData = []
-      for (var i = 0; i < data.length; i += 1) {
-        var j = 0;
-        for (j = 0; j < dataset.length; j += 1) {
-          //console.log(dataset[j].x +" " + parseFloat(data[i].col1) +" " + (dataset[j].x == parseInt(data[i].col1)))
-          if (dataset[j].x == parseInt(data[i].col1)) {
-            break;
-          }
-        }
-        //console.log(j);
-        var value = 0;
-        if (j == dataset.length) {
-          value = dataset[j].y;
-        } else {
-          value = parseFloat(data[i].col2);
-        }
-        newData.push({"x": data[i].col1, "y": (value + dataset[j].y) / 2.0})
-      }
-      console.log(newData);
-    }
+// <<<<<<< HEAD
+//     function calculate(data) {
+//       var data = d3.csv.parse(data);
+//       console.log("here!");
+//       var newData = []
+//       for (var i = 0; i < data.length; i += 1) {
+//         var j = 0;
+//         for (j = 0; j < dataset.length; j += 1) {
+//           //console.log(dataset[j].x +" " + parseFloat(data[i].col1) +" " + (dataset[j].x == parseInt(data[i].col1)))
+//           if (dataset[j].x == parseInt(data[i].col1)) {
+//             break;
+//           }
+//         }
+//         //console.log(j);
+//         var value = 0;
+//         if (j == dataset.length) {
+//           value = dataset[j].y;
+//         } else {
+//           value = parseFloat(data[i].col2);
+//         }
+//         newData.push({"x": data[i].col1, "y": (value + dataset[j].y) / 2.0})
+//       }
+//       console.log(newData);
+//     }
+// =======
+
+// >>>>>>> 3aab6f77da04617cac0c96629d10cd6ece95beb8
     function plot(data) {
       dataset = [];
       // read from CSV
