@@ -13,7 +13,7 @@
         margin: 0;
         font-family: sans-serif;
         font-size: 11px;
-        background-color: #EEE9D4;
+        background-color: #EEE9D4 !important;
       }
       h1{
         font-size: 26px;
@@ -66,6 +66,10 @@
           position: relative;
           display: inline-block;
           text-align: center;
+/*<<<<<<< HEAD
+=======*/
+          padding-bottom: 10px;
+/*>>>>>>> cec17744177a89814fec48d1a3c45307c9a515b5*/
       }
       /* Dropdown Content (Hidden by Default) */
       .dropdown-content {
@@ -98,6 +102,19 @@
       .dropdown:hover .dropbtn { /* hover */
           background-color: #337ab7;
       }
+      .svg {
+        position:absolute;
+        left: -100px;
+        border: 3px solid #73AD21;
+      }
+      #graphcont {
+        border: 1px solid #000000;
+        padding: 10px;
+        -moz-box-shadow: 0 0 3px #ccc;
+        -webkit-box-shadow: 0 0 3px #ccc;
+        box-shadow: 0 0 3px #ccc;
+        background-color: #EEE9D4
+      }
       /*
       //Can use CSS3 Transitions, but not for everything (e.g. change radius size)
       circle:hover{
@@ -112,23 +129,42 @@
     <p> Plot the values every two years from 2015 to 2025 below! Click the 'Show Answers'
       button when you're done to view the predicted United Nations model as well as our own model!</p>
 
-    <div class="dropdown">
-      <button class="dropbtn">Choose a Population to Model!</button>
-      <div class="dropdown-content">
-        <a href="#argentina">Argentina</a>
-        <a href="#benin">Benin</a>
-        <a href="#guatemala">Guatemala</a>
-        <a href="#nigeria">Nigeria</a>
-        <a href="#sudan">Sudan</a>
-        <a href="#tunisia">Tunisia</a>
-
+    <div class = "container" id = "first">
+      <div class = "row">
+        <div class = "col-md-4"></div>
+        <div class ="col-md-auto">
+          <div class="dropdown">
+            <button class="dropbtn">Choose a Population to Model!</button>
+            <div class="dropdown-content">
+              <a href="#argentina">Argentina</a>
+              <a href="#benin">Benin</a>
+              <a href="#guatemala">Guatemala</a>
+              <a href="#nigeria">Nigeria</a>
+              <a href="#sudan">Sudan</a>
+              <a href="#tunisia">Tunisia</a>
+            </div>
+          </div>
+          <button type="button" id="clear">Clear</button>
+          <button type="button" id="ans">Show Answers</button>
+        </div>
+        <div class = "col-md-4"></div>
       </div>
-    <button type="button" id="clear">Clear</button>
-    <button type="button" id="ans">Show Answers</button>
+    </div>
+    <div class = "row">
+      <div class = "col-md-4">
+      </div>
+    </div>
+    <div class ="container" id = "second">
+      <div class="row">
+        <div class="col-lg-16" id = "graphcont">
+        </div>
+      </div>
     </div>
 
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript">
       var oldData = 2015;
       //load csvs
@@ -305,8 +341,13 @@
         )})
       }});
       //set margins
-      var w = window.innerWidth*0.8,
-          h = window.innerHeight*0.8,
+// <<<<<<< HEAD
+//       var w = window.innerWidth*0.8,
+//           h = window.innerHeight*0.8,
+// =======
+      var w = window.innerWidth * 0.6,
+          h = window.innerHeight * 0.7,
+// >>>>>>> cec17744177a89814fec48d1a3c45307c9a515b5
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
 var dataset = [];
@@ -353,14 +394,14 @@ var dataset = [];
       }
       console.log(answer);
       console.log(dataset);
-      var svg = d3.select("body").append("svg").attr({
+      var svg = d3.select("body").select("div#second").select("div.row").select("div.col-lg-16").append("svg").attr({
         width: w,
-        height: h,
+        height: h
       });
       // setting x axis boundaries
       var xScale = d3.scale.linear()
           .domain([d3.min(dataset,function (d) {return d.x}), d3.max(dataset, function (d) { return d.x + 10; })])
-          .range([margin.left, w- margin.right]);  // Set margins for x specific
+          .range([margin.left, w- margin.right - 40]);  // Set margins for x specific
       // setting y axis boundaries
       var yScale = d3.scale.linear()
           .domain([0, d3.max(dataset, function (d) { return d.y; })])
