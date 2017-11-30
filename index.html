@@ -68,8 +68,7 @@
           position: relative;
           display: inline-block;
           text-align: center;
-
-
+          padding-bottom: 10px;
       }
       /* Dropdown Content (Hidden by Default) */
       .dropdown-content {
@@ -91,7 +90,6 @@
           display: block;
           border: inherit;
           border-radius: inherit;
-
       }
       /* Change color of dropdown links on hover */
       .dropdown-content a:hover {background-color: #f1f1f1}
@@ -130,24 +128,42 @@
       <br></br>
       United Nations model as well as our own model!</p>
 
-    <div class="dropdown">
-      <button class="dropbtn">Choose a Population to Model!</button>
-      <div class="dropdown-content">
-        <a href="#argentina">Argentina</a>
-        <a href="#benin">Benin</a>
-        <a href="#guatemala">Guatemala</a>
-        <a href="#nigeria">Nigeria</a>
-        <a href="#sudan">Sudan</a>
-        <a href="#tunisia">Tunisia</a>
-
+    <div class = "container" id = "first">
+      <div class = "row">
+        <div class = "col-md-4"></div>
+        <div class ="col-md-auto">
+          <div class="dropdown">
+            <button class="dropbtn">Choose a Population to Model!</button>
+            <div class="dropdown-content">
+              <a href="#argentina">Argentina</a>
+              <a href="#benin">Benin</a>
+              <a href="#guatemala">Guatemala</a>
+              <a href="#nigeria">Nigeria</a>
+              <a href="#sudan">Sudan</a>
+              <a href="#tunisia">Tunisia</a>
+            </div>
+          </div>
+          <button type="button" id="clear">Clear</button>
+          <button type="button" id="ans">Show Answers</button>
+        </div>
+        <div class = "col-md-4"></div>
       </div>
-    <button type="button" id="clear">Clear</button>
-    <button type="button" id="ans">Show Answers</button>
-
-  </div>
+    </div>
+    <div class = "row">
+      <div class = "col-md-4">
+      </div>
+    </div>
+    <div class ="container" id = "second">
+      <div class="row">
+        <div class="col-lg-16" id = "graphcont">
+        </div>
+      </div>
+    </div>
 
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript">
       var oldData = 2015;
       //load csvs
@@ -230,7 +246,6 @@
   		      d3.select("#redLine").style("opacity", newOpacity);
   		      d3.select("#redAxis").style("opacity", newOpacity);
 		          redLine.active = active;
-
           });
         });
       //configuring the dropdown menu
@@ -299,37 +314,14 @@
       }});
 
       //set margins
-      var w = window.innerWidth * 0.8,
-          h = window.innerHeight * 0.8,
+      var w = window.innerWidth * 0.6,
+          h = window.innerHeight * 0.7,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
 
 
 var dataset = [];
   //calculates averages
-    function calculate(data) {
-      var data = d3.csv.parse(data);
-      console.log("here!");
-      var newData = []
-      for (var i = 0; i < data.length; i += 1) {
-        var j = 0;
-        for (j = 0; j < dataset.length; j += 1) {
-          //console.log(dataset[j].x +" " + parseFloat(data[i].col1) +" " + (dataset[j].x == parseInt(data[i].col1)))
-          if (dataset[j].x == parseInt(data[i].col1)) {
-            break;
-          }
-        }
-        //console.log(j);
-        var value = 0;
-        if (j == dataset.length) {
-          value = dataset[j].y;
-        } else {
-          value = parseFloat(data[i].col2);
-        }
-        newData.push({"x": data[i].col1, "y": (value + dataset[j].y) / 2.0})
-      }
-      console.log(newData);
-    }
 
     function plot(data) {
       dataset = [];
@@ -341,15 +333,19 @@ var dataset = [];
       for (var i = 1; i < data.length-2; i += 2) {
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
-
-      var svg = d3.select("body").append("svg").attr({
+      for (var i = 55; i < data.length; i += 1) {
+        answer.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
+      }
+      console.log(answer);
+      console.log(dataset);
+      var svg = d3.select("body").select("div#second").select("div.row").select("div.col-lg-16").append("svg").attr({
         width: w,
         height: h,
       });
       // setting x axis boundaries
       var xScale = d3.scale.linear()
           .domain([d3.min(dataset,function (d) {return d.x}), d3.max(dataset, function (d) { return d.x + 10; })])
-          .range([margin.left, w- margin.right-30]);  // Set margins for x specific
+          .range([margin.left, w- margin.right-40]);  // Set margins for x specific
       // setting y axis boundaries
       var yScale = d3.scale.linear()
           .domain([0, 1.2*d3.max(dataset, function (d) { return d.y; })])
@@ -365,13 +361,13 @@ var dataset = [];
       // Adds X-Axis as a 'g' element
       svg.append("g").attr({
         "class": "axis",  // Give class so we can style it
-        transform: "translate(" + [10,h - 2* margin.bottom] + ")"  // Moves from top of screen to bottom
+        transform: "translate(" + [0,h - 2* margin.bottom] + ")"  // Moves from top of screen to bottom
       }).call(xAxis);  // Call the xAxis function on the group
 
       // Adds Y-Axis as a 'g' element
       svg.append("g").attr({
         "class": "axis",
-        transform: "translate(" + [10+margin.left, 0] + ")"
+        transform: "translate(" + [margin.left, 0] + ")"
       }).call(yAxis);  // Call the yAxis function on the group
 
       //adds vertical dotted line on 2015
