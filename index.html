@@ -106,10 +106,10 @@
         background-color: #f0eada;
         vertical-align: center;
         border-radius: 50px;
-        
+display:block;
         -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
         filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
-        margin:50px;
+        margin:auto;
 
       }
 
@@ -132,6 +132,8 @@
         padding: 10px;
         background-color: #268BD2;
         color: white;
+        border-radius: 30px;
+
       }
       #MLans {
         font-size: 16px;
@@ -160,6 +162,8 @@
         padding: 10px;
         background-color: #CBCBCB;
         color: black;
+        border-radius: 30px;
+
       }
       /*
       //Can use CSS3 Transitions, but not for everything (e.g. change radius size)
@@ -172,7 +176,7 @@
 
   <body>
     <h1> Population Modeling Demo </h1>
-    <p> Plot the values every two years from 2015 to 2025 below! Click the 'Show Answers'
+    <p> Plot the values every two years from 2015 to 2025 below! Click the 'Show unprojections'
       button when you're done to view the predicted
       <br></br>
       United Nations model as well as our own model!</p>
@@ -208,22 +212,23 @@
     </div>
     <div class = "container" id = "after">
       <div class = "row">
-        <div class="col-sm-9">
-        </div>
-        <div class = "col-sm-4">
+        <!-- <div class="col-sm-9">
+        </div> -->
+        <div class = "col-6 col-sm-3">
           <button type="button" id="clear">Clear</button>
         </div>
-        <div class = "col-sm-3" id = "below">
+        <div class = "col-6 col-sm-3" id = "below">
           <button type="button" id="UNans">Show UN Prediction</button>
         </div>
-        <div class = "col-sm-2" id = "below">
+        <div class = "col-6 col-sm-3" id = "below">
           <button type="button" id="MLans">Show Our ML Prediction</button>
         </div>
-        <div class = "col-sm-1" id = "below">
+        <div class = "col-6 col-sm-3" id = "below">
           <button type="button" id="TSans">Show Our Time Series Prediction</button>
+          <div class="col-sm-9">
         </div>
-      </div>
-    </div>
+        </div>
+
 
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -301,64 +306,6 @@
           }
         });
       });
-      
-      //adding answer key for un model
-      $(function(){
-// <<<<<<< HEAD
-//         $('#ans').on('click', function (e) {
-//             // Update whether or not the elements are active
-// =======
-        $('#UNans').on('click', function (e) {
-		        // Update whether or not the elements are active
-// >>>>>>> 3e614c8bc63ef84710a587fba36f8e521bea519c
-            var active   = redLine.active ? false:true ,
-// <<<<<<< HEAD
-//               newOpacity = active ? 1 : 0;
-//                 // Hide or show the elements
-//             d3.select("#redLine").style("opacity", newOpacity);
-//             d3.select("#redAxis").style("opacity", newOpacity);
-//               redLine.active = active;
-//             $.ajax({
-//               type: "GET",
-//               url: "user.csv",
-//               dataType: "text",
-//               success: function(benin){
-//                 calculate(benin)
-//              }
-//             });
-// =======
-  		        newOpacity = active ? 1 : 0;
-  		          // Hide or show the elements
-  		      d3.select("#redLine").style("opacity", newOpacity);
-  		      d3.select("#redAxis").style("opacity", newOpacity);
-		          redLine.active = active;
-// >>>>>>> 3aab6f77da04617cac0c96629d10cd6ece95beb8
-          });
-        });
-      $(function(){
-        $('#MLans').on('click', function (e) {
-            // Update whether or not the elements are active
-            var active   = greenLine.active ? false:true ,
-              newOpacity = active ? 1 : 0;
-                // Hide or show the elements
-            d3.select("#greenLine").style("opacity", newOpacity);
-            d3.select("#greenAxis").style("opacity", newOpacity);
-              greenLine.active = active;
-          });
-        });
-
-      $(function(){
-        $('#TSans').on('click', function (e) {
-            // Update whether or not the elements are active
-            var active   = cyanLine.active ? false:true ,
-              newOpacity = active ? 1 : 0;
-                // Hide or show the elements
-            d3.select("#cyanLine").style("opacity", newOpacity);
-            d3.select("#cyanAxis").style("opacity", newOpacity);
-              cyanLine.active = active;
-          });
-        });
-
       //base functionality for clearing paths
       $(function(){
         $('#clear').on('click', function (e) {
@@ -367,7 +314,44 @@
           plot(argentina)
           });
         });
+      //adding un-projection key for un model
+      $(function(){
+// <<<<<<< HEAD
+//         $('#ans').on('click', function (e) {
+//             // Update whether or not the elements are active
+// =======
+        $('#UNans').on('click', function (e) {
+		        // Update whether or not the elements are active
+            var active   = unproj.active ? false:true ,
+  		        newOpacity = active ? 1 : 0;
+  		          // Hide or show the elements
+  		      d3.select("#unproj").style("opacity", newOpacity);
 
+		          unproj.active = active;
+          });
+        });
+        $(function(){
+          $('#TSans').on('click', function (e) {
+  		        // Update whether or not the elements are active
+              var active   = TS.active ? false:true ,
+    		        newOpacity = active ? 1 : 0;
+    		          // Hide or show the elements
+    		      d3.select("#TS").style("opacity", newOpacity);
+
+  		          TS.active = active;
+            });
+          });
+        $(function(){
+          $('#MLans').on('click', function (e) {
+              // Update whether or not the elements are active
+              var active   = ML.active ? false:true ,
+                newOpacity = active ? 1 : 0;
+                  // Hide or show the elements
+              d3.select("#ML").style("opacity", newOpacity);
+
+                ML.active = active;
+            });
+          });
       //configuring the dropdown menu
       $("div.dropdown-content a").click(function() {
         if (this.href.includes("#argentina")) {
@@ -482,17 +466,20 @@ var dataset = [];
       dataset = [];
       // read from CSV
       var data = d3.csv.parse(data);
-      var answer = [];
-      //console.log(data)
+      var unprojection = [];
+      var timeseries_proj =[];
+      //splitting the datasets into their respective parts
       // += 2 is to plot every other data point
-      for (var i = 1; i < data.length-2; i += 2) {
+      for (var i = 1; i < 57; i += 2) {
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
-      for (var i = 55; i < data.length; i += 1) {
-        answer.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
+      for (var i = 55; i < 58; i += 1) {
+        unprojection.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
-      console.log(answer);
-      console.log(dataset);
+      for (var i = 58; i < data.length; i += 1) {
+        timeseries_proj.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
+      }
+
       var svg = d3.select("body").select("div#second").select("div.row").select("div.col-lg-12").append("svg").attr({
         width: w,
         height: h,
@@ -566,13 +553,21 @@ var dataset = [];
           .on("mouseover", handleMouseOver)
           .on("mouseout", handleMouseOut);
 
-
+      //un projection line
       svg.append("path")
-          .attr("d", linefunction(answer))
+          .attr("d", linefunction(unprojection))
           .attr("stroke", "red")
           .attr("stroke-width", 2)
           .attr("fill", "none")
-          .attr("id", "redLine")
+          .attr("id", "unproj")
+          .attr("opacity", 0);
+      //time series projection line
+      svg.append("path")
+          .attr("d", linefunction(timeseries_proj))
+          .attr("stroke", "green")
+          .attr("stroke-width", 2)
+          .attr("fill", "none")
+          .attr("id", "TS")
           .attr("opacity", 0);
 
       svg.append("path")
@@ -702,43 +697,36 @@ var dataset = [];
               "class": "axis",
               transform: "translate(" + [margin.left, 0] + ")"
             }).call(yAxis);  // Call the yAxis function on the group
-            path = svg.append("path")
+
+
+          path = svg.append("path")
                //make the connecting line
-              .attr("d", linefunction(dataset))
-              .attr("stroke", "blue")
-              .attr("stroke-width", 2)
-              .attr("fill", "none");
-              svg.append("path")
-                  .attr("d", linefunction(answer))
-                  .attr("stroke", "red")
-                  .attr("stroke-width", 2)
-                  .attr("fill", "none")
-                  .attr("id", "redLine")
-                  .attr("opacity", 0);
-
-              svg.append("path")
-                  .attr("d", linefunction(answer))
-                  .attr("stroke", "cyan")
-                  .attr("stroke-width", 2)
-                  .attr("fill", "none")
-                  .attr("id", "cyanLine")
-                  .attr("opacity", 0);
-
-              svg.append("path")
-                  .attr("d", linefunction(answer))
-                  .attr("stroke", "green")
-                  .attr("stroke-width", 2)
-                  .attr("fill", "none")
-                  .attr("id", "greenLine")
-                  .attr("opacity", 0);
-                  svg.selectAll("circle")
-                     // For new circle, go through the update process
-                    .data(dataset)
-                    .enter()
-                    .append("circle")
-                    .attr(circleAttrs)  // Get attributes from circleAttrs var
-                    .on("mouseover", handleMouseOver)
-                    .on("mouseout", handleMouseOut);
+            .attr("d", linefunction(dataset))
+            .attr("stroke", "blue")
+            .attr("stroke-width", 2)
+            .attr("fill", "none");
+          svg.append("path")
+            .attr("d", linefunction(unprojection))
+            .attr("stroke", "red")
+            .attr("stroke-width", 2)
+            .attr("fill", "none")
+            .attr("id", "unproj")
+            .attr("opacity", 0);
+          svg.append("path")
+            .attr("d", linefunction(timeseries_proj))
+            .attr("stroke", "green")
+            .attr("stroke-width", 2)
+            .attr("fill", "none")
+            .attr("id", "TS")
+            .attr("opacity", 0);
+          svg.selectAll("circle")
+             // For new circle, go through the update process
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr(circleAttrs)  // Get attributes from circleAttrs var
+            .on("mouseover", handleMouseOver)
+            .on("mouseout", handleMouseOut);
           }
         })
       // Create Event Handlers for mouse
