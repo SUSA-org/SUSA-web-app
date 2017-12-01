@@ -13,7 +13,7 @@
         margin: 0;
         font-family: sans-serif;
         font-size: 11px;
-        background-color: #EEE9D4 !important; 
+        background-color: #EEE9D4;
       }
       h1{
         font-size: 50px;
@@ -52,9 +52,6 @@
         transition-timing-function: ease;
         transition-delay: 0s;
       }
-      #shit {
-        padding-right: 10px;
-      }
 
 
       .dropbtn {
@@ -65,7 +62,6 @@
           border: 2px;
           border-radius: 30px;
           cursor: pointer;
-          margin-right: 5px;
       }
       /* The container <div> - needed to position the dropdown content */
       .dropdown {
@@ -109,22 +105,25 @@
         background-color: #f0eada;
         vertical-align: center;
         border-radius: 50px;
-
+        
         -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
         filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
         margin:50px;
 
       }
+
       #graphcont {
         height: 800px;
         width: 1300px;
+
         /*border-style: solid;
         border-width:2px;*/
       }
       #below {
-        margin-top: 0px;
+        margin-top: 10px;
+
       }
-      #ans1 {
+      #UNans {
         font-size: 16px;
         border: none;
         text-align: center;
@@ -134,7 +133,7 @@
         color: white;
       }
       #clear {
-        margin-top: 0px;
+        margin-top: 10px;
         font-size: 16px;
         border: none;
         text-align: center;
@@ -162,7 +161,7 @@
     <div class = "container" id = "first">
       <div class = "row">
         <div class = "col-md-5"></div>
-        <div class ="col-md-auto" id = "shit">
+        <div class ="col-md-auto">
           <div class="dropdown">
             <button class="dropbtn">Choose a Population to Model!</button>
             <div class="dropdown-content">
@@ -196,7 +195,7 @@
           <button type="button" id="clear">Clear</button>
         </div>
         <div class = "col-sm-2" id = "below">
-          <button type="button" id="ans1">Show Answers</button>
+          <button type="button" id="UNans">Show Answers</button>
         </div>
       </div>
     </div>
@@ -279,7 +278,7 @@
         });
       //adding answer key for un model
       $(function(){
-        $('#ans1').on('click', function (e) {
+        $('#UNans').on('click', function (e) {
 		        // Update whether or not the elements are active
             var active   = redLine.active ? false:true ,
   		        newOpacity = active ? 1 : 0;
@@ -357,7 +356,7 @@
       //set margins
       var w = window.innerWidth * 0.55,
           h = window.innerHeight * 0.75,
-          margin = { top: 40, right: 20, bottom: 30, left: 60 },
+          margin = { top: 40, right: 20, bottom: 20, left: 60 },
           radius = 4;
 
 
@@ -438,7 +437,7 @@ var dataset = [];
           .attr("stroke", "blue")
           .attr("stroke-width", 2)
           .attr("fill", "none");
-          .attr("transform", "translate(" + [0,-2]  + ")");
+
 
 
       //updates initial circles
@@ -460,14 +459,14 @@ var dataset = [];
           .attr("opacity", 0);
       svg.append("text")
               .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-              .attr("transform", "translate("+ (w/60) +","+(h/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+              .attr("transform", "translate("+ (w/35) +","+(h/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
                .attr("font-size", "20px")
-              .text("Value");
+              .text("Population Growth (Thousands)");
       svg.append("text")
                 .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-                .attr("transform", "translate("+ (w/2) +","+(h)+")")  // centre below axis
+                .attr("transform", "translate("+ (w/2) +","+(999*h/1000)+")")  // centre below axis
                  .attr("font-size", "20px")
-                .text("Date");
+                .text("Year");
       /*var legend = svg.append("g")
          .attr("class", "legend")
          .attr("x", 50)
