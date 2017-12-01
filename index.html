@@ -397,7 +397,7 @@ var dataset = [];
       };
       // Adds X-Axis as a 'g' element
       svg.append("g").attr({
-        //"class": "axis",  // Give class so we can style it
+        "class": "axis",  // Give class so we can style it
         transform: "translate(" + [0,h - 2* margin.bottom] + ")"  // Moves from top of screen to bottom
       }).call(xAxis);  // Call the xAxis function on the group
 
