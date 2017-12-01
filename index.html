@@ -106,11 +106,39 @@
         vertical-align: center;
         border-radius: 50px;
 
-          -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
-          filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
+        -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
+         filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
         padding: 30px;
         margin:50px;
       
+      }
+      #graphcont {
+        height: 800px;
+        width: 1300px; 
+        /*border-style: solid;
+        border-width:2px;*/
+      }
+      #below {
+        margin-top: 10px;
+      }
+      #ans1 {
+        font-size: 16px;
+        border: none;
+        text-align: center;
+        display: inline-block;
+        padding: 10px;
+        background-color: #268BD2;
+        color: white;
+      }
+      #clear {
+        margin-top: 10px;
+        font-size: 16px;
+        border: none;
+        text-align: center;
+        display: inline-block;
+        padding: 10px;
+        background-color: #CBCBCB;
+        color: black;
       }
       /*
       //Can use CSS3 Transitions, but not for everything (e.g. change radius size)
@@ -130,7 +158,7 @@
 
     <div class = "container" id = "first">
       <div class = "row">
-        <div class = "col-md-4"></div>
+        <div class = "col-md-5"></div>
         <div class ="col-md-auto">
           <div class="dropdown">
             <button class="dropbtn">Choose a Population to Model!</button>
@@ -143,8 +171,6 @@
               <a href="#tunisia">Tunisia</a>
             </div>
           </div>
-          <button type="button" id="clear">Clear</button>
-          <button type="button" id="ans">Show Answers</button>
         </div>
         <div class = "col-md-4"></div>
       </div>
@@ -155,7 +181,19 @@
     </div>
     <div class ="container" id = "second">
       <div class="row">
-        <div class="col-lg-16" id = "graphcont">
+        <div class="col-lg-12" id = "graphcont">
+        </div>
+      </div>
+    </div>
+    <div class = "container" id = "after">
+      <div class = "row">
+        <div class="col-sm-9">
+        </div>
+        <div class = "col-sm-1">
+          <button type="button" id="clear">Clear</button>
+        </div>
+        <div class = "col-sm-2" id = "below">
+          <button type="button" id="ans1">Show Answers</button>
         </div>
       </div>
     </div>
@@ -238,7 +276,7 @@
         });
       //adding answer key for un model
       $(function(){
-        $('#ans').on('click', function (e) {
+        $('#ans1').on('click', function (e) {
 		        // Update whether or not the elements are active
             var active   = redLine.active ? false:true ,
   		        newOpacity = active ? 1 : 0;
@@ -314,8 +352,8 @@
       }});
 
       //set margins
-      var w = window.innerWidth * 0.6,
-          h = window.innerHeight * 0.7,
+      var w = window.innerWidth * 0.55,
+          h = window.innerHeight * 0.75,
           margin = { top: 40, right: 20, bottom: 20, left: 40 },
           radius = 4;
 
@@ -338,7 +376,7 @@ var dataset = [];
       }
       console.log(answer);
       console.log(dataset);
-      var svg = d3.select("body").select("div#second").select("div.row").select("div.col-lg-16").append("svg").attr({
+      var svg = d3.select("body").select("div#second").select("div.row").select("div.col-lg-12").append("svg").attr({
         width: w,
         height: h,
       });
@@ -360,7 +398,7 @@ var dataset = [];
       };
       // Adds X-Axis as a 'g' element
       svg.append("g").attr({
-        "class": "axis",  // Give class so we can style it
+        //"class": "axis",  // Give class so we can style it
         transform: "translate(" + [0,h - 2* margin.bottom] + ")"  // Moves from top of screen to bottom
       }).call(xAxis);  // Call the xAxis function on the group
 
@@ -425,6 +463,34 @@ var dataset = [];
                 .attr("transform", "translate("+ (w/2) +","+(h)+")")  // centre below axis
                  .attr("font-size", "20px")
                 .text("Date");
+      /*var legend = svg.append("g")
+         .attr("class", "legend")
+         .attr("x", 50)
+         .attr("y", 80)
+         .attr("transform", "translate(50, 30)")
+         .style("font-size", "12px")
+
+      legend.selectAll('g').data(dataset)
+      .enter()
+      .append('g')
+      .each(function(d, i) {
+        var g = d3.select(this);
+        g.append("rect")
+          .attr("x", w - 65)
+          .attr("y", i*25)
+          .attr("width", 10)
+          .attr("height", 10)
+          .style("fill", "red");
+
+        g.append("text")
+          .attr("x", w - 50)
+          .attr("y", i * 25 + 8)
+          .attr("height",30)
+          .attr("width",100)
+          .style("fill", "blue")
+          .text("blue");
+
+      });*/
 
 
 //WIP currently breaks click functionality
