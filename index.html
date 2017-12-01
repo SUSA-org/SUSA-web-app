@@ -114,7 +114,7 @@
       }
 
       #graphcont {
-        height: 800px;
+        height: 650px;
         width: 1300px;
 
         /*border-style: solid;
@@ -125,6 +125,24 @@
 
       }
       #UNans {
+        font-size: 16px;
+        border: none;
+        text-align: center;
+        display: inline-block;
+        padding: 10px;
+        background-color: #268BD2;
+        color: white;
+      }
+      #MLans {
+        font-size: 16px;
+        border: none;
+        text-align: center;
+        display: inline-block;
+        padding: 10px;
+        background-color: #268BD2;
+        color: white;
+      }
+      #TSans {
         font-size: 16px;
         border: none;
         text-align: center;
@@ -196,7 +214,13 @@
           <button type="button" id="clear">Clear</button>
         </div>
         <div class = "col-sm-2" id = "below">
-          <button type="button" id="UNans">Show Answers</button>
+          <button type="button" id="UNans">Show UN Prediction</button>
+        </div>
+        <div class = "col-sm-2" id = "below">
+          <button type="button" id="MLans">Show Our ML Prediction</button>
+        </div>
+        <div class = "col-sm-2" id = "below">
+          <button type="button" id="TSans">Show Our Time Series Prediction</button>
         </div>
       </div>
     </div>
@@ -309,6 +333,29 @@
   		      d3.select("#redAxis").style("opacity", newOpacity);
 		          redLine.active = active;
 // >>>>>>> 3aab6f77da04617cac0c96629d10cd6ece95beb8
+          });
+        });
+      $(function(){
+        $('#MLans').on('click', function (e) {
+            // Update whether or not the elements are active
+            var active   = greenLine.active ? false:true ,
+              newOpacity = active ? 1 : 0;
+                // Hide or show the elements
+            d3.select("#greenLine").style("opacity", newOpacity);
+            d3.select("#greenAxis").style("opacity", newOpacity);
+              greenLine.active = active;
+          });
+        });
+
+      $(function(){
+        $('#TSans').on('click', function (e) {
+            // Update whether or not the elements are active
+            var active   = cyanLine.active ? false:true ,
+              newOpacity = active ? 1 : 0;
+                // Hide or show the elements
+            d3.select("#cyanLine").style("opacity", newOpacity);
+            d3.select("#cyanAxis").style("opacity", newOpacity);
+              cyanLine.active = active;
           });
         });
 
@@ -528,6 +575,22 @@ var dataset = [];
           .attr("id", "redLine")
           .attr("opacity", 0);
 
+      svg.append("path")
+          .attr("d", linefunction(answer))
+          .attr("stroke", "cyan")
+          .attr("stroke-width", 2)
+          .attr("fill", "none")
+          .attr("id", "cyanLine")
+          .attr("opacity", 0);
+
+      svg.append("path")
+          .attr("d", linefunction(answer))
+          .attr("stroke", "green")
+          .attr("stroke-width", 2)
+          .attr("fill", "none")
+          .attr("id", "greenLine")
+          .attr("opacity", 0);
+
       svg.append("text")
               .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
               .attr("transform", "translate("+ (w/35) +","+(h/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
@@ -651,6 +714,22 @@ var dataset = [];
                   .attr("stroke-width", 2)
                   .attr("fill", "none")
                   .attr("id", "redLine")
+                  .attr("opacity", 0);
+
+              svg.append("path")
+                  .attr("d", linefunction(answer))
+                  .attr("stroke", "cyan")
+                  .attr("stroke-width", 2)
+                  .attr("fill", "none")
+                  .attr("id", "cyanLine")
+                  .attr("opacity", 0);
+
+              svg.append("path")
+                  .attr("d", linefunction(answer))
+                  .attr("stroke", "green")
+                  .attr("stroke-width", 2)
+                  .attr("fill", "none")
+                  .attr("id", "greenLine")
                   .attr("opacity", 0);
                   svg.selectAll("circle")
                      // For new circle, go through the update process
