@@ -41,6 +41,9 @@
           border: 2px;
           border-radius: 30px;
           cursor: pointer;
+          text-align: center;
+          position: relative;
+          display: block;
       }
       /* The container <div> - needed to position the dropdown content */
       .dropdown {
@@ -51,6 +54,9 @@
 =======*/
           padding-bottom: 10px;
 /*>>>>>>> cec17744177a89814fec48d1a3c45307c9a515b5*/
+      }
+      .container{
+        text-align: center;
       }
       /* Dropdown Content (Hidden by Default) */
       .dropdown-content {
@@ -73,6 +79,7 @@
           border: inherit;
           border-radius: inherit;
       }
+
       /* Change color of dropdown links on hover */
       .dropdown-content a:hover {background-color: #f1f1f1}
       /* Show the dropdown menu on hover */
@@ -83,13 +90,16 @@
       .dropdown:hover .dropbtn { /* hover */
           background-color: #337ab7;
       }
+      .container2{
+        text-align: center;
+      }
       svg{
         background-color: #f0eada;
-        vertical-align: center;
+
         border-radius: 50px;
         display:block;
-        -webkit-filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
-        filter: drop-shadow(12px 12px 7px rgba(0,0,0,0.5));
+        -webkit-filter: drop-shadow(15px 12px 15px rgba(0,0,0,0.5));
+        filter: drop-shadow(15px 12px 15px rgba(0,0,0,0.5));
         margin:auto;
 
       }
@@ -172,10 +182,7 @@
       <br>
       United Nations<super>*</super> model as well as our own time series and machine learning generated models!</p>
 
-    <div class = "container" id = "first">
-      <div class = "row">
-        <div class = "col-md-5"></div>
-        <div class ="col-md-auto">
+      <div class="container">
           <div class="dropdown">
             <button class="dropbtn">Choose a Population to Model!</button>
             <div class="dropdown-content">
@@ -190,46 +197,31 @@
               <a href="#world">The Entire World</a>
             </div>
           </div>
-        </div>
-        <div class = "col-md-4"></div>
-      </div>
-    </div>
-    <div class = "row">
-      <div class = "col-md-4">
-      </div>
-    </div>
-    <div class ="container" id = "second">
-      <div class="row">
-        <div class="col-lg-12" id = "graphcont">
-        </div>
-      </div>
-    </div>
-    <div class = "container" id = "after">
-      <div class = "row">
-        <!-- <div class="col-sm-9">
-        </div> -->
-        <div class = "col-6 col-sm-3">
+</div>
+<br>
+<div id="svgcontainer" align="center">
+</div>
+<br><br>
+<div class ="container2">
           <button type="button" id="clear">Clear my answers</button>
-        </div>
-        <div class = "col-6 col-sm-3" id = "below">
+
+
           <button type="button" class= "orig" id="UNans" value="0">Toggle the United Nations' Predictions</button>
-        </div>
-        <div class = "col-6 col-sm-3" id = "below">
+
           <button type="button" class= "orig" id="MLans" value="0">Toggle our Machine Learning Predictions</button>
-        </div>
-        <div class = "col-6 col-sm-3" id = "below">
+
           <button type="button" class= "orig" id="TSans">Toggle our Time Series Predictions</button>
           <!-- <div class="col-sm-9">
         </div> -->
-        </div>
+</div>
+<br>
         <div id= "footer"><super>*</super>United Nations projections were taken as the average increase over a 5 year period.</div>
-        <h1><font color="white">wow you found an easter egg!</font></h1>
 
+<br>
 
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <script type="text/javascript">
       var oldData = 2015;
       //load csvs
@@ -500,7 +492,7 @@
    });
 
       //set margins
-      var w = window.innerWidth * 0.55,
+      var w = window.innerWidth * 0.8,
           h = window.innerHeight * 0.75,
           margin = { top: 40, right: 20, bottom: 20, left: 60 },
           radius = 4;
@@ -533,7 +525,7 @@
         ML_proj.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
 //puts svg in bootstrap
-      var svg = d3.select("body").select("div#second").select("div.row").select("div.col-lg-12").append("svg").attr({
+      var svg = d3.select("#svgcontainer").append("svg").attr({
         width: w,
         height: h,
       });
@@ -606,7 +598,7 @@
       svg.append("path")
           .attr("d", linefunction(unprojection))
           .attr("stroke", "red")
-          .attr("stroke-width", 2)
+          .attr("stroke-width", 4)
           .attr("fill", "none")
           .attr("id", "unproj")
           .attr("opacity", 0);
@@ -614,7 +606,7 @@
       svg.append("path")
           .attr("d", linefunction(timeseries_proj))
           .attr("stroke", "green")
-          .attr("stroke-width", 2)
+          .attr("stroke-width", 4)
           .attr("fill", "none")
           .attr("id", "TS")
           .attr("opacity", 0);
@@ -622,8 +614,8 @@
       //ML projection line
       svg.append("path")
           .attr("d", linefunction(ML_proj))
-          .attr("stroke", "yellow")
-          .attr("stroke-width", 2)
+          .attr("stroke", "pink")
+          .attr("stroke-width", 4)
           .attr("fill", "none")
           .attr("id", "ML")
           .attr("opacity", 0);
@@ -752,21 +744,21 @@
           svg.append("path")
             .attr("d", linefunction(unprojection))
             .attr("stroke", "red")
-            .attr("stroke-width", 2)
+            .attr("stroke-width", 4)
             .attr("fill", "none")
             .attr("id", "unproj")
             .attr("opacity", 0);
           svg.append("path")
             .attr("d", linefunction(timeseries_proj))
             .attr("stroke", "green")
-            .attr("stroke-width", 2)
+            .attr("stroke-width", 4)
             .attr("fill", "none")
             .attr("id", "TS")
             .attr("opacity", 0);
           svg.append("path")
             .attr("d", linefunction(ML_proj))
-            .attr("stroke", "yellow")
-            .attr("stroke-width", 2)
+            .attr("stroke", "pink")
+            .attr("stroke-width", 4)
             .attr("fill", "none")
             .attr("id", "ML")
             .attr("opacity", 0);
