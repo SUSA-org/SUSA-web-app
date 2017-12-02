@@ -31,26 +31,7 @@
         stroke: black;
         shape-rendering: crispEdges;  /* Round any decimal pixels so it'll render nicely */
       }
-      .btn {
-        color: #fff;
-        margin-right: 4px;
-        margin-bottom: 4px;
-        font-family: "Avenir Next", serif;
-        font-size: 16px;
-        font-weight: 400;
-        border: 2px;
-        border-radius: 30px;
-        background: #268BD2;
-        text-align: center;
-        vertical-align: middle;
-        touch-action: manipulation;
-        cursor: pointer;
-        padding: 10px 20px;
-        transition-property: all;
-        transition-duration: 0.3s;
-        transition-timing-function: ease;
-        transition-delay: 0s;
-      }
+
       .dropbtn {
           background-color: #268BD2;
           color: white;
@@ -165,11 +146,15 @@
         border-radius: 30px;
 
       }
+      #footer{
+        text-align: center;
+        font-size: 11px;
+      }
       .orig {
         background-color: #268BD2;;
       }
       .new {
-        background-color:orange;
+        background-color:rgb(61, 228, 211);;
       }
       /*
       //Can use CSS3 Transitions, but not for everything (e.g. change radius size)
@@ -185,7 +170,7 @@
     <p> Plot the values every two years from 2015 to 2025 below! Click the toggle buttons
        when you're done to view the predicted
       <br>
-      United Nations model as well as our own time series and machine learning generated models!</p>
+      United Nations<super>*</super> model as well as our own time series and machine learning generated models!</p>
 
     <div class = "container" id = "first">
       <div class = "row">
@@ -224,19 +209,20 @@
         <!-- <div class="col-sm-9">
         </div> -->
         <div class = "col-6 col-sm-3">
-          <button type="button" id="clear">Clear</button>
+          <button type="button" id="clear">Clear my answers</button>
         </div>
         <div class = "col-6 col-sm-3" id = "below">
-          <button type="button" class= "orig" id="UNans" value="0">Toggle The UN Prediction</button>
+          <button type="button" class= "orig" id="UNans" value="0">Toggle the United Nations' Predictions</button>
         </div>
         <div class = "col-6 col-sm-3" id = "below">
-          <button type="button" class= "orig" id="MLans" value="0">Toggle Our ML Prediction</button>
+          <button type="button" class= "orig" id="MLans" value="0">Toggle our Machine Learning Predictions</button>
         </div>
         <div class = "col-6 col-sm-3" id = "below">
-          <button type="button" class= "orig" id="TSans">Toggle Our Time Series Prediction</button>
+          <button type="button" class= "orig" id="TSans">Toggle our Time Series Predictions</button>
           <!-- <div class="col-sm-9">
         </div> -->
         </div>
+        <div id= "footer"><super>*</super>United Nations projections were taken as the average increase over a 5 year period.</div>
         <h1><font color="white">wow you found an easter egg!</font></h1>
 
 
@@ -646,11 +632,13 @@
               .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
               .attr("transform", "translate("+ (w/35) +","+(h/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
               .attr("font-size", "20px")
+              .attr("font-family", "sans-serif")
               .text("Percent Increase in Population Growth");
       svg.append("text")
               .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-              .attr("transform", "translate("+ (w/2) +","+(999*h/1000)+")")  // centre below axis
+              .attr("transform", "translate("+ (w/2) +","+(994*h/1000)+")")  // centre below axis
               .attr("font-size", "20px")
+              .attr("font-family", "sans-serif")
               .text("Year");
       /*var legend = svg.append("g")
          .attr("class", "legend")
@@ -720,7 +708,7 @@
                 temp.push(dataset[i])
               }
 
-              
+
               dataset = temp;
 
             }
