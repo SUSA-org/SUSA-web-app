@@ -141,7 +141,7 @@
         text-align: center;
         display: inline-block;
         padding: 10px;
-
+        border-radius: 30px;
         color: white;
       }
       #TSans {
@@ -150,7 +150,7 @@
         text-align: center;
         display: inline-block;
         padding: 10px;
-
+        border-radius: 30px;
         color: white;
       }
       #clear {
@@ -338,6 +338,16 @@
           }
         });
       });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "world.csv",
+          dataType: "text",
+          success: function(worldset){
+            world=worldset;
+          }
+        });
+      });
       //base functionality for clearing paths
       $(function(){
         $('#clear').on('click', function (e) {
@@ -490,7 +500,18 @@
            oldData = 2015;
            plot(us)}
      )})
-     }});
+   }if (this.href.includes("#world")) {
+      oldData = 2015;
+      d3.select("svg").remove();
+      plot(world);
+      $(function(){
+        $('#clear').on('click', function (e) {
+          d3.select("svg").remove("path");
+          oldData = 2015;
+          plot(world)}
+    )})
+    }
+   });
 
       //set margins
       var w = window.innerWidth * 0.55,
@@ -536,7 +557,7 @@
           .range([margin.left, w - margin.right-40]);  // Set margins for x specific
       // setting y axis boundaries
       var yScale = d3.scale.linear()
-          .domain([Math.min(0,d3.min(dataset, function(d) { return d.y; })), 1.2*d3.max(dataset, function (d) { return d.y; })])
+          .domain([Math.min(0,d3.min(dataset, function(d) { return d.y; })), 1.2* Math.max(d3.max(dataset, function (d) { return d.y; }),d3.max(unprojection, function (d) { return d.y; }),d3.max(timeseries_proj, function (d) { return d.y; }),d3.max(ML_proj, function (d) { return d.y; }))])
           .range([h- margin.top, margin.bottom]);  // Set margins for y specific
       // define an X and Y Axis
       var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
