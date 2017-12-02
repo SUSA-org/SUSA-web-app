@@ -164,7 +164,7 @@
         background-color: #268BD2;;
       }
       .new {
-        background-color:rgb(61, 228, 211);;
+        background-color:rgb(61, 228, 211);
       }
       /*
       //Can use CSS3 Transitions, but not for everything (e.g. change radius size)
@@ -197,12 +197,12 @@
               <a href="#world">The Entire World</a>
             </div>
           </div>
-</div>
-<br>
-<div id="svgcontainer" align="center">
-</div>
-<br><br>
-<div class ="container2">
+        </div>
+      <br>
+      <div id="svgcontainer" align="center">
+      </div>
+          <br><br>
+      <div class ="container2">
           <button type="button" id="clear">Clear my answers</button>
 
 
@@ -213,11 +213,11 @@
           <button type="button" class= "orig" id="TSans">Toggle our Time Series Predictions</button>
           <!-- <div class="col-sm-9">
         </div> -->
-</div>
-<br>
+      </div>
+      <br>
         <div id= "footer"><super>*</super>United Nations projections were taken as the average increase over a 5 year period.</div>
 
-<br>
+        <br>
 
     <!-- Begin Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -331,6 +331,21 @@
         $('#clear').on('click', function (e) {
           d3.select("svg").remove("path");
           oldData = 2015;
+          var ValueUN = $('#UNans').attr('class')
+          var ValueTS = $('#UNans').attr('class')
+          var ValueML = $('#UNans').attr('class')
+          if (ValueUN == 'new') {
+            $('#UNans').removeClass("new")
+            $('#UNans').addClass("orig");
+          }
+          if (ValueTS == 'new') {
+            $('#TSans').removeClass("new")
+            $('#TSans').addClass("orig");
+          }
+          if (ValueML == 'new') {
+            $('#MLans').removeClass("new")
+            $('#MLans').addClass("orig");
+          }
           plot(argentina)
           });
         });
@@ -402,8 +417,23 @@
         //adds functionality for the clear button depending on current href
           $(function(){
             $('#clear').on('click', function (e) {
-              d3.select("svg").remove("path");
-              oldData = 2015;
+              d3.select("svg").remove("path")
+              oldData = 2015
+              var ValueUN = $('#UNans').attr('class')
+              var ValueTS = $('#UNans').attr('class')
+              var ValueML = $('#UNans').attr('class')
+              if (ValueUN == 'new') {
+                $('#UNans').removeClass("new")
+                $('#UNans').addClass("orig");
+              }
+              if (ValueTS == 'new') {
+                $('#TSans').removeClass("new")
+                $('#TSans').addClass("orig");
+              }
+              if (ValueML == 'new') {
+                $('#MLans').removeClass("new")
+                $('#MLans').addClass("orig");
+              }
               plot(argentina)
             }
         )}
@@ -416,6 +446,21 @@
             $('#clear').on('click', function (e) {
               d3.select("svg").remove("path");
               oldData = 2015;
+              var ValueUN = $('#UNans').attr('class')
+              var ValueTS = $('#UNans').attr('class')
+              var ValueML = $('#UNans').attr('class')
+              if (ValueUN == 'new') {
+                $('#UNans').removeClass("new")
+                $('#UNans').addClass("orig");
+              }
+              if (ValueTS == 'new') {
+                $('#TSans').removeClass("new")
+                $('#TSans').addClass("orig");
+              }
+              if (ValueML == 'new') {
+                $('#MLans').removeClass("new")
+                $('#MLans').addClass("orig");
+              }
               plot(benin)}
         )})
       }if (this.href.includes("#china")) {
@@ -426,6 +471,21 @@
            $('#clear').on('click', function (e) {
              d3.select("svg").remove("path");
              oldData = 2015;
+             var ValueUN = $('#UNans').attr('class')
+             var ValueTS = $('#UNans').attr('class')
+             var ValueML = $('#UNans').attr('class')
+             if (ValueUN == 'new') {
+               $('#UNans').removeClass("new")
+               $('#UNans').addClass("orig");
+             }
+             if (ValueTS == 'new') {
+               $('#TSans').removeClass("new")
+               $('#TSans').addClass("orig");
+             }
+             if (ValueML == 'new') {
+               $('#MLans').removeClass("new")
+               $('#MLans').addClass("orig");
+             }
              plot(china)}
        )})
        }if (this.href.includes("#guatemala")) {
@@ -436,6 +496,21 @@
             $('#clear').on('click', function (e) {
               d3.select("svg").remove("path");
               oldData = 2015;
+              var ValueUN = $('#UNans').attr('class')
+              var ValueTS = $('#UNans').attr('class')
+              var ValueML = $('#UNans').attr('class')
+              if (ValueUN == 'new') {
+                $('#UNans').removeClass("new")
+                $('#UNans').addClass("orig");
+              }
+              if (ValueTS == 'new') {
+                $('#TSans').removeClass("new")
+                $('#TSans').addClass("orig");
+              }
+              if (ValueML == 'new') {
+                $('#MLans').removeClass("new")
+                $('#MLans').addClass("orig");
+              }
               plot(guatemala)}
         )})
         }if (this.href.includes("#nigeria")) {
@@ -446,6 +521,21 @@
             $('#clear').on('click', function (e) {
               d3.select("svg").remove("path");
               oldData = 2015;
+              var ValueUN = $('#UNans').attr('class')
+              var ValueTS = $('#UNans').attr('class')
+              var ValueML = $('#UNans').attr('class')
+              if (ValueUN == 'new') {
+                $('#UNans').removeClass("new")
+                $('#UNans').addClass("orig");
+              }
+              if (ValueTS == 'new') {
+                $('#TSans').removeClass("new")
+                $('#TSans').addClass("orig");
+              }
+              if (ValueML == 'new') {
+                $('#MLans').removeClass("new")
+                $('#MLans').addClass("orig");
+              }
               plot(nigeria)}
         )})
         }if (this.href.includes("#sudan")) {
@@ -456,6 +546,21 @@
             $('#clear').on('click', function (e) {
               d3.select("svg").remove("path");
               oldData = 2015;
+              var ValueUN = $('#UNans').attr('class')
+              var ValueTS = $('#UNans').attr('class')
+              var ValueML = $('#UNans').attr('class')
+              if (ValueUN == 'new') {
+                $('#UNans').removeClass("new")
+                $('#UNans').addClass("orig");
+              }
+              if (ValueTS == 'new') {
+                $('#TSans').removeClass("new")
+                $('#TSans').addClass("orig");
+              }
+              if (ValueML == 'new') {
+                $('#MLans').removeClass("new")
+                $('#MLans').addClass("orig");
+              }
               plot(sudan)}
         )})
         }if (this.href.includes("#tunisia")) {
@@ -466,6 +571,21 @@
             $('#clear').on('click', function (e) {
               d3.select("svg").remove("path");
               oldData = 2015;
+              var ValueUN = $('#UNans').attr('class')
+              var ValueTS = $('#UNans').attr('class')
+              var ValueML = $('#UNans').attr('class')
+              if (ValueUN == 'new') {
+                $('#UNans').removeClass("new")
+                $('#UNans').addClass("orig");
+              }
+              if (ValueTS == 'new') {
+                $('#TSans').removeClass("new")
+                $('#TSans').addClass("orig");
+              }
+              if (ValueML == 'new') {
+                $('#MLans').removeClass("new")
+                $('#MLans').addClass("orig");
+              }
               plot(tunisia)}
         )})
       }if (this.href.includes("#us")) {
@@ -476,6 +596,21 @@
          $('#clear').on('click', function (e) {
            d3.select("svg").remove("path");
            oldData = 2015;
+           var ValueUN = $('#UNans').attr('class')
+           var ValueTS = $('#UNans').attr('class')
+           var ValueML = $('#UNans').attr('class')
+           if (ValueUN == 'new') {
+             $('#UNans').removeClass("new")
+             $('#UNans').addClass("orig");
+           }
+           if (ValueTS == 'new') {
+             $('#TSans').removeClass("new")
+             $('#TSans').addClass("orig");
+           }
+           if (ValueML == 'new') {
+             $('#MLans').removeClass("new")
+             $('#MLans').addClass("orig");
+           }
            plot(us)}
      )})
    }if (this.href.includes("#world")) {
@@ -486,6 +621,21 @@
         $('#clear').on('click', function (e) {
           d3.select("svg").remove("path");
           oldData = 2015;
+          var ValueUN = $('#UNans').attr('class')
+          var ValueTS = $('#UNans').attr('class')
+          var ValueML = $('#UNans').attr('class')
+          if (ValueUN == 'new') {
+            $('#UNans').removeClass("new")
+            $('#UNans').addClass("orig");
+          }
+          if (ValueTS == 'new') {
+            $('#TSans').removeClass("new")
+            $('#TSans').addClass("orig");
+          }
+          if (ValueML == 'new') {
+            $('#MLans').removeClass("new")
+            $('#MLans').addClass("orig");
+          }
           plot(world)}
     )})
     }
