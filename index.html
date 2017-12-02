@@ -512,8 +512,9 @@
       for (var i = 1; i < 56; i += 1) {
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
-      for (var i = 1; i < 57; i += 2) {
-        pointset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
+      console.log(dataset);
+      for (var i = 0; i < dataset.length; i += 2) {
+        pointset.push({"x": (dataset[i].x), "y": (dataset[i].y)});
       }
       for (var i = 55; i < 58; i += 1) {
         unprojection.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
@@ -683,6 +684,7 @@
             }
             if (newData.x > oldData) {
               dataset.push(newData);   // Push data to our dataset array
+              pointset.push(newData);
               oldData = newData.x;
               console.log(oldData);
               console.log(dataset);
@@ -695,11 +697,25 @@
                 }
                 temp.push(dataset[i])
               }
+              pointset=temp;
               dataset = temp;
+
+            }
+            for (i=0; i < pointset.length; i+=1){
+              if (pointset[i].x%2==0){
+                console.log(pointset[i])
+                pointset.splice(i,1);
+              }
             }
             d3.selectAll("circle").remove();
             d3.selectAll("path").remove();
             d3.selectAll("g").remove();
+
+          //   for (var i = 55; i < dataset.length; i += 1) {
+          //     if (dataset.x>pointset.x){
+          //     pointset.push({"x": (dataset[i].x), "y": (dataset[i].y)});
+          //   }
+          // }
 
             // define an X and Y Axis
             var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
@@ -745,6 +761,7 @@
             .attr("id", "ML")
             .attr("opacity", 0);
           svg.selectAll("circle")
+            .remove()
              // For new circle, go through the update process
             .data(pointset)
             .enter()
