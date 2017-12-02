@@ -130,18 +130,18 @@
         text-align: center;
         display: inline-block;
         padding: 10px;
-        background-color: #268BD2;
+
         color: white;
         border-radius: 30px;
-
       }
+
       #MLans {
         font-size: 16px;
         border: none;
         text-align: center;
         display: inline-block;
         padding: 10px;
-        background-color: #268BD2;
+        
         color: white;
       }
       #TSans {
@@ -150,7 +150,7 @@
         text-align: center;
         display: inline-block;
         padding: 10px;
-        background-color: #268BD2;
+
         color: white;
       }
       #clear {
@@ -164,6 +164,12 @@
         color: black;
         border-radius: 30px;
 
+      }
+      .orig {
+        background-color: #268BD2;;
+      }
+      .new {
+        background-color:orange;
       }
       /*
       //Can use CSS3 Transitions, but not for everything (e.g. change radius size)
@@ -218,13 +224,13 @@
           <button type="button" id="clear">Clear</button>
         </div>
         <div class = "col-6 col-sm-3" id = "below">
-          <button type="button" id="UNans">Show UN Prediction</button>
+          <button type="button" class= "orig" id="UNans" value="0">Show UN Prediction</button>
         </div>
         <div class = "col-6 col-sm-3" id = "below">
-          <button type="button" id="MLans">Show Our ML Prediction</button>
+          <button type="button" class= "orig" id="MLans" value="0">Show Our ML Prediction</button>
         </div>
         <div class = "col-6 col-sm-3" id = "below">
-          <button type="button" id="TSans">Show Our Time Series Prediction</button>
+          <button type="button" class= "orig" id="TSans">Show Our Time Series Prediction</button>
           <!-- <div class="col-sm-9">
         </div> -->
         </div>
@@ -315,18 +321,36 @@
   		        newOpacity = active ? 1 : 0;
   		          // Hide or show the elements
   		      d3.select("#unproj").style("opacity", newOpacity);
-
-		          unproj.active = active;
+              unproj.active = active;
+              //toggle color
+              var gValue = $(this).attr('class');
+              if (gValue == 'orig') {
+                $(this).removeClass("orig");
+                $(this).addClass("new");
+              } else {
+                $(this).removeClass("new");
+                $(this).addClass("orig");
+              }
           });
         });
+
       $(function(){
         $('#MLans').on('click', function (e) {
   		       // Update whether or not the elements are active
-            var active   = ML.active ? false:true ,
-      	       newOpacity = active ? 1 : 0;
-    		         // Hide or show the elements
-    		     d3.select("#ML").style("opacity", newOpacity);
-    		        ML.active = active;
+           var active   = ML.active ? false:true ,
+              newOpacity = active ? 1 : 0;
+     	         // Hide or show the elements
+           d3.select("#ML").style("opacity", newOpacity);
+      	     ML.active = active;
+             //toggle color
+             var gValue = $(this).attr('class');
+             if (gValue == 'orig') {
+               $(this).removeClass("orig");
+               $(this).addClass("new");
+             } else {
+               $(this).removeClass("new");
+               $(this).addClass("orig");
+             }
           });
         });
       $(function(){
@@ -337,6 +361,15 @@
     		         // Hide or show the elements
     		     d3.select("#TS").style("opacity", newOpacity);
   		         TS.active = active;
+               //toggle color
+             var gValue = $(this).attr('class');
+             if (gValue == 'orig') {
+               $(this).removeClass("orig");
+               $(this).addClass("new");
+             } else {
+               $(this).removeClass("new");
+               $(this).addClass("orig");
+             }
           });
         });
       //configuring the dropdown menu
@@ -455,6 +488,7 @@
           cy: function(d) { return yScale(d.y); },
           r: radius
       };
+
       // Adds X-Axis as a 'g' element
       svg.append("g").attr({
         "class": "axis",  // Give class so we can style it
@@ -500,7 +534,10 @@
           .on("mouseover", handleMouseOver)
           .on("mouseout", handleMouseOut);
 
+
+
       //un projection line
+
       svg.append("path")
           .attr("d", linefunction(unprojection))
           .attr("stroke", "red")
@@ -516,6 +553,7 @@
           .attr("fill", "none")
           .attr("id", "TS")
           .attr("opacity", 0);
+
       //ML projection line
       svg.append("path")
           .attr("d", linefunction(ML_proj))
@@ -623,6 +661,7 @@
 
           path = svg.append("path")
                //make the connecting line
+
             .attr("d", linefunction(dataset))
             .attr("stroke", "blue")
             .attr("stroke-width", 2)
