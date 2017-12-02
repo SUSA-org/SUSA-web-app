@@ -29,7 +29,7 @@
       .axis path, .axis line {
         fill: none;
         stroke: black;
-        shape-rendering: crispEdges;  /* Round any decimal pixels so it'll render nicely */
+        shape-rendering: auto;  /* Round any decimal pixels so it'll render nicely */
       }
 
       .dropbtn {
@@ -161,11 +161,7 @@
         background-color: #268BD2;;
       }
       .new {
-<<<<<<< HEAD
-        background-color:rgb(61, 228, 211);
-=======
         background-color: #51a9c6;;
->>>>>>> df4c1fc150e2faefb817f9ee86e619ba958a2969
       }
       /*
       //Can use CSS3 Transitions, but not for everything (e.g. change radius size)
@@ -207,11 +203,11 @@
           <button type="button" id="clear">Clear my answers</button>
 
 
-          <button type="button" class= "orig" id="UNans" value="0">Toggle the United Nations' Predictions</button>
+          <button type="button" class= "orig" id="UNans" value="0">Click here for the <br>United Nations' Predictions</button>
 
-          <button type="button" class= "orig" id="MLans" value="0">Toggle our Machine Learning Predictions</button>
+          <button type="button" class= "orig" id="MLans" value="0">Click here for our <br>Machine Learning Predictions</button>
 
-          <button type="button" class= "orig" id="TSans">Toggle our Time Series Predictions</button>
+          <button type="button" class= "orig" id="TSans">Click here for our <br>Time Series Predictions</button>
           <!-- <div class="col-sm-9">
         </div> -->
       </div>
@@ -333,8 +329,8 @@
           d3.select("svg").remove("path");
           oldData = 2015;
           var ValueUN = $('#UNans').attr('class')
-          var ValueTS = $('#UNans').attr('class')
-          var ValueML = $('#UNans').attr('class')
+          var ValueTS = $('#TSans').attr('class')
+          var ValueML = $('#MLans').attr('class')
           if (ValueUN == 'new') {
             $('#UNans').removeClass("new")
             $('#UNans').addClass("orig");
@@ -350,6 +346,7 @@
           plot(argentina)
           });
         });
+//placeholder
       //adding un-projection key for un model
       $(function(){
         $('#UNans').on('click', function (e) {
@@ -357,7 +354,9 @@
             var active   = unproj.active ? false:true ,
   		        newOpacity = active ? 1 : 0;
   		          // Hide or show the elements
-  		      d3.select("#unproj").style("opacity", newOpacity);
+        console.log(newOpacity)
+  		      d3.select("#unproj").attr("opacity", newOpacity);
+
               unproj.active = active;
               //toggle color
               var gValue = $(this).attr('class');
@@ -377,7 +376,7 @@
            var active   = ML.active ? false:true ,
               newOpacity = active ? 1 : 0;
      	         // Hide or show the elements
-           d3.select("#ML").style("opacity", newOpacity);
+           d3.select("#ML").attr("opacity", newOpacity);
       	     ML.active = active;
              //toggle color
              var gValue = $(this).attr('class');
@@ -390,13 +389,14 @@
              }
           });
         });
+
       $(function(){
         $('#TSans').on('click', function (e) {
   		       // Update whether or not the elements are active
             var active   = TS.active ? false:true ,
     		       newOpacity = active ? 1 : 0;
     		         // Hide or show the elements
-    		     d3.select("#TS").style("opacity", newOpacity);
+    		     d3.select("#TS").attr("opacity", newOpacity);
   		         TS.active = active;
                //toggle color
              var gValue = $(this).attr('class');
@@ -421,8 +421,8 @@
               d3.select("svg").remove("path")
               oldData = 2015
               var ValueUN = $('#UNans').attr('class')
-              var ValueTS = $('#UNans').attr('class')
-              var ValueML = $('#UNans').attr('class')
+              var ValueTS = $('#TSans').attr('class')
+              var ValueML = $('#MLans').attr('class')
               if (ValueUN == 'new') {
                 $('#UNans').removeClass("new")
                 $('#UNans').addClass("orig");
@@ -448,8 +448,8 @@
               d3.select("svg").remove("path");
               oldData = 2015;
               var ValueUN = $('#UNans').attr('class')
-              var ValueTS = $('#UNans').attr('class')
-              var ValueML = $('#UNans').attr('class')
+              var ValueTS = $('#TSans').attr('class')
+              var ValueML = $('#MLans').attr('class')
               if (ValueUN == 'new') {
                 $('#UNans').removeClass("new")
                 $('#UNans').addClass("orig");
@@ -473,8 +473,8 @@
              d3.select("svg").remove("path");
              oldData = 2015;
              var ValueUN = $('#UNans').attr('class')
-             var ValueTS = $('#UNans').attr('class')
-             var ValueML = $('#UNans').attr('class')
+             var ValueTS = $('#TSans').attr('class')
+             var ValueML = $('#MLans').attr('class')
              if (ValueUN == 'new') {
                $('#UNans').removeClass("new")
                $('#UNans').addClass("orig");
@@ -498,8 +498,8 @@
               d3.select("svg").remove("path");
               oldData = 2015;
               var ValueUN = $('#UNans').attr('class')
-              var ValueTS = $('#UNans').attr('class')
-              var ValueML = $('#UNans').attr('class')
+              var ValueTS = $('#TSans').attr('class')
+              var ValueML = $('#MLans').attr('class')
               if (ValueUN == 'new') {
                 $('#UNans').removeClass("new")
                 $('#UNans').addClass("orig");
@@ -523,8 +523,8 @@
               d3.select("svg").remove("path");
               oldData = 2015;
               var ValueUN = $('#UNans').attr('class')
-              var ValueTS = $('#UNans').attr('class')
-              var ValueML = $('#UNans').attr('class')
+              var ValueTS = $('#TSans').attr('class')
+              var ValueML = $('#MLans').attr('class')
               if (ValueUN == 'new') {
                 $('#UNans').removeClass("new")
                 $('#UNans').addClass("orig");
@@ -548,8 +548,8 @@
               d3.select("svg").remove("path");
               oldData = 2015;
               var ValueUN = $('#UNans').attr('class')
-              var ValueTS = $('#UNans').attr('class')
-              var ValueML = $('#UNans').attr('class')
+              var ValueTS = $('#TSans').attr('class')
+              var ValueML = $('#MLans').attr('class')
               if (ValueUN == 'new') {
                 $('#UNans').removeClass("new")
                 $('#UNans').addClass("orig");
@@ -573,8 +573,8 @@
               d3.select("svg").remove("path");
               oldData = 2015;
               var ValueUN = $('#UNans').attr('class')
-              var ValueTS = $('#UNans').attr('class')
-              var ValueML = $('#UNans').attr('class')
+              var ValueTS = $('#TSans').attr('class')
+              var ValueML = $('#MLans').attr('class')
               if (ValueUN == 'new') {
                 $('#UNans').removeClass("new")
                 $('#UNans').addClass("orig");
@@ -598,8 +598,8 @@
            d3.select("svg").remove("path");
            oldData = 2015;
            var ValueUN = $('#UNans').attr('class')
-           var ValueTS = $('#UNans').attr('class')
-           var ValueML = $('#UNans').attr('class')
+           var ValueTS = $('#TSans').attr('class')
+           var ValueML = $('#MLans').attr('class')
            if (ValueUN == 'new') {
              $('#UNans').removeClass("new")
              $('#UNans').addClass("orig");
@@ -623,8 +623,8 @@
           d3.select("svg").remove("path");
           oldData = 2015;
           var ValueUN = $('#UNans').attr('class')
-          var ValueTS = $('#UNans').attr('class')
-          var ValueML = $('#UNans').attr('class')
+          var ValueTS = $('#TSans').attr('class')
+          var ValueML = $('#MLans').attr('class')
           if (ValueUN == 'new') {
             $('#UNans').removeClass("new")
             $('#UNans').addClass("orig");
@@ -662,7 +662,7 @@
       for (var i = 1; i < 56; i += 1) {
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
-      console.log(dataset);
+
       for (var i = 1; i < 56; i += 2) {
         pointset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
@@ -675,7 +675,7 @@
       for (var i = 69; i < data.length; i += 1) {
         ML_proj.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
-//puts svg in bootstrap
+      //puts svg in div container so we can center it
       var svg = d3.select("#svgcontainer").append("svg").attr({
         width: w,
         height: h,
@@ -688,7 +688,7 @@
       var yScale = d3.scale.linear()
           .domain([Math.min(0,d3.min(dataset, function(d) { return d.y; })), 1.2* Math.max(d3.max(dataset, function (d) { return d.y; }),d3.max(unprojection, function (d) { return d.y; }),d3.max(timeseries_proj, function (d) { return d.y; }),d3.max(ML_proj, function (d) { return d.y; }))])
           .range([h- margin.top, margin.bottom]);  // Set margins for y specific
-      // define an X and Y Axis
+      // defining X and Y Axis
       var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
       var yAxis = d3.svg.axis().scale(yScale).orient("left");
       var circleAttrs = {
@@ -699,14 +699,15 @@
 
       // Adds X-Axis as a 'g' element
       svg.append("g").attr({
-        "class": "axis",  // Give class so we can style it
+        "class": "axis",
         transform: "translate(" + [0,h - 2* margin.bottom] + ")"  // Moves from top of screen to bottom
-      }).call(xAxis);  // Call the xAxis function on the group
+      }).call(xAxis);
       // Adds Y-Axis as a 'g' element
       svg.append("g").attr({
         "class": "axis",
         transform: "translate(" + [margin.left, 0] + ")"
-      }).call(yAxis);  // Call the yAxis function on the group
+      }).call(yAxis);
+
       //adds vertical dotted line on 2015
       var x = xScale(2015).toFixed(1);
       var y1 = yScale(Math.min(0,d3.min(dataset, function(d) { return d.y; }))).toFixed(1);
@@ -738,14 +739,12 @@
           .data(pointset)
           .enter()
           .append("circle")
-          .attr(circleAttrs)  // Get attributes from circleAttrs var
+          .attr(circleAttrs)
           .on("mouseover", handleMouseOver)
           .on("mouseout", handleMouseOut);
 
 
-
-      //un projection line
-
+          //un projection line
       svg.append("path")
           .attr("d", linefunction(unprojection))
           .attr("stroke", "red")
@@ -761,7 +760,6 @@
           .attr("fill", "none")
           .attr("id", "TS")
           .attr("opacity", 0);
-
       //ML projection line
       svg.append("path")
           .attr("d", linefunction(ML_proj))
@@ -772,52 +770,24 @@
           .attr("opacity", 0);
 
       svg.append("text")
-              .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-              .attr("transform", "translate("+ (w/35) +","+(h/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+              .attr("text-anchor", "middle")
+              .attr("transform", "translate("+ (w/40) +","+(h/2)+")rotate(-90)")
               .attr("font-size", "20px")
               .attr("font-family", "sans-serif")
               .text("Percent Increase in Population Growth");
       svg.append("text")
-              .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-              .attr("transform", "translate("+ (w/2) +","+(994*h/1000)+")")  // centre below axis
+              .attr("text-anchor", "middle")
+              .attr("transform", "translate("+ (w/2) +","+(994*h/1000)+")")
               .attr("font-size", "20px")
               .attr("font-family", "sans-serif")
               .text("Year");
-      /*var legend = svg.append("g")
-         .attr("class", "legend")
-         .attr("x", 50)
-         .attr("y", 80)
-         .attr("transform", "translate(50, 30)")
-         .style("font-size", "12px")
-
-      legend.selectAll('g').data(dataset)
-      .enter()
-      .append('g')
-      .each(function(d, i) {
-        var g = d3.select(this);
-        g.append("rect")
-          .attr("x", w - 65)
-          .attr("y", i*25)
-          .attr("width", 10)
-          .attr("height", 10)
-          .style("fill", "red");
-
-        g.append("text")
-          .attr("x", w - 50)
-          .attr("y", i * 25 + 8)
-          .attr("height",30)
-          .attr("width",100)
-          .style("fill", "blue")
-          .text("blue");
-
-      });*/
 
         // On Click, we want to add data to the array and chart. Points are added for integer year values
       svg.on("click", function() {
           var coords = d3.mouse(this);
-          // Normally we go from data to pixels, but here we're doing pixels to data
+
           var newData= {
-            "x": Math.round( xScale.invert(coords[0])),  // Takes the pixel number to convert to coordinate
+            "x": Math.round( xScale.invert(coords[0])),  // Takes the pixel number and converts to coordinate
             "y": d3.format(".2f")( yScale.invert(coords[1]))
           };
           if (newData.x % 2 == 0 && newData.x - xScale.invert(coords[0]) > 0) {
@@ -862,12 +832,6 @@
             d3.selectAll("path").remove();
             d3.selectAll("g").remove();
 
-          //   for (var i = 55; i < dataset.length; i += 1) {
-          //     if (dataset.x>pointset.x){
-          //     pointset.push({"x": (dataset[i].x), "y": (dataset[i].y)});
-          //   }
-          // }
-
             // define an X and Y Axis
             var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
             var yAxis = d3.svg.axis().scale(yScale).orient("left");
@@ -892,27 +856,52 @@
             .attr("stroke", "blue")
             .attr("stroke-width", 2)
             .attr("fill", "none");
+          //fixing toggle button bugs
+
+          var showts=0;
+          var showun=0;
+          var showml=0;
+
+          var ValueUN = $('#UNans').attr('class')
+          var ValueTS = $('#TSans').attr('class')
+          var ValueML = $('#MLans').attr('class')
+          if (ValueUN == 'new') {
+            showun=1;
+          }
+          if (ValueTS == 'new') {
+            showts=1;
+          }
+          if (ValueML == 'new') {
+            showml=1;
+          }
+//placeholder
+
+
           svg.append("path")
             .attr("d", linefunction(unprojection))
             .attr("stroke", "red")
             .attr("stroke-width", 4)
             .attr("fill", "none")
             .attr("id", "unproj")
-            .attr("opacity", 0);
+            .attr("opacity",showun);
+
+
           svg.append("path")
             .attr("d", linefunction(timeseries_proj))
             .attr("stroke", "green")
             .attr("stroke-width", 4)
             .attr("fill", "none")
             .attr("id", "TS")
-            .attr("opacity", 0);
+            .attr("opacity",showts);
+
           svg.append("path")
             .attr("d", linefunction(ML_proj))
             .attr("stroke", "purple")
             .attr("stroke-width", 4)
             .attr("fill", "none")
             .attr("id", "ML")
-            .attr("opacity", 0);
+            .attr("opacity",showml);
+
           svg.selectAll("circle")
              // For new circle, go through the update process
             .data(pointsets)
