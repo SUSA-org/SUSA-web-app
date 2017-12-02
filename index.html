@@ -320,6 +320,16 @@
           });
         });
       $(function(){
+        $('#MLans').on('click', function (e) {
+  		       // Update whether or not the elements are active
+            var active   = ML.active ? false:true ,
+      	       newOpacity = active ? 1 : 0;
+    		         // Hide or show the elements
+    		     d3.select("#ML").style("opacity", newOpacity);
+    		        ML.active = active;
+          });
+        });
+      $(function(){
         $('#TSans').on('click', function (e) {
   		       // Update whether or not the elements are active
             var active   = TS.active ? false:true ,
@@ -328,21 +338,7 @@
     		     d3.select("#TS").style("opacity", newOpacity);
   		         TS.active = active;
           });
-<<<<<<< HEAD
         });
-=======
-        $(function(){
-          $('#MLans').on('click', function (e) {
-              // Update whether or not the elements are active
-              var active   = ML.active ? false:true ,
-                newOpacity = active ? 1 : 0;
-                  // Hide or show the elements
-              d3.select("#ML").style("opacity", newOpacity);
-
-                ML.active = active;
-            });
-          });
->>>>>>> cc4a239c01d83b65b4af8c249cc9ff1cf5e4b200
       //configuring the dropdown menu
       $("div.dropdown-content a").click(function() {
         if (this.href.includes("#argentina")) {
@@ -415,7 +411,7 @@
           h = window.innerHeight * 0.75,
           margin = { top: 40, right: 20, bottom: 20, left: 60 },
           radius = 4;
-var dataset = [];
+
 
     function plot(data) {
       dataset = [];
@@ -423,6 +419,7 @@ var dataset = [];
       var data = d3.csv.parse(data);
       var unprojection = [];
       var timeseries_proj =[];
+      var ML_proj =[];
       //splitting the datasets into their respective parts
       // += 2 is to plot every other data point
       for (var i = 1; i < 57; i += 2) {
@@ -431,8 +428,11 @@ var dataset = [];
       for (var i = 55; i < 58; i += 1) {
         unprojection.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
-      for (var i = 58; i < data.length; i += 1) {
+      for (var i = 58; i < 69; i += 1) {
         timeseries_proj.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
+      }
+      for (var i = 69; i < data.length; i += 1) {
+        ML_proj.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
 //puts svg in bootstrap
       var svg = d3.select("body").select("div#second").select("div.row").select("div.col-lg-12").append("svg").attr({
@@ -515,6 +515,14 @@ var dataset = [];
           .attr("stroke-width", 2)
           .attr("fill", "none")
           .attr("id", "TS")
+          .attr("opacity", 0);
+      //ML projection line
+      svg.append("path")
+          .attr("d", linefunction(ML_proj))
+          .attr("stroke", "yellow")
+          .attr("stroke-width", 2)
+          .attr("fill", "none")
+          .attr("id", "ML")
           .attr("opacity", 0);
 
       svg.append("text")
@@ -632,6 +640,13 @@ var dataset = [];
             .attr("stroke-width", 2)
             .attr("fill", "none")
             .attr("id", "TS")
+            .attr("opacity", 0);
+          svg.append("path")
+            .attr("d", linefunction(ML_proj))
+            .attr("stroke", "yellow")
+            .attr("stroke-width", 2)
+            .attr("fill", "none")
+            .attr("id", "ML")
             .attr("opacity", 0);
           svg.selectAll("circle")
              // For new circle, go through the update process
