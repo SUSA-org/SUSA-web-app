@@ -141,7 +141,7 @@
         text-align: center;
         display: inline-block;
         padding: 10px;
-        
+
         color: white;
       }
       #TSans {
@@ -196,10 +196,13 @@
             <div class="dropdown-content">
               <a href="#argentina">Argentina</a>
               <a href="#benin">Benin</a>
+              <a href="#china">China</a>
               <a href="#guatemala">Guatemala</a>
               <a href="#nigeria">Nigeria</a>
               <a href="#sudan">Sudan</a>
               <a href="#tunisia">Tunisia</a>
+              <a href="#us">United States</a>
+              <a href="#world">The Entire World</a>
             </div>
           </div>
         </div>
@@ -224,13 +227,13 @@
           <button type="button" id="clear">Clear</button>
         </div>
         <div class = "col-6 col-sm-3" id = "below">
-          <button type="button" class= "orig" id="UNans" value="0">Show UN Prediction</button>
+          <button type="button" class= "orig" id="UNans" value="0">Toggle The UN Prediction</button>
         </div>
         <div class = "col-6 col-sm-3" id = "below">
-          <button type="button" class= "orig" id="MLans" value="0">Show Our ML Prediction</button>
+          <button type="button" class= "orig" id="MLans" value="0">Toggle Our ML Prediction</button>
         </div>
         <div class = "col-6 col-sm-3" id = "below">
-          <button type="button" class= "orig" id="TSans">Show Our Time Series Prediction</button>
+          <button type="button" class= "orig" id="TSans">Toggle Our Time Series Prediction</button>
           <!-- <div class="col-sm-9">
         </div> -->
         </div>
@@ -262,6 +265,16 @@
           dataType: "text",
           success: function(beninset){
             benin=beninset;
+          }
+        });
+      });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "china.csv",
+          dataType: "text",
+          success: function(chinaset){
+            china=chinaset;
           }
         });
       });
@@ -302,6 +315,26 @@
           dataType: "text",
           success: function(tunisiaset){
             tunisia=tunisiaset;
+          }
+        });
+      });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "Tunisia.csv",
+          dataType: "text",
+          success: function(tunisiaset){
+            tunisia=tunisiaset;
+          }
+        });
+      });
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "unitedstates.csv",
+          dataType: "text",
+          success: function(usset){
+            us=usset;
           }
         });
       });
@@ -397,7 +430,17 @@
               oldData = 2015;
               plot(benin)}
         )})
-        }if (this.href.includes("#guatemala")) {
+      }if (this.href.includes("#china")) {
+         oldData = 2015;
+         d3.select("svg").remove();
+         plot(china);
+         $(function(){
+           $('#clear').on('click', function (e) {
+             d3.select("svg").remove("path");
+             oldData = 2015;
+             plot(china)}
+       )})
+       }if (this.href.includes("#guatemala")) {
           oldData = 2015;
           d3.select("svg").remove();
           plot(guatemala);
@@ -437,7 +480,17 @@
               oldData = 2015;
               plot(tunisia)}
         )})
-      }});
+      }if (this.href.includes("#us")) {
+       oldData = 2015;
+       d3.select("svg").remove();
+       plot(us);
+       $(function(){
+         $('#clear').on('click', function (e) {
+           d3.select("svg").remove("path");
+           oldData = 2015;
+           plot(us)}
+     )})
+     }});
 
       //set margins
       var w = window.innerWidth * 0.55,
@@ -448,6 +501,7 @@
 
     function plot(data) {
       dataset = [];
+      pointset =[];
       // read from CSV
       var data = d3.csv.parse(data);
       var unprojection = [];
@@ -455,8 +509,11 @@
       var ML_proj =[];
       //splitting the datasets into their respective parts
       // += 2 is to plot every other data point
-      for (var i = 1; i < 57; i += 2) {
+      for (var i = 1; i < 56; i += 1) {
         dataset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
+      }
+      for (var i = 1; i < 57; i += 2) {
+        pointset.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
       }
       for (var i = 55; i < 58; i += 1) {
         unprojection.push({"x": parseInt(data[i].Date), "y": parseFloat(data[i].FertilityRate)});
@@ -478,7 +535,7 @@
           .range([margin.left, w - margin.right-40]);  // Set margins for x specific
       // setting y axis boundaries
       var yScale = d3.scale.linear()
-          .domain([0, 1.2*d3.max(dataset, function (d) { return d.y; })])
+          .domain([Math.min(0,d3.min(dataset, function(d) { return d.y; })), 1.2*d3.max(dataset, function (d) { return d.y; })])
           .range([h- margin.top, margin.bottom]);  // Set margins for y specific
       // define an X and Y Axis
       var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(d3.format("d"));
@@ -501,7 +558,7 @@
       }).call(yAxis);  // Call the yAxis function on the group
       //adds vertical dotted line on 2015
       var x = xScale(2015).toFixed(1);
-      var y1 = yScale(0).toFixed(1);
+      var y1 = yScale(Math.min(0,d3.min(dataset, function(d) { return d.y; }))).toFixed(1);
       var y2 = yScale(8.5).toFixed(1);
       svg.append("line")
           .style("stroke", "black")          // attach a line
@@ -527,7 +584,7 @@
 
       //updates initial circles
       svg.selectAll("circle")
-          .data(dataset)
+          .data(pointset)
           .enter()
           .append("circle")
           .attr(circleAttrs)  // Get attributes from circleAttrs var
@@ -689,7 +746,7 @@
             .attr("opacity", 0);
           svg.selectAll("circle")
              // For new circle, go through the update process
-            .data(dataset)
+            .data(pointset)
             .enter()
             .append("circle")
             .attr(circleAttrs)  // Get attributes from circleAttrs var
