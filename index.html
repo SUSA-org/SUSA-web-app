@@ -182,10 +182,10 @@
 
   <body>
     <h1> Population Modeling Demo </h1>
-    <p> Plot the values every two years from 2015 to 2025 below! Click the 'Show unprojections'
-      button when you're done to view the predicted
-      <br></br>
-      United Nations model as well as our own model!</p>
+    <p> Plot the values every two years from 2015 to 2025 below! Click the toggle buttons
+       when you're done to view the predicted
+      <br>
+      United Nations model as well as our own time series and machine learning generated models!</p>
 
     <div class = "container" id = "first">
       <div class = "row">
@@ -704,7 +704,7 @@
               }
             }
             if (newData.x > oldData) {
-              pointset.push(newData)
+
               dataset.push(newData)  // Push data to our dataset array
 
               oldData = newData.x
@@ -720,7 +720,7 @@
                 temp.push(dataset[i])
               }
 
-              pointset = temp
+              
               dataset = temp;
 
             }
